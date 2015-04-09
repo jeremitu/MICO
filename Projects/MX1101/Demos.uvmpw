@@ -9,12 +9,17 @@
 
   <project>
     <PathAndName>.\bootloader\RVMDK\bootloader.uvprojx</PathAndName>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>
     <PathAndName>.\COM.MXCHIP.SPP\RVMDK\COM.MXCHIP.SPP.uvprojx</PathAndName>
+    <NodeIsExpanded>1</NodeIsExpanded>
+  </project>
+
+  <project>
+    <PathAndName>.\COM.ALINK.HA\RVMDK\COM.ALINK.HA.uvprojx</PathAndName>
     <NodeIsActive>1</NodeIsActive>
+    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
 </ProjectWorkspace>

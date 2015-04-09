@@ -16,12 +16,12 @@
     <View>
       <WinId>346</WinId>
       <ViewName>Code Coverage</ViewName>
-      <TableColWidths>670 596</TableColWidths>
+      <TableColWidths>850 160</TableColWidths>
     </View>
     <View>
       <WinId>204</WinId>
       <ViewName>Performance Analyzer</ViewName>
-      <TableColWidths>830 124 124 188</TableColWidths>
+      <TableColWidths>1010</TableColWidths>
     </View>
   </SECTreeCtrl>
 
@@ -48,7 +48,7 @@
       <WinId>1935</WinId>
       <ViewName>Call Stack + Locals</ViewName>
       <UserString></UserString>
-      <TableColWidths>180 133 133</TableColWidths>
+      <TableColWidths>133 133 133</TableColWidths>
     </View>
     <View>
       <WinId>2506</WinId>
@@ -60,11 +60,11 @@
 
   <WindowSettings>
     <LogicAnalizer>
-      <ShowLACursor>0</ShowLACursor>
-      <ShowSignalInfo>0</ShowSignalInfo>
+      <ShowLACursor>1</ShowLACursor>
+      <ShowSignalInfo>1</ShowSignalInfo>
       <ShowCycles>0</ShowCycles>
-      <LeftSideBarSize>50</LeftSideBarSize>
-      <TimeBaseIndex>16</TimeBaseIndex>
+      <LeftSideBarSize>0</LeftSideBarSize>
+      <TimeBaseIndex>-1</TimeBaseIndex>
     </LogicAnalizer>
   </WindowSettings>
 
@@ -83,10 +83,10 @@
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>262</Top>
-        <Left>233</Left>
-        <Right>1257</Right>
-        <Bottom>983</Bottom>
+        <Top>235</Top>
+        <Left>276</Left>
+        <Right>1300</Right>
+        <Bottom>956</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>
