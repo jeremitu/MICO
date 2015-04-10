@@ -80,7 +80,6 @@ OSStatus MICOStartBonjourService( WiFi_Interface interface, mico_Context_t * con
                                                      inContext->micoStatus.mac[15], inContext->micoStatus.mac[16] );
   init.instance_name = (char*)__strdup(temp_txt);
 
-  init.service_port = inContext->flashContentInRam.appConfig.localServerPort;
   init.interface = interface;
 
   temp_txt2 = __strdup_trans_dot(inContext->micoStatus.mac);

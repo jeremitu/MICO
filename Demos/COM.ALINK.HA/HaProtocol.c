@@ -4,7 +4,7 @@
 #include "SocketUtils.h"
 #include "debug.h"
 #include "MicoPlatform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 #include "MICONotificationCenter.h"
 #include <stdio.h>
 

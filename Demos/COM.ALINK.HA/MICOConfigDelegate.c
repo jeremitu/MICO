@@ -28,7 +28,7 @@
 
 #include "HaProtocol.h"
 #include "Platform.h"
-#include "platform_common_config.h"
+#include "platform_config.h"
 #include "EasyLink/EasyLink.h"
 #include "JSON-C/json.h"
 #include "StringUtils.h"
@@ -386,12 +386,6 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
       strncpy(inContext->flashContentInRam.micoSystemConfig.gateWay, json_object_get_string(val), maxIpLen);
     }else if(!strcmp(key, "DNS Server")){
       strncpy(inContext->flashContentInRam.micoSystemConfig.dnsServer, json_object_get_string(val), maxIpLen);
-    }else if(!strcmp(key, "Connect SPP Server")){
-      inContext->flashContentInRam.appConfig.remoteServerEnable = json_object_get_boolean(val);
-    }else if(!strcmp(key, "SPP Server")){
-      strncpy(inContext->flashContentInRam.appConfig.remoteServerDomain, json_object_get_string(val), 64);
-    }else if(!strcmp(key, "SPP Server Port")){
-      inContext->flashContentInRam.appConfig.remoteServerPort = json_object_get_int(val);
     }else if(!strcmp(key, "Baurdrate")){
       inContext->flashContentInRam.appConfig.USART_BaudRate = json_object_get_int(val);
     }

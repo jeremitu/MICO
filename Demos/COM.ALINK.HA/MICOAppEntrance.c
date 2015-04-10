@@ -76,12 +76,7 @@ static void udpSearch_thread(void *inContext)
 void appRestoreDefault_callback(mico_Context_t *inContext)
 {
   inContext->flashContentInRam.appConfig.configDataVer = CONFIGURATION_VERSION;
-  inContext->flashContentInRam.appConfig.localServerPort = LOCAL_PORT;
-  inContext->flashContentInRam.appConfig.localServerEnable = true;
   inContext->flashContentInRam.appConfig.USART_BaudRate = 115200;
-  inContext->flashContentInRam.appConfig.remoteServerEnable = true;
-  sprintf(inContext->flashContentInRam.appConfig.remoteServerDomain, DEAFULT_REMOTE_SERVER);
-  inContext->flashContentInRam.appConfig.remoteServerPort = DEFAULT_REMOTE_SERVER_PORT;
 }
 
 static void rpc_thread(void *inContext)
