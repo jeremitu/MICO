@@ -106,7 +106,7 @@ static uint8_t calc_sum(unsigned char *rCRCDataBuf, uint32_t len)
 
 OSStatus sendCommandToDevice(int len)
 {
-  return MicoUartSend(MICO_UART_1, out_buffer, len);
+  return MicoUartSend(UART_FOR_APP, out_buffer, len);
 }
 
 void commandToDevice(device_func_t command)

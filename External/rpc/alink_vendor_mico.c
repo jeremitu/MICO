@@ -120,7 +120,7 @@ int mico_start_alink(void)
 #ifdef SANDBOX
   sandbox_setting();
 #endif
-  if(context->flashContentInRam.resetflag==1)
+  if(context->flashContentInRam.appConfig.resetflag==1)
   {
     struct alink_config con;
     memset(&con, 0, sizeof(struct alink_config));

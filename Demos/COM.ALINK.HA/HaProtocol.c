@@ -121,7 +121,7 @@ OSStatus haProtocolInit(mico_Context_t * const inContext)
   mico_rtos_init_semaphore(&_report_status_sem, 1);
   mico_rtos_init_semaphore(&ap_up, 1);
   mico_rtos_init_semaphore(&uuid_sem, 1);
-  
+#if 0  
   _recved_uart_loopback_fd = socket(AF_INET, SOCK_DGRM, IPPROTO_UDP);
   addr.s_ip = IPADDR_LOOPBACK;
   addr.s_port = RECVED_UART_DATA_LOOPBACK_PORT;
@@ -129,7 +129,7 @@ OSStatus haProtocolInit(mico_Context_t * const inContext)
   
   err = mico_rtos_create_thread(&_report_status_thread_handler, MICO_APPLICATION_PRIORITY, "Report", _report_status_thread, 0x500, (void*)inContext );
   require_noerr_action( err, exit, ha_log("ERROR: Unable to start the status report thread.") );
-
+#endif
   /* Regisist notifications */
   err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)haNotify_WifiStatusHandler );
   require_noerr( err, exit ); 

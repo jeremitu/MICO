@@ -354,6 +354,7 @@ static void help_command(char *pcWriteBuffer, int xWriteBufferLen,int argc, char
   }
 }
 
+extern int uart_line, uart_datalen;
 static void get_version(char *pcWriteBuffer, int xWriteBufferLen,int argc, char **argv)
 {
   char ver[64];
@@ -365,7 +366,7 @@ static void get_version(char *pcWriteBuffer, int xWriteBufferLen,int argc, char 
   cmd_printf("SDK version: %s\r\n", MicoGetVer());
   cmd_printf("Firmware version: %s\r\n", FIRMWARE_REVISION);
   cmd_printf("Application information: %s\r\n", APP_INFO);
-  
+
   memset(ver, 0, sizeof(ver));
   ret = MicoGetRfVer(ver, sizeof(ver));
   if (ret == 0)

@@ -41,13 +41,12 @@ int _uart_get_one_packet(uint8_t* inBuf, int inBufLen)
   OSStatus err = kNoErr;
   int datalen;
   uint8_t *p;
-  
+
   while(1) {
     p = inBuf;
     err = MicoUartRecv(UART_FOR_APP, p, 1, MICO_WAIT_FOREVER);
     require_noerr(err, exit);
     require(*p == 0x3A, exit);
-    
     p++;
     err = MicoUartRecv(UART_FOR_APP, p, 5, 500);
     require_noerr(err, exit);
@@ -60,10 +59,8 @@ int _uart_get_one_packet(uint8_t* inBuf, int inBufLen)
     
 //    err = check_sum(inBuf, datalen + 10);
 //    require_noerr(err, exit);
-    
     return datalen;
   }
-  
 exit:
   return -1;
   

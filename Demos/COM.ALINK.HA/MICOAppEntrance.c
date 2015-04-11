@@ -15,19 +15,21 @@
 #define app_log_trace() custom_log_trace("APP")
 
 volatile ring_buffer_t  rx_buffer;
-volatile uint8_t        rx_data[UART_BUFFER_LENGTH];
+volatile uint8_t        rx_data[1];
 
 static mico_thread_t    udp_thread_handler;
 extern mico_semaphore_t ap_up;
+extern bool             global_wifi_status;
 mico_semaphore_t        ota_sem;
 extern json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
 extern void ota_thread(void *inContext);
 
 static int udpSearch_fd = -1;
-static char hugebuf[128];
+//static char hugebuf[128];
+mico_mutex_t printf_mutex;
 
 #define UDP_BROADCAST_PORT 34567
-
+#if 0
 static void udpSearch_thread(void *inContext)
 {
   int len;
@@ -71,12 +73,14 @@ static void udpSearch_thread(void *inContext)
   }
   //mico_rtos_delete_thread(NULL);
 }
-
+#endif
 /* MICO system callback: Restore default configuration provided by application */
 void appRestoreDefault_callback(mico_Context_t *inContext)
 {
   inContext->flashContentInRam.appConfig.configDataVer = CONFIGURATION_VERSION;
-  inContext->flashContentInRam.appConfig.USART_BaudRate = 115200;
+  inContext->flashContentInRam.appConfig.USART_BaudRate = 9600;
+  inContext->flashContentInRam.appConfig.resetflag = 0xFF;
+  memset(inContext->flashContentInRam.appConfig.uuid, 0xFF, sizeof(inContext->flashContentInRam.appConfig.uuid));
 }
 
 static void rpc_thread(void *inContext)
@@ -84,7 +88,11 @@ static void rpc_thread(void *inContext)
   mico_Context_t* Context = inContext;
   extern mico_semaphore_t      uuid_sem;
   const char *uuid;
-  mico_rtos_get_semaphore(&ap_up, MICO_WAIT_FOREVER);
+
+  while(global_wifi_status == false) {
+    msleep(100);
+  }
+  //mico_rtos_get_semaphore(&ap_up, MICO_WAIT_FOREVER);
    // app_log("Memory remains %d", micoGetMemoryInfo()->free_memory);
   if(Context->flashContentInRam.micoSystemConfig.configured == allConfigured){
     mico_rtos_init_semaphore(&ota_sem, 1);
@@ -92,7 +100,7 @@ static void rpc_thread(void *inContext)
                             0x700, inContext);
     mico_rtos_get_semaphore(&ota_sem, 30000);
   }
-  sleep(20);
+
   mico_start_alink();
   while(ALINK_ERR == alink_wait_connect(NULL, 10000)){
     sleep(10);
@@ -125,13 +133,13 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   require_action(inContext, exit, err = kParamErr);
 
   haProtocolInit(inContext);
-
+  mico_rtos_init_mutex(&printf_mutex);
   /*Bonjour for service searching*/
-  if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)
-    MICOStartBonjourService( Station, inContext );
+  //if(inContext->flashContentInRam.micoSystemConfig.bonjourEnable == true)
+  //  MICOStartBonjourService( Station, inContext );
   
   /*UART receive thread*/
-  uart_config.baud_rate    = inContext->flashContentInRam.appConfig.USART_BaudRate;
+  uart_config.baud_rate    = 9600;
   uart_config.data_width   = DATA_WIDTH_8BIT;
   uart_config.parity       = NO_PARITY;
   uart_config.stop_bits    = STOP_BITS_1;
@@ -142,16 +150,16 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
     uart_config.flags = UART_WAKEUP_DISABLE;
   ring_buffer_init  ( (ring_buffer_t *)&rx_buffer, (uint8_t *)rx_data, UART_BUFFER_LENGTH );
   MicoUartInitialize( UART_FOR_APP, &uart_config, (ring_buffer_t *)&rx_buffer );
-  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x2000, (void*)inContext );
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "UART Recv", uartRecv_thread, 0x800, (void*)inContext );
   require_noerr_action( err, exit, app_log("ERROR: Unable to start the uart recv thread.") );
 
   start_rpc(inContext);
-  
+  #if 0
   if(inContext->flashContentInRam.appConfig.uuid[0]!=0xff){
     err = mico_rtos_create_thread(&udp_thread_handler, MICO_APPLICATION_PRIORITY, "UDP Search", udpSearch_thread, 0x700, (void*)inContext );
     require_noerr_action( err, exit, app_log("ERROR: Unable to start the udp search thread.") );
   }
-
+  #endif
 exit:
   return err;
 }

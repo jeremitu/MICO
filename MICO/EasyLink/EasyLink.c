@@ -40,7 +40,9 @@
 
 #include "EasyLink.h"
 #include "SoftAp/EasyLinkSoftAP.h"
-  
+
+#define EasyLink_Plus
+
 // EasyLink HTTP messages
 #define kEasyLinkURLAuth          "/auth-setup"
 
@@ -483,8 +485,8 @@ void easylink_thread(void *inContext)
               MICOUpdateConfiguration( Context );
               MicoSystemReboot();
             }else{
-              micoWlanPowerOff();
-              msleep(20);
+              easylink_log("Retry.");
+              goto Reconn;
             }
             goto threadexit;
 

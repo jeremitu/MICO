@@ -9,6 +9,7 @@
 #include "alink_export.h"
 #include "time.h"
 
+
 static unsigned int synced_time = 0, synced_utc_time = 0;
 
 USED alink_time_t convert_time(const char *str)
@@ -93,8 +94,9 @@ int get_kv(const char *k, char *v, size_t len)
 int is_main_uuid_inited()
 {
   mico_Context_t *context = getGlobalContext();
-  return context->flashContentInRam.appConfig.uuid[0] != (unsigned char)0xff;
-//  return false;
+  printf("uuid %02x\r\n", context->flashContentInRam.appConfig.uuid[0]);
+//  return context->flashContentInRam.appConfig.uuid[0] != (unsigned char)0xff;
+  return false;
   
 }
 

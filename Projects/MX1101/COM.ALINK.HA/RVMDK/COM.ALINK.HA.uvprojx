@@ -444,6 +444,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Demos\COM.ALINK.HA\UartRecv.c</FilePath>
             </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1137,6 +1142,31 @@
               <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>External/rpc</GroupName>
+          <Files>
+            <File>
+              <FileName>alink_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>alink_vendor_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_vendor_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-NO-DEBUG-0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\External\rpc\RpcLib-NO-DEBUG-0325.a</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-DEBUG-ALINK_DEBUG_0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>D:\alink\RpcLib-DEBUG-ALINK_DEBUG_0325.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -1580,6 +1610,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Demos\COM.ALINK.HA\UartRecv.c</FilePath>
             </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2254,6 +2289,31 @@
               <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>External/rpc</GroupName>
+          <Files>
+            <File>
+              <FileName>alink_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>alink_vendor_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_vendor_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-NO-DEBUG-0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\External\rpc\RpcLib-NO-DEBUG-0325.a</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-DEBUG-ALINK_DEBUG_0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>D:\alink\RpcLib-DEBUG-ALINK_DEBUG_0325.a</FilePath>
             </File>
           </Files>
         </Group>
@@ -2697,6 +2757,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Demos\COM.ALINK.HA\UartRecv.c</FilePath>
             </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3453,6 +3518,31 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>External/rpc</GroupName>
+          <Files>
+            <File>
+              <FileName>alink_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>alink_vendor_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_vendor_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-NO-DEBUG-0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\External\rpc\RpcLib-NO-DEBUG-0325.a</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-DEBUG-ALINK_DEBUG_0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>D:\alink\RpcLib-DEBUG-ALINK_DEBUG_0325.a</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -3529,7 +3619,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.ALINK.HA\EMW5088\Obj_RVMDK\COM.MXCHIP.SPP.axf --output ..\..\..\..\Build\COM.ALINK.HA\Output\EMW5088\COM.ALINK.HA.bin</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe --bin  ..\..\..\..\Build\COM.ALINK.HA\EMW5088\Obj_RVMDK\COM.ALINK.HA.axf --output ..\..\..\..\Build\COM.ALINK.HA\Output\EMW5088\COM.ALINK.HA.bin</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -3596,7 +3686,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>1</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -3610,7 +3700,7 @@
             <PeripheralDll></PeripheralDll>
             <PeripheralDllArguments></PeripheralDllArguments>
             <InitializationFile></InitializationFile>
-            <Driver>Segger\JL2CM3.dll</Driver>
+            <Driver>BIN\UL2CM3.DLL</Driver>
           </TargetDlls>
         </DebugOption>
         <Utilities>
@@ -3848,7 +3938,7 @@
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc>--keep *.o(.mach*.init)  --keep *.o(.shell*.cmd)  --keep *.o(.notify*.init)  --keep *.o(.sched.stub*) --keep *.o(.driver*.isr) --keep *.o(CACHE.4KBMEM)
---diag_suppress=L6314W,L6319W --diag_warning=6218,6654,6238 --diag_suppress=6238,L6436W,L6432W,L6433W --no_strict_wchar_size  --no_strict_enum_size</Misc>
+--diag_suppress=L6314W,L6319W --diag_warning=6218,6654,6238 --diag_suppress=6238,L6436W,L6432W,L6433W,L6915E --no_strict_wchar_size  --no_strict_enum_size</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -3892,6 +3982,54 @@
               <FileName>UartRecv.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Demos\COM.ALINK.HA\UartRecv.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\test.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>2</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -4646,6 +4784,50 @@
               <FileName>platform_config.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\..\Board\EMW5088\platform_config.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>External/rpc</GroupName>
+          <Files>
+            <File>
+              <FileName>alink_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>alink_vendor_mico.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\External\rpc\alink_vendor_mico.c</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-NO-DEBUG-0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\External\rpc\RpcLib-NO-DEBUG-0325.a</FilePath>
+            </File>
+            <File>
+              <FileName>RpcLib-DEBUG-ALINK_DEBUG_0325.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>D:\alink\RpcLib-DEBUG-ALINK_DEBUG_0325.a</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds/>
+              </FileOption>
             </File>
           </Files>
         </Group>
