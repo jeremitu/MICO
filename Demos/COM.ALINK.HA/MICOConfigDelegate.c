@@ -85,16 +85,10 @@ void ConfigEasyLinkIsSuccess( mico_Context_t * const inContext )
 
 void ConfigSoftApWillStart(mico_Context_t * const inContext )
 {
-  OSStatus err;
-  mico_uart_config_t uart_config;
-
   mico_stop_timer(&_Led_EL_timer);
   mico_deinit_timer( &_Led_EL_timer );
   mico_init_timer(&_Led_EL_timer, SYS_LED_TRIGGER_INTERVAL_AFTER_EASYLINK, _led_EL_Timeout_handler, NULL);
   mico_start_timer(&_Led_EL_timer);
-
-exit:
-  return;
 }
 
 OSStatus ConfigELRecvAuthData(char * anthData, mico_Context_t * const inContext )
@@ -113,7 +107,7 @@ json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext )
   char name[50];
   OTA_Versions_t versions;
   char rfVersion[50] = {0};
-  char *rfVer = NULL, *rfVerTemp = NULL;
+  //char *rfVer = NULL, *rfVerTemp = NULL;
   json_object *sectors, *sector, *mainObject = NULL;
   char dev_name[30];
   char version[40];
@@ -386,8 +380,6 @@ OSStatus ConfigIncommingJsonMessage( const char *input, mico_Context_t * const i
       strncpy(inContext->flashContentInRam.micoSystemConfig.gateWay, json_object_get_string(val), maxIpLen);
     }else if(!strcmp(key, "DNS Server")){
       strncpy(inContext->flashContentInRam.micoSystemConfig.dnsServer, json_object_get_string(val), maxIpLen);
-    }else if(!strcmp(key, "Baurdrate")){
-      inContext->flashContentInRam.appConfig.USART_BaudRate = json_object_get_int(val);
     }
   }
   json_object_put(new_obj);

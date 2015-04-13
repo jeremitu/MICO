@@ -66,8 +66,6 @@ int needSyncUTC()
 
 /*------------------------------------------------------------------------------*/
 
-mico_Context_t *getGlobalContext();
-
 int set_kv(const char *k, const void *v, size_t len)
 {
   mico_Context_t *context = getGlobalContext();
@@ -94,10 +92,8 @@ int get_kv(const char *k, char *v, size_t len)
 int is_main_uuid_inited()
 {
   mico_Context_t *context = getGlobalContext();
-  printf("uuid %02x\r\n", context->flashContentInRam.appConfig.uuid[0]);
-//  return context->flashContentInRam.appConfig.uuid[0] != (unsigned char)0xff;
-  return false;
-  
+
+  return context->flashContentInRam.appConfig.uuid[0] != (unsigned char)0xff;
 }
 
 void alink_sleep(int millsec)
@@ -107,63 +103,24 @@ void alink_sleep(int millsec)
 
 /*----------------------------------------------------------------------------*/
 
-extern mico_semaphore_t ap_up;
-static mico_semaphore_t _wifiConnected_sem = NULL;
-
-void clientNotify_WifiStatusHandler(int event, mico_Context_t * const inContext)
-{
-  
-  custom_log("#########", "clientNotify_WifiStatusHandler called");
-  switch (event)
-  {
-  case NOTIFY_STATION_UP:
-    //    _wifiConnected = true;
-    mico_rtos_set_semaphore(&_wifiConnected_sem);
-    break;
-  case NOTIFY_STATION_DOWN:
-    //    _wifiConnected = false;
-    break;
-  default:
-    break;
-  }
-  return;
-}
+extern bool global_wifi_status;
 
 void wait_network_up()
 {
-  mico_rtos_get_semaphore(&ap_up, MICO_WAIT_FOREVER);
+  while(global_wifi_status == false) {
+    msleep(100);
+  }
 }
 
-extern bool global_wifi_status;
+
 void wait_network_connected()
 {
-  int err;
-  while (1)
-  {
-    if (global_wifi_status == false)
-    {
-      require_action_quiet(mico_rtos_get_semaphore
-                           (&_wifiConnected_sem,
-                            5000) == kNoErr, Continue, err = kTimeoutErr);
-    }
-    break;
-  Continue:
-    custom_log("Network", "Wait for wifi connection timeout...");
-    msleep(1000);
-  }
-  
+  wait_network_up();
 }
 
 int prepare_network()
 {
-  
-  mico_rtos_init_semaphore(&_wifiConnected_sem, 1);
-  int err = MICOAddNotification(mico_notify_WIFI_STATUS_CHANGED,
-                                (void *) clientNotify_WifiStatusHandler);
-  if (err != 0)
-    return ALINK_ERR;
   return ALINK_OK;
-  
 }
 
 #endif

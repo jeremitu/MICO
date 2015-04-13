@@ -9,8 +9,7 @@
 #include "json.h"
 #include "device.h"
 
-extern mico_Context_t *getGlobalContext();
-extern const char *mico_generate_cid();
+extern const char *mico_generate_cid(void);
 #ifdef SANDBOX
 static const char* g_cert_str_sandbox = 
 "-----BEGIN CERTIFICATE-----\r\n"

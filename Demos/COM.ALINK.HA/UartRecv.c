@@ -48,12 +48,14 @@ int _uart_get_one_packet(uint8_t* inBuf, int inBufLen)
     require_noerr(err, exit);
     require(*p == 0x3A, exit);
     p++;
+    
     err = MicoUartRecv(UART_FOR_APP, p, 5, 500);
     require_noerr(err, exit);
     datalen = p[1];
     require(datalen + 10 <= inBufLen, exit);
-    
+    require(datalen >= 6, exit);
     p += 5;
+    
     err = MicoUartRecv(UART_FOR_APP, p, datalen-6, 500);
     require_noerr(err, exit);
     

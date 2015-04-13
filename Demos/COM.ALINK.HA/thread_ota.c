@@ -30,6 +30,14 @@ static uint8_t bp_count = 0;
 
 #define OTA_MAX_RECONN_NUM       5
 
+//#define OTA_TEST
+
+#ifdef OTA_TEST
+#define OTA_KEY "CF2ABGLICzabesr11111"
+#else
+#define OTA_KEY ALINK_KEY
+#endif
+
 static uint32_t flashStorageAddress;
 
 uint32_t get_writed_length(void)
@@ -86,7 +94,7 @@ OSStatus _connectOTAServer( mico_Context_t * const inContext, int *fd)
   
   //  snprintf(version, 40, "%s%03d", FIRMWARE_REVISION, FIRMWARE_REVISION_NUM);
   //  json_object_object_add(j_data,"version",json_object_new_string(version));
-  //  json_object_object_add(j_data,"model",json_object_new_string(ALINK_KEY));
+  //  json_object_object_add(j_data,"model",json_object_new_string(OTA_KEY));
   //
   //  json_object_object_add(j_get,"action",json_object_new_string("last_version"));
   //  json_object_object_add(j_get,"data",j_data);
@@ -108,7 +116,7 @@ OSStatus _connectOTAServer( mico_Context_t * const inContext, int *fd)
     SocketSend( *fd, (uint8_t *)http_req, strlen(http_req) );  
   } else{
     httpRequest = malloc(256);
-    sprintf(httpRequest, http_head, ALINK_KEY);
+    sprintf(httpRequest, http_head, OTA_KEY);
     err = SocketSend( *fd, (uint8_t *)httpRequest, strlen(httpRequest) );
     ota_log("Request sent = %s", httpRequest);
     free(httpRequest);
@@ -251,8 +259,6 @@ static int ota_finished(uint8_t *md5_recv, uint8_t *temp_buf, int temp_buf_len, 
 
     while(1) // dead loop, wait system reset.
         sleep(100);
-    
-    return kNoErr;
 }
 
 
@@ -349,7 +355,7 @@ OSStatus _OTARespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
     ota_log("OTA server accepted!");
     err = kNoErr;
     goto exit;
-    break;
+
   case kStatusOK:
     ota_log("OTA server respond status OK!");
     err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
@@ -363,7 +369,7 @@ OSStatus _OTARespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
       err = OTAIncommingJsonMessage(p_content , inContext);
       require_noerr(err, exit);
     }else if(strnicmpx( value, 24, kMIMEType_Stream ) == 0){
-      err = ota_finished(md5_bin, inHeader->buf, sizeof(inHeader->buf), inContext);
+      err = ota_finished(md5_bin, (uint8_t*)inHeader->buf, sizeof(inHeader->buf), inContext);
       if(err != kNoErr) {
         ota_log("MD5 check error!");
         MicoFlashFinalize(MICO_FLASH_FOR_UPDATE);
@@ -375,13 +381,13 @@ OSStatus _OTARespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
     }
     err = kNoErr;
     goto exit;
-    break;
+    
   case kStatusPartialContent:
     ota_log("kStatusPartialContent!");
     err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
     require_noerr(err, exit);
     if(strnicmpx( value, 24, kMIMEType_Stream ) == 0){
-      err = ota_finished(md5_bin, inHeader->buf, sizeof(inHeader->buf), inContext);
+      err = ota_finished(md5_bin, (uint8_t*)inHeader->buf, sizeof(inHeader->buf), inContext);
       if(err != kNoErr) {
         ota_log("MD5 check error!");
         MicoFlashFinalize(MICO_FLASH_FOR_UPDATE);
@@ -396,7 +402,7 @@ OSStatus _OTARespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
   case kStatusNotFound:
     err = kNoOTA;
     goto exit;
-    break;
+    
   default:
     goto exit;
   }
@@ -475,17 +481,15 @@ void ota_thread(void *inContext)
         case kNoSpaceErr:
           ota_log("ERROR: Cannot fit HTTPHeader.");
           goto threadexit;
-          break;
-          
+                    
         case kConnectionErr:
           // NOTE: kConnectionErr from SocketReadHTTPHeader means it's closed
           ota_log("ERROR: Connection closed.");
           goto threadexit;
-          //goto Reconn;
-          break;
+          
         case kNoOTA:
           goto threadexit;
-          break;
+          
         default:
           ota_log("ERROR: HTTP Header parse internal error: %d", err);
           goto threadexit;

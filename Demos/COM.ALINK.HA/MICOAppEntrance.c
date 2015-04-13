@@ -15,16 +15,13 @@
 #define app_log_trace() custom_log_trace("APP")
 
 volatile ring_buffer_t  rx_buffer;
-volatile uint8_t        rx_data[1];
+volatile uint8_t        rx_data[UART_BUFFER_LENGTH];
 
-static mico_thread_t    udp_thread_handler;
-extern mico_semaphore_t ap_up;
 extern bool             global_wifi_status;
 mico_semaphore_t        ota_sem;
 extern json_object* ConfigCreateReportJsonMessage( mico_Context_t * const inContext );
 extern void ota_thread(void *inContext);
 
-static int udpSearch_fd = -1;
 //static char hugebuf[128];
 mico_mutex_t printf_mutex;
 
@@ -78,7 +75,6 @@ static void udpSearch_thread(void *inContext)
 void appRestoreDefault_callback(mico_Context_t *inContext)
 {
   inContext->flashContentInRam.appConfig.configDataVer = CONFIGURATION_VERSION;
-  inContext->flashContentInRam.appConfig.USART_BaudRate = 9600;
   inContext->flashContentInRam.appConfig.resetflag = 0xFF;
   memset(inContext->flashContentInRam.appConfig.uuid, 0xFF, sizeof(inContext->flashContentInRam.appConfig.uuid));
 }
@@ -92,7 +88,6 @@ static void rpc_thread(void *inContext)
   while(global_wifi_status == false) {
     msleep(100);
   }
-  //mico_rtos_get_semaphore(&ap_up, MICO_WAIT_FOREVER);
    // app_log("Memory remains %d", micoGetMemoryInfo()->free_memory);
   if(Context->flashContentInRam.micoSystemConfig.configured == allConfigured){
     mico_rtos_init_semaphore(&ota_sem, 1);
@@ -139,7 +134,7 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   //  MICOStartBonjourService( Station, inContext );
   
   /*UART receive thread*/
-  uart_config.baud_rate    = 9600;
+  uart_config.baud_rate    = UART_DEFAULT_BAUDRATE;
   uart_config.data_width   = DATA_WIDTH_8BIT;
   uart_config.parity       = NO_PARITY;
   uart_config.stop_bits    = STOP_BITS_1;
@@ -154,12 +149,6 @@ OSStatus MICOStartApplication( mico_Context_t * const inContext )
   require_noerr_action( err, exit, app_log("ERROR: Unable to start the uart recv thread.") );
 
   start_rpc(inContext);
-  #if 0
-  if(inContext->flashContentInRam.appConfig.uuid[0]!=0xff){
-    err = mico_rtos_create_thread(&udp_thread_handler, MICO_APPLICATION_PRIORITY, "UDP Search", udpSearch_thread, 0x700, (void*)inContext );
-    require_noerr_action( err, exit, app_log("ERROR: Unable to start the udp search thread.") );
-  }
-  #endif
 exit:
   return err;
 }

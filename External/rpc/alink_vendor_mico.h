@@ -4,7 +4,7 @@
 
 #include "alink_export.h"
 
-#define FIRMWARE_REVISION       "ALINK_AOS_3162_WH_E6@"
+#define FIRMWARE_REVISION       "ALINK_AOS_5088_WH_E6@"
 #define FIRMWARE_REVISION_NUM   1
 
 //#define DEGUB_ON_UART6

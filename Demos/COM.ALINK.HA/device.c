@@ -23,14 +23,13 @@
 #define FILL(a)   {a, #a}
 
 void parseDeviceStatus(uint8_t *inBuf, uint8_t send);
-extern mico_Context_t *getGlobalContext();
 extern void PlatformEasyLinkButtonClickedCallback(void);
 
-uart_cmd_t uartcmd;
+static uart_cmd_t uartcmd;
 static int hour,min;
-char account[20] = {0};
+static char account[20] = {0};
 static alink_down_cmd g_down_cmd = {-1, NULL, account, NULL, NULL, NULL};
-char error_code[30] = {0};
+static char error_code[30] = {0};
 
 device_func_index hiFuncStr[21] = {
   FILL(power),
@@ -267,9 +266,8 @@ int device_command_execute(alink_down_cmd_ptr down_cmd)
   json_value_free(jsonObj);
   //need to report devicd status after command has excuted
   g_down_cmd.id = down_cmd->id;
-  if(g_down_cmd.account==NULL)
-    g_down_cmd.account = malloc(20);
-  strcpy(g_down_cmd.account, down_cmd->account);
+  g_down_cmd.account = account;
+  strncpy(g_down_cmd.account, down_cmd->account, sizeof(account));
   
   return sendCommandToDevice(out_buffer[2]);
 }
@@ -290,7 +288,7 @@ void fillDeviceStatus(char *str)
           uartcmd.time2stop%60, uartcmd.time2stop/60, error_code);
 }
 
-char buf[1500];
+static char _buf[1500];
 // alink callback
 int device_status_post(alink_down_cmd_ptr down_cmd) 
 {
@@ -298,8 +296,8 @@ int device_status_post(alink_down_cmd_ptr down_cmd)
   alink_up_cmd up_cmd;
   //  custom_log("alink_sample_get_device_status called:------------\n%s %d\n%s\n", down_cmd->uuid, down_cmd->method, down_cmd->param);    
   up_cmd.resp_id = down_cmd->id;
-  fillDeviceStatus(buf);
-  up_cmd.param = buf;
+  fillDeviceStatus(_buf);
+  up_cmd.param = _buf;
   up_cmd.target = down_cmd->account;
   
   ret_code = alink_post_device_data_array(&up_cmd);
@@ -317,14 +315,16 @@ enum {
 
 static void send_aos_cmd(uint8_t type)
 {
-  device_cmd_head_t cmd_header;
-  memset(&cmd_header, 0, sizeof(device_cmd_head_t));
-  cmd_header.flag=0xe13a;
-  cmd_header.command = type;
-  cmd_header.datalen = 8;
-  cmd_header.data[0] = 0;
-  cmd_header.data[1] = calc_sum((uint8_t *)&cmd_header, 7);
-  MicoUartSend(UART_FOR_APP, (uint8_t *)&cmd_header, 8);
+  uint8_t buf[8];
+  device_cmd_head_t *cmd_header = (device_cmd_head_t *)buf;
+  
+  memset(buf, 0, sizeof(buf));
+  cmd_header->flag=0xe13a;
+  cmd_header->command = type;
+  cmd_header->datalen = 8;
+  cmd_header->data[0] = 0;
+  cmd_header->data[1] = calc_sum((uint8_t *)&cmd_header, 7);
+  MicoUartSend(UART_FOR_APP, buf, 8);
 }
 
 //static uint8_t heat_status = 0;
@@ -398,8 +398,6 @@ void device_cmd_process(uint8_t *buf, int inLen)
     
     uartcmd.error = error_code;
   }else if(buf[1] == 0xE0){
-    device_cmd_head_t cmd_header;
-    memset(&cmd_header, 0 ,sizeof(device_cmd_head_t));
     switch(buf[5]) {
     case CONTROL_EASYLINK:
       send_aos_cmd(0xff);

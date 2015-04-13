@@ -10,14 +10,16 @@
 //#define FIRMWARE_REVISION   "MICO_HA_4_0"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
-#define PROTOCOL            "com.mxchip.ha"
+#define PROTOCOL            "com.alink.ha"
 #define LOCAL_PORT          8080
+
+#define UART_DEFAULT_BAUDRATE       9600
 
 /* Wi-Fi configuration mode */
 #define MICO_CONFIG_MODE CONFIG_MODE_EASYLINK
 
 /*User provided configurations*/
-#define CONFIGURATION_VERSION         0x0000032 // if changed default configuration, add this num
+#define CONFIGURATION_VERSION         0x0000033 // if changed default configuration, add this num
 #define MAX_Local_Client_Num          8
 #define DEAFULT_REMOTE_SERVER         "192.168.2.254"
 #define DEFAULT_REMOTE_SERVER_PORT    8080
@@ -35,7 +37,6 @@ typedef struct
   uint32_t          configDataVer;
 
   /*IO settings*/
-  uint32_t          USART_BaudRate;
   char              uuid[33];
   uint8_t           resetflag;
 } application_config_t;

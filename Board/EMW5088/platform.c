@@ -212,12 +212,12 @@ static void _button_EL_irq_handler( void* arg )
    _default_start_time = 0;
   }
 }
-
-//static void _button_STANDBY_irq_handler( void* arg )
-//{
-//  (void)(arg);
-//  PlatformStandbyButtonClickedCallback();
-//}
+#if 0
+static void _button_STANDBY_irq_handler( void* arg )
+{
+  (void)(arg);
+  PlatformStandbyButtonClickedCallback();
+}
 
 static void _button_EL_Timeout_handler( void* arg )
 {
@@ -230,6 +230,7 @@ static void _button_EL_Timeout_handler( void* arg )
   }
   mico_stop_timer(&_button_EL_timer);
 }
+#endif
 
 void init_platform( void )
 {
