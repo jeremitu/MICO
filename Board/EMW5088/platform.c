@@ -41,6 +41,33 @@
 #include "sd_card.h"
 #include "nvm.h"
 
+#include "adc.h"
+
+#if defined(MFG_MODE) || defined(BOOTLOADER)
+
+#include "host_stor.h"
+#include "fat_file.h" 
+#include "host_hcd.h"
+#include "dir.h"
+
+static bool HardwareInit(DEV_ID DevId);
+static FOLDER	 RootFolder;
+static void FileBrowse(FS_CONTEXT* FsContext);
+static bool UpgradeFileFound = false;
+
+#endif
+
+#define FUNC_USB_EN					   
+//#define FUNC_CARD_EN					
+
+#ifdef FUNC_USB_EN
+  #define UDISK_PORT_NUM		        2		// USB端口定义
+#endif
+
+#ifdef FUNC_CARD_EN
+  #define	SD_PORT_NUM                 1		// SD卡端口定义
+#endif
+
 
 /******************************************************
 *                      Macros
@@ -87,6 +114,11 @@
 /******************************************************
 *                    Structures
 ******************************************************/
+typedef struct
+{
+    int output_pin;
+    int input_pin;
+} mico_gpio_test_mapping_t;
 
 /******************************************************
 *               Function Declarations
@@ -118,13 +150,18 @@ const platform_pin_mapping_t gpio_mapping[] =
   [STDIO_UART_RX]                       = {GPIOB,  6},
   [STDIO_UART_TX]                       = {GPIOB,  7},
   [SDIO_INT]                            = {GPIOA, 22},
-  //[USB_DETECT]                          = {GPIOA,  29},
+  [USB_DETECT]                          = {GPIOA,  25},
 
 //  /* GPIOs for external use */
   [APP_UART_RX]                         = {GPIOB, 29},
   [APP_UART_TX]                         = {GPIOB, 28},  
 };
 
+const mico_gpio_test_mapping_t gpio_test_mapping[] = 
+{
+    {0, 1},
+    {2, 3},
+};
 /*
 * Possible compile time inputs:
 * - Set which ADC peripheral to use for each ADC. All on one ADC allows sequential conversion on all inputs. All on separate ADCs allows concurrent conversion.
@@ -264,7 +301,9 @@ void init_platform( void )
 {
   MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
   MicoSysLed(false);
-  
+
+  /* USB-HOST */
+  MicoGpioInitialize( (mico_gpio_t)USB_DETECT, INPUT_PULL_DOWN );
   //  Initialise EasyLink buttons
   //MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
   //mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
@@ -277,26 +316,7 @@ void init_platform( void )
 }
 
 #ifdef BOOTLOADER
-#include "host_stor.h"
-#include "fat_file.h" 
-#include "host_hcd.h"
-#include "dir.h"
 
-static bool HardwareInit(DEV_ID DevId);
-static FOLDER	 RootFolder;
-static void FileBrowse(FS_CONTEXT* FsContext);
-static bool UpgradeFileFound = false;
-
-#define FUNC_USB_EN					   
-//#define FUNC_CARD_EN					
-
-#ifdef FUNC_USB_EN
-  #define UDISK_PORT_NUM		        2		// USB端口定义
-#endif
-
-#ifdef FUNC_CARD_EN
-  #define	SD_PORT_NUM                 1		// SD卡端口定义
-#endif
 
 void init_platform_bootloader( void )
 {
@@ -313,7 +333,6 @@ void init_platform_bootloader( void )
   
   require_string( MicoGpioInputGet( USB_DETECT ) == true, exit, "USB device is not inserted" );
 
-  platform_log("USB device inserted");
   if( HardwareInit(DEV_ID_USB) ){
     FolderOpenByNum(&RootFolder, NULL, 1);
     FileBrowse(RootFolder.FsContext);
@@ -381,6 +400,9 @@ void init_platform_bootloader( void )
 exit:
   return;
 }
+#endif
+
+#if defined(MFG_MODE) || defined(BOOTLOADER)
 
 static bool IsCardLink(void)
 {
@@ -524,5 +546,119 @@ bool MicoShouldEnterBootloader(void)
   else
     return false;
 }
+#ifdef MFG_MODE
+static int gpio_result=0, gpio_num;
+static char test_result[32];
 
+static int gpio_test_one( int index)
+{
+    mico_gpio_t in, out;
+
+    in  = gpio_test_mapping[index].input_pin;
+    out = gpio_test_mapping[index].output_pin;
+
+    MicoGpioInitialize(in, INPUT_PULL_UP);
+    MicoGpioInitialize(out, OUTPUT_PUSH_PULL);
+
+    MicoGpioOutputHigh(out);
+    msleep(1);
+    if (MicoGpioInputGet(in) != true)
+        return 0;
+    
+    MicoGpioOutputLow(out);
+    msleep(1);
+    if (MicoGpioInputGet(in) != false)
+        return 0;
+    
+    return 1;
+}
+
+static int gpio_test(void)
+{
+    int i;
+    int ret = 1;
+    
+    gpio_result = 0;
+    for(i=0; i<gpio_num; i++) {
+        if (gpio_test_one(i) == 1) {
+            gpio_result |= (1<<i);
+        } else {
+            ret = 0;
+        }
+    }
+
+    return ret;
+}
+
+int get_gpio_num(void)
+{
+    return gpio_num;
+}
+
+int get_gpio_test_result(void)
+{
+    return gpio_result;
+}
+
+char *mxchip_gpio_test(void)
+{
+    int ret;
+    
+    gpio_num = sizeof(gpio_test_mapping) / sizeof(mico_gpio_test_mapping_t);
+    ret = gpio_test();
+    if (ret == 1)
+        return "PASS";
+    
+    sprintf(test_result, "Fail: %d:%x", gpio_num, gpio_result);
+    return test_result;    
+}
+
+/* Adc for PB25 ==> Status PIN */
+char *mxchip_pwr_test(void)
+{
+    uint16_t value;
+    
+    SarAdcGpioSel(ADC_CHANNEL_B25);
+    value = SarAdcChannelGetValue(ADC_CHANNEL_B25);
+    sprintf(test_result, "%u", value);
+    return test_result;
+}
+
+/* Only for 5088 & 3088, check USB connected?
+  * no: return USB check result
+  * yes: reboot, use mx1101's bootloader do USB upgrade.
+  *        after upgrade, the mxchip bootloader will check upgrade result and report to test tool.
+  */
+char *mxchip_upgrade_test(void)
+{
+    uint32_t BootNvmInfo;
+    
+    if( MicoGpioInputGet( (mico_gpio_t)USB_DETECT ) == false) {
+        return "No USB device";
+    } else {
+        mxchiP_need_upgrade();
+        return "Upgrading";
+    }
+}
+
+int mxchip_upgrade(void)
+{
+    uint32_t BootNvmInfo;
+    
+    if( HardwareInit(DEV_ID_USB) ){
+        FolderOpenByNum(&RootFolder, NULL, 1);
+        FileBrowse(RootFolder.FsContext);
+    }
+    
+    if(false == UpgradeFileFound) {
+        MicoUartSend(MICO_UART_1, "File not found", strlen("File not found"));
+    } else {
+      BootNvmInfo = UPGRADE_REQT_MAGIC;
+      NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+    }
+    
+    NVIC_SystemReset();
+    while(1);
+}
+#endif
 

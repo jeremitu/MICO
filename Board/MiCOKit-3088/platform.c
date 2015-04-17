@@ -40,6 +40,8 @@
 #include "PlatformLogging.h"
 #include "sd_card.h"
 #include "nvm.h"
+#include "adc.h"
+
 
 
 /******************************************************
@@ -87,6 +89,11 @@
 /******************************************************
 *                    Structures
 ******************************************************/
+typedef struct
+{
+    int output_pin;
+    int input_pin;
+} mico_gpio_test_mapping_t;
 
 /******************************************************
 *               Function Declarations
@@ -147,6 +154,11 @@ const platform_pin_mapping_t gpio_mapping[] =
 //  [MICO_GPIO_29] = {GPIOA,  0,  RCC_AHB1Periph_GPIOA},  
 };
 
+const mico_gpio_test_mapping_t gpio_test_mapping[] = 
+{
+    {0, 1},
+    {2, 3},
+};
 /*
 * Possible compile time inputs:
 * - Set which ADC peripheral to use for each ADC. All on one ADC allows sequential conversion on all inputs. All on separate ADCs allows concurrent conversion.
@@ -316,7 +328,6 @@ static FOLDER	 RootFolder;
 static void FileBrowse(FS_CONTEXT* FsContext);
 static bool UpgradeFileFound = false;
 
-
 void init_platform_bootloader( void )
 {
   uint32_t BootNvmInfo;
@@ -325,7 +336,7 @@ void init_platform_bootloader( void )
   /* Check USB-HOST is inserted */
   err = MicoGpioInitialize( (mico_gpio_t)USB_DETECT, INPUT_PULL_DOWN );
   require_noerr(err, exit);
-  mico_thread_msleep_no_os(2);
+  mico_thread_msleep_no_os(10);
   
   require_string( MicoGpioInputGet( (mico_gpio_t)USB_DETECT ) == true, exit, "USB device is not inserted" );
 
@@ -397,6 +408,7 @@ void init_platform_bootloader( void )
 exit:
   return;
 }
+#endif
 
 static bool IsCardLink(void)
 {
@@ -491,10 +503,6 @@ static void FileBrowse(FS_CONTEXT* FsContext)
 	}
 }
 
-#endif
-
-
-
 void host_platform_reset_wifi( bool reset_asserted )
 {
   if ( reset_asserted == true )
@@ -539,18 +547,140 @@ void MicoRfLed(bool onoff)
 
 bool MicoShouldEnterMFGMode(void)
 {
-//  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
-//    return true;
-//  else
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
+    return true;
+  else
     return false;
 }
 
 bool MicoShouldEnterBootloader(void)
 {
-//  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
-//    return true;
-//  else
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
+    return true;
+  else
     return true;
 }
 
+#ifndef BOOTLOADER
+static int gpio_result=0, gpio_num;
+static char test_result[32];
+
+static int gpio_test_one( int index)
+{
+    mico_gpio_t in, out;
+
+    in  = gpio_test_mapping[index].input_pin;
+    out = gpio_test_mapping[index].output_pin;
+
+    MicoGpioInitialize(in, INPUT_PULL_UP);
+    MicoGpioInitialize(out, OUTPUT_PUSH_PULL);
+
+    MicoGpioOutputHigh(out);
+    msleep(1);
+    if (MicoGpioInputGet(in) != true)
+        return 0;
+    
+    MicoGpioOutputLow(out);
+    msleep(1);
+    if (MicoGpioInputGet(in) != false)
+        return 0;
+    
+    return 1;
+}
+
+static int gpio_test(void)
+{
+    int i;
+    int ret = 1;
+    
+    gpio_result = 0;
+    for(i=0; i<gpio_num; i++) {
+        if (gpio_test_one(i) == 1) {
+            gpio_result |= (1<<i);
+        } else {
+            ret = 0;
+        }
+    }
+
+    return ret;
+}
+
+int get_gpio_num(void)
+{
+    return gpio_num;
+}
+
+int get_gpio_test_result(void)
+{
+    return gpio_result;
+}
+
+char *mxchip_gpio_test(void)
+{
+    int ret;
+    
+    gpio_num = sizeof(gpio_test_mapping) / sizeof(mico_gpio_test_mapping_t);
+    ret = gpio_test();
+    if (ret == 1)
+        return "PASS";
+    
+    sprintf(test_result, "Fail: %d:%x", gpio_num, gpio_result);
+    return test_result;    
+}
+
+/* Adc for PB25 ==> Status PIN */
+char *mxchip_pwr_test(void)
+{
+    uint16_t value;
+    
+    SarAdcGpioSel(ADC_CHANNEL_B25);
+    value = SarAdcChannelGetValue(ADC_CHANNEL_B25);
+    sprintf(test_result, "%u", value);
+    return test_result;
+}
+
+/* Only for 5088 & 3088, check USB connected?
+  * no: return USB check result
+  * yes: reboot, use mx1101's bootloader do USB upgrade.
+  *        after upgrade, the mxchip bootloader will check upgrade result and report to test tool.
+  */
+char *mxchip_upgrade_test(void)
+{
+    uint32_t BootNvmInfo;
+    
+    /* Check USB-HOST is inserted */
+    MicoGpioInitialize( (mico_gpio_t)USB_DETECT, INPUT_PULL_DOWN );
+    msleep(2);
+    if( MicoGpioInputGet( (mico_gpio_t)USB_DETECT ) == false) {
+        return "No USB device";
+    } else {
+        mxchiP_need_upgrade();
+        return "Upgrading";
+    }
+}
+
+int mxchip_upgrade(void)
+{
+    uint32_t BootNvmInfo;
+    
+    if( HardwareInit(DEV_ID_USB) ){
+        FolderOpenByNum(&RootFolder, NULL, 1);
+        FileBrowse(RootFolder.FsContext);
+    }
+    /* Check last firmware update is success or not. */
+    NvmRead(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+    
+    if(false == UpgradeFileFound) {
+        return 0;
+    }
+    
+    if(BootNvmInfo == (uint32_t)UPGRADE_ERRNO_NOERR)
+    {
+      BootNvmInfo = UPGRADE_REQT_MAGIC;
+      NvmWrite(UPGRADE_NVM_ADDR, (uint8_t*)&BootNvmInfo, 4);
+      NVIC_SystemReset();
+      while(1);
+    }
+}
+#endif
 

@@ -523,13 +523,16 @@
     <group>
       <name>Library</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Library\MICOConfig.c</name>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\MICOConfig.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_sdio.a</name>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\Library\mxchipWNet_cm3_spi.a</name>
+        <name>C:\Users\bobo\Documents\WICED\Wiced-SDK-2.4.0\WICED-SDK\IAR_LIB\Library\mxchipWNet_cm3_sdio.a</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm3_spi.a</name>
       </file>
     </group>
     <group>
@@ -839,37 +842,37 @@
   <group>
     <name>Support</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\AESUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\AESUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\HTTPUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\HTTPUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\MDNSUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\MDNSUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\RingBufferUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\RingBufferUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SecurityUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SecurityUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SHAUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SHAUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\SocketUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\SocketUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\StringUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\StringUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\TimeUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\TimeUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\TLVUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\TLVUtils.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\Library\support\URLUtils.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\Support\URLUtils.c</name>
     </file>
   </group>
 </project>

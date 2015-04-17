@@ -1091,6 +1091,36 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/filesystem</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>filesort.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\filesort.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\fs.lib</FilePath>
+            </File>
+            <File>
+              <FileName>partition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\partition.c</FilePath>
+            </File>
+            <File>
+              <FileName>presearch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\presearch.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -1452,7 +1482,7 @@
               <MiscControls>--diag_suppress=1,1293</MiscControls>
               <Define>DEBUG MFG_MODE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\EMW5088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals</IncludePath>
+              <IncludePath>..\..\..\..\Demos\COM.MXCHIP.SPP;..\..\..\..\include;..\..\..\..\MICO;..\..\..\..\External;..\..\..\..\Support;..\..\..\..\Board\EMW5088;..\..\..\..\Platform\include;..\..\..\..\Platform\Cortex-M3;..\..\..\..\Platform\Cortex-M3\CMSIS;..\..\..\..\Platform\MCU\MX1101\peripherals\Libraries\inc;..\..\..\..\Platform\MCU\MX1101\peripherals;..\..\..\..\Platform\MCU\MX1101\FileSystem\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2175,6 +2205,36 @@
               <FileName>platform.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Board\EMW5088\platform.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Platform/MCU/MX1101/filesystem</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>filesort.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\filesort.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\fs.lib</FilePath>
+            </File>
+            <File>
+              <FileName>partition.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\partition.c</FilePath>
+            </File>
+            <File>
+              <FileName>presearch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Platform\MCU\MX1101\FileSystem\presearch.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -2881,6 +2881,7 @@
     <group>
       <name>EMW5248</name>
       <excluded>
+        <configuration>MiCOKit-3288</configuration>
         <configuration>EMW5288</configuration>
       </excluded>
       <file>

@@ -11,7 +11,8 @@
 //#include "wlan.h"
      
 #include "MICO.h"
-
+#include "platform.h"
+#include "platform_common_config.h"
 
 #include "uart_wifi_bridge.h"
 typedef unsigned short t_u16;
@@ -29,9 +30,10 @@ uint8_t *local_outbuf;
 
 static SDIOPkt *sdiopkt;
 static uint8_t *rx_buf;
-
+static int need_upgrade = 0;
 
 static char msg_buf[200];
+
 
 int wmprintf(const char *format, ...)
 {
@@ -143,7 +145,7 @@ static int uart_drv_rx_buf_reset(void *dev)
     return 0;
 }
 
-static uint32_t uart_drv_write(void *dev, const uint8_t *buf, uint32_t num)
+uint32_t uart_drv_write(void *dev, const uint8_t *buf, uint32_t num)
 {
     MicoUartSend( UART_INDEX, buf, num );
     return num;
@@ -411,6 +413,11 @@ int send_cmd_to_wlan(uint8_t *buf, int m_len)
 	}
 }
 
+void mxchiP_need_upgrade(void)
+{
+    need_upgrade = 1;
+}
+
 void mxchip_do_cmd(char *cmd)
 {
     char resp[256];
@@ -419,8 +426,19 @@ void mxchip_do_cmd(char *cmd)
     if (strncasecmp(cmd, "echo", 4) == 0) {
         send_to_uart(cmd);
     } else if (strcmp(cmd, "gpio") == 0) {
-        sprintf(resp, "PASS");
+        sprintf(resp, mxchip_gpio_test());
         send_to_uart(resp);
+    } else if (strcmp(cmd, "pwr") == 0) {
+        sprintf(resp, mxchip_pwr_test());
+        send_to_uart(resp);
+    } else if (strcmp(cmd, "upgrade") == 0) {
+        sprintf(resp, mxchip_upgrade_test());
+        send_to_uart(resp);
+        if (need_upgrade == 1) {
+            mxchip_upgrade();
+            // if come here, means upgrade failed.
+            need_upgrade = -1;
+        }
     } else {
         sprintf(resp, "Unknown %s", cmd);
         send_to_uart(resp);

@@ -116,6 +116,11 @@ bool MicoShouldEnterMFGMode(void);
 
 bool MicoShouldEnterBootloader(void);
 
+
+char *mxchip_gpio_test(void);
+char *mxchip_pwr_test(void);
+char *mxchip_upgrade_test(void);
+
 /**
   * @}
   */

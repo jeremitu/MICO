@@ -293,6 +293,7 @@ typedef enum
 #define RestoreDefault_TimeOut          3000  /**< Restore default and start easylink after 
                                                    press down EasyLink button for 3 seconds. */
 
+
 #ifdef __cplusplus
 } /*extern "C" */
 #endif

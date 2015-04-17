@@ -3180,8 +3180,12 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</name>
         <excluded>
+          <configuration>MiCOKit-3162</configuration>
           <configuration>MiCOKit-F205</configuration>
         </excluded>
+      </file>
+      <file>
+        <name>C:\Users\bobo\Documents\WICED\Wiced-SDK-2.4.0\WICED-SDK\IAR_LIB\Library\mxchipWNet_cm3_sdio.a</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm3_spi.a</name>
