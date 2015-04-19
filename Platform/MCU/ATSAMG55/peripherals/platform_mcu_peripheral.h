@@ -177,30 +177,48 @@ typedef enum
  *                    Structures
  ******************************************************/
 
+typedef struct
+{
+    ioport_pin_t    pin;
+    bool            is_wakeup_pin;
+    uint8_t         wakeup_pin_number; /* wakeup pin number: 0 .. 15                     */
+    uint8_t         trigger;           /* wakeup trigger: IOPORT_SENSE_FALLING or RISING */
 
-typedef struct {
-    ioport_port_t   bank;
-    uint8_t         pin_number;
 } platform_gpio_t;
 
+// typedef struct {
+//     Usart                         *usart;
+//     ioport_mode_t                 mux_mode;
+//     ioport_port_t                 gpio_bank;
+//     ioport_port_mask_t            pin_tx;
+//     ioport_port_mask_t            pin_rx;
+//     ioport_port_mask_t            pin_cts;
+//     ioport_port_mask_t            pin_rts;
+//     Flexcom                       *flexcom_base;
+//     uint32_t                      id_peripheral_clock;
+//     IRQn_Type                     usart_irq;
+//     Pdc                           *dma_base;
+// } platform_uart_t;
+
 typedef struct {
-    Usart                         *usart;
-    ioport_mode_t                 mux_mode;
-    ioport_port_t                 gpio_bank;
-    ioport_port_mask_t            pin_tx;
-    ioport_port_mask_t            pin_rx;
-    ioport_port_mask_t            pin_cts;
-    ioport_port_mask_t            pin_rts;
-    Flexcom                       *flexcom_base;
-    uint32_t                      id_peripheral_clock;
-    IRQn_Type                     usart_irq;
-    Pdc                           *dma_base;
+    uint8_t                uart_id;
+    void*                  peripheral;       /* Usart* or Uart*  */
+    uint8_t                peripheral_id;    /* Peripheral ID    */
+    const platform_gpio_t* tx_pin;           /* Tx pin           */
+    ioport_mode_t          tx_pin_mux_mode;  /* Tx pin mux mode  */
+    const platform_gpio_t* rx_pin;           /* Rx pin           */
+    ioport_mode_t          rx_pin_mux_mode;  /* Tx pin mux mode  */
+    const platform_gpio_t* cts_pin;          /* CTS pin          */
+    ioport_mode_t          cts_pin_mux_mode; /* Tx pin mux mode  */
+    const platform_gpio_t* rts_pin;          /* RTS pin          */
+    ioport_mode_t          rts_pin_mux_mode; /* Tx pin mux mode  */
 } platform_uart_t;
+
 
 typedef struct
 {
     platform_uart_t*           peripheral;
-    ring_buffer_t*             rx_buffer;
+    ring_buffer_t*             rx_ring_buffer;
 #ifndef NO_MICO_RTOS
     mico_semaphore_t           rx_complete;
     mico_semaphore_t           tx_complete;
@@ -270,6 +288,8 @@ OSStatus platform_gpio_irq_manager_init      ( void );
 OSStatus platform_mcu_powersave_init         ( void );
 
 OSStatus platform_rtc_init                   ( void );
+
+OSStatus platform_gpio_peripheral_pin_init( const platform_gpio_t* gpio, ioport_mode_t pin_mode );
 
 void     platform_uart_irq                   ( platform_uart_driver_t* driver );
 void     platform_uart_tx_dma_irq            ( platform_uart_driver_t* driver );

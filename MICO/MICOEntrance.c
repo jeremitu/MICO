@@ -291,7 +291,7 @@ int application_start(void)
   mico_rtos_init_mutex(&context->flashContentInRam_mutex);
   mico_rtos_init_semaphore(&context->micoStatus.sys_state_change_sem, 1); 
 
-  MICOReadConfiguration( context );
+  //MICOReadConfiguration( context );
 
   err = MICOInitNotificationCenter  ( context );
 

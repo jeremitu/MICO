@@ -84,11 +84,14 @@ static mico_timer_t _button_EL_timer;
 const platform_gpio_t platform_gpio_pins[] =
 {
   /* Common GPIOs for internal use */
+  [STDIO_UART_TX]                       = { IOPORT_CREATE_PIN( PIOA, 28 ),  false, 0, 0  },
+  [STDIO_UART_RX]                       = { IOPORT_CREATE_PIN( PIOA, 29 ),  false, 0, 0 },  
 
   /* GPIOs for external use */
-  [WL_GPIO0]                         = {PORTA, 26},
-  [MICO_GPIO_0]                       = { PORTA,  6 },
-  [MICO_GPIO_9]                       = {PORTA,  24},
+  [WL_GPIO0]                          = { IOPORT_CREATE_PIN( PIOA, 26 ),  false, 0, 0 },
+  [MICO_GPIO_0]                       = { IOPORT_CREATE_PIN( PIOA,  6 ),  false, 0, 0  },
+  [MICO_GPIO_1]                       = { IOPORT_CREATE_PIN( PIOA,  2 ),  true,  2, IOPORT_SENSE_FALLING },
+
 };
 
 const platform_adc_t *platform_adc_peripherals = NULL;
@@ -103,32 +106,43 @@ const platform_uart_t platform_uart_peripherals[] =
 {
   [MICO_UART_1] =
   {
-    .usart               = USART7,
-    .mux_mode            = IOPORT_MODE_MUX_B,
-    .gpio_bank           = IOPORT_PIOA,
-    .pin_tx              = PIO_PA28B_TXD7, //1 << 28,
-    .pin_rx              = PIO_PA27B_RXD7, //1 << 27,
-    .pin_cts             = NULL,
-    .pin_rts             = NULL,
-    .flexcom_base        = FLEXCOM7,
-    .id_peripheral_clock = ID_FLEXCOM7,
-    .usart_irq           = FLEXCOM7_IRQn,
-    .dma_base            = PDC_USART7,
+  .uart_id          = 7,
+  .peripheral       = USART7,
+  .peripheral_id    = ID_FLEXCOM7,
+  .tx_pin           = &platform_gpio_pins[STDIO_UART_TX],
+  .tx_pin_mux_mode  = IOPORT_MODE_MUX_B,
+  .rx_pin           = &platform_gpio_pins[STDIO_UART_RX],
+  .rx_pin_mux_mode  = IOPORT_MODE_MUX_B,
+  .cts_pin          = NULL, /* flow control isn't supported */
+  .cts_pin_mux_mode = IOPORT_MODE_MUX_B,
+  .rts_pin          = NULL, /* flow control isn't supported */
+  .rts_pin_mux_mode = IOPORT_MODE_MUX_B,
+    // .usart               = USART7,
+    // .mux_mode            = IOPORT_MODE_MUX_B,
+    // .gpio_bank           = IOPORT_PIOA,
+    // .pin_tx              = PIO_PA28B_TXD7, //1 << 28,
+    // .pin_rx              = PIO_PA27B_RXD7, //1 << 27,
+    // .pin_cts             = NULL,
+    // .pin_rts             = NULL,
+    // .flexcom_base        = FLEXCOM7,
+    // .id_peripheral_clock = ID_FLEXCOM7,
+    // .usart_irq           = FLEXCOM7_IRQn,
+    // .dma_base            = PDC_USART7,
   },
-  [MICO_UART_2] =
-  {
-    .usart               = USART0,
-    .mux_mode            = IOPORT_MODE_MUX_A,
-    .gpio_bank           = IOPORT_PIOA,
-    .pin_tx              = PIO_PA10A_TXD0, //1 << 10,
-    .pin_rx              = PIO_PA9A_RXD0, //1 << 9 ,
-    .pin_cts             = NULL,
-    .pin_rts             = NULL,
-    .flexcom_base        = FLEXCOM0,
-    .id_peripheral_clock = ID_FLEXCOM0,
-    .usart_irq           = FLEXCOM0_IRQn,
-    .dma_base            = PDC_USART0,
-  },
+//  [MICO_UART_2] =
+//  {
+//    .usart               = USART0,
+//    .mux_mode            = IOPORT_MODE_MUX_A,
+//    .gpio_bank           = IOPORT_PIOA,
+//    .pin_tx              = PIO_PA10A_TXD0, //1 << 10,
+//    .pin_rx              = PIO_PA9A_RXD0, //1 << 9 ,
+//    .pin_cts             = NULL,
+//    .pin_rts             = NULL,
+//    .flexcom_base        = FLEXCOM0,
+//    .id_peripheral_clock = ID_FLEXCOM0,
+//    .usart_irq           = FLEXCOM0_IRQn,
+//    .dma_base            = PDC_USART0,
+//  },
 };
 
 platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
@@ -176,12 +190,12 @@ const platform_spi_t wifi_spi;
 *           Interrupt Handler Definitions
 ******************************************************/
 
-MICO_RTOS_DEFINE_ISR( USART1_IRQHandler )
+MICO_RTOS_DEFINE_ISR( FLEXCOM7_Handler )
 {
     platform_uart_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-MICO_RTOS_DEFINE_ISR( USART2_IRQHandler )
+MICO_RTOS_DEFINE_ISR( FLEXCOM0_Handler )
 {
     platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
 }
@@ -226,7 +240,9 @@ static void _button_EL_Timeout_handler( void* arg )
 
 void platform_init_peripheral_irq_priorities( void )
 {
-  /* Interrupt priority setup. Called by WICED/platform/MCU/STM32F2xx/platform_init.c */
+  NVIC_SetPriority  ( PIOA_IRQn,      14 );
+  NVIC_SetPriority  ( PIOB_IRQn,      14 );
+  NVIC_SetPriority  ( FLEXCOM7_IRQn,   6 );  /* STDIO  UART  */
 //  NVIC_SetPriority( RTC_WKUP_IRQn    ,  1 ); /* RTC Wake-up event   */
 //  NVIC_SetPriority( SDIO_IRQn        ,  2 ); /* WLAN SDIO           */
 //  NVIC_SetPriority( DMA2_Stream3_IRQn,  3 ); /* WLAN SDIO DMA       */
@@ -248,19 +264,19 @@ void platform_init_peripheral_irq_priorities( void )
 
 void init_platform( void )
 {
-  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
-  MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
-  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
-  MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
-  
+//  MicoGpioInitialize( (mico_gpio_t)MICO_SYS_LED, OUTPUT_PUSH_PULL );
+//  MicoGpioOutputHigh( (mico_gpio_t)MICO_SYS_LED );
+//  MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_OPEN_DRAIN_NO_PULL );
+//  MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
+//  
   //  Initialise EasyLink buttons
   MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
   mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
   MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_BOTH_EDGES, _button_EL_irq_handler, NULL );
-  
-  //  Initialise Standby/wakeup switcher
-  MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
-  MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
+//  
+//  //  Initialise Standby/wakeup switcher
+//  MicoGpioInitialize( (mico_gpio_t)Standby_SEL, INPUT_PULL_UP );
+//  MicoGpioEnableIRQ( (mico_gpio_t)Standby_SEL , IRQ_TRIGGER_FALLING_EDGE, _button_STANDBY_irq_handler, NULL);
 
 #if defined ( USE_MICO_SPI_FLASH )
   MicoFlashInitialize( MICO_SPI_FLASH );

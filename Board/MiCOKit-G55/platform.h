@@ -197,6 +197,8 @@ extern "C"
 
 typedef enum
 {
+    STDIO_UART_TX,
+    STDIO_UART_RX,
     WL_GPIO0,
 
     MICO_GPIO_0,
@@ -307,7 +309,7 @@ typedef enum
 #define MICO_I2C_CP      (MICO_I2C_1)
 #define MICO_SYS_LED     (MICO_GPIO_NONE)
 #define MICO_RF_LED      (MICO_GPIO_NONE)
-#define EasyLink_BUTTON  (MICO_GPIO_NONE)
+#define EasyLink_BUTTON  (MICO_GPIO_1)
 #define Standby_SEL      (MICO_GPIO_NONE)
 #define BOOT_SEL         (MICO_GPIO_NONE)
 #define MFG_SEL          (MICO_GPIO_NONE)

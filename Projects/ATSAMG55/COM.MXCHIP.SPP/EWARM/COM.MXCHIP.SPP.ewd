@@ -4132,7 +4132,7 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>STLINK_ID</state>
+          <state>CMSISDAP_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
@@ -4346,7 +4346,7 @@
         <option>
           <name>CMSISDAPResetList</name>
           <version>1</version>
-          <state>10</state>
+          <state>4</state>
         </option>
         <option>
           <name>CMSISDAPHWResetDuration</name>
@@ -4366,7 +4366,7 @@
         </option>
         <option>
           <name>CMSISDAPInterfaceRadio</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>CMSISDAPInterfaceCmdLine</name>
@@ -4383,7 +4383,7 @@
         <option>
           <name>CMSISDAPJtagSpeedList</name>
           <version>0</version>
-          <state>0</state>
+          <state>4</state>
         </option>
         <option>
           <name>CMSISDAPBreakpointRadio</name>
@@ -4483,7 +4483,7 @@
         </option>
         <option>
           <name>CMSISDAPSelectedCPUBehaviour</name>
-          <state>0</state>
+          <state></state>
         </option>
         <option>
           <name>ICpuName</name>
@@ -5052,7 +5052,7 @@
         <option>
           <name>CEmuCommPort</name>
           <version>0</version>
-          <state>0</state>
+          <state>4</state>
         </option>
         <option>
           <name>jtago</name>
@@ -5119,7 +5119,7 @@
         </option>
         <option>
           <name>CCPEMicroJtagSpeed</name>
-          <state>#UNINITIALIZED#</state>
+          <state>5000</state>
         </option>
         <option>
           <name>CCJPEMicroShowSettings</name>
@@ -5174,7 +5174,7 @@
         <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
-          <state>###Uninitialized###</state>
+          <state>Browse to your RDI driver</state>
         </option>
         <option>
           <name>CRDILogFileCheck</name>
@@ -5269,7 +5269,7 @@
         <debug>0</debug>
         <option>
           <name>CThirdPartyDriverDll</name>
-          <state>###Uninitialized###</state>
+          <state>Browse to your third-party driver</state>
         </option>
         <option>
           <name>CThirdPartyLogFileCheck</name>

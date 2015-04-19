@@ -198,9 +198,27 @@ void init_architecture( void )
     NVIC ->IP[i] = 0xff;
   }
   
-  NVIC_SetPriorityGrouping(__NVIC_PRIO_BITS + 1);
+  //NVIC_SetPriorityGrouping( 7 - __NVIC_PRIO_BITS );
 
+  /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
+//  NVIC_SetPriority(MemoryManagement_IRQn,       -3);
+//  NVIC_SetPriority(BusFault_IRQn,               -2);
+//  NVIC_SetPriority(UsageFault_IRQn,             -1);
+//  NVIC_SetPriority(SVCall_IRQn,                 0);
+//  NVIC_SetPriority(DebugMonitor_IRQn,           0);
+//  NVIC_SetPriority(PendSV_IRQn,                 ((1 << __NVIC_PRIO_BITS) - 1));
+//  NVIC_SetPriority(SysTick_IRQn,                ((1 << __NVIC_PRIO_BITS) - 1));
+  
+  /*
+   * enable 3 exception interrupt
+   */
+  SCB->SHCSR |= SCB_SHCSR_USGFAULTENA_Msk;
+  SCB->SHCSR |= SCB_SHCSR_BUSFAULTENA_Msk;
+  SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;  
+  
   platform_init_peripheral_irq_priorities();
+  
+  ioport_init();
 
   /* Initialise GPIO IRQ manager */
   platform_gpio_irq_manager_init();
@@ -220,9 +238,9 @@ void init_architecture( void )
   /* Ensure 802.11 device is in reset. */
   host_platform_init( );
 
-#ifdef BOOTLOADER
+//#ifdef BOOTLOADER
   return;
-#endif
+//#endif
   
   /* Initialise RTC */
   platform_rtc_init( );

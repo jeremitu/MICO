@@ -524,6 +524,9 @@
       </file>
     </group>
     <file>
+      <name>$PROJ_DIR$\..\..\..\..\include\Debug.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\include\MICO.h</name>
     </file>
     <file>
@@ -577,10 +580,7 @@
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\MICOConfig.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm3_sdio.a</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm3_spi.a</name>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_spi.a</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</name>
@@ -697,7 +697,19 @@
     <group>
       <name>EWARM</name>
       <file>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\EWARM\close.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\EWARM\lseek.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Platform\EWARM\remove.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\..\..\..\Platform\EWARM\Retarget.c</name>
+        <configuration>
+          <name>MiCOKit-G55</name>
+        </configuration>
       </file>
     </group>
     <group>

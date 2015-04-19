@@ -87,11 +87,11 @@ __vector_table
         DCD     0                         ; Reserved
         DCD     0                         ; Reserved
         DCD     0                         ; Reserved
-        DCD     SVC_Handler               ; SVCall Handler
+        DCD     SVC_Handler           ; SVCall Handler
         DCD     DebugMon_Handler          ; Debug Monitor Handler
         DCD     0                         ; Reserved
-        DCD     PendSV_Handler            ; PendSV Handler
-        DCD     SysTick_Handler           ; SysTick Handler
+        DCD     xPortPendSVHandler        ; PendSV Handler
+        DCD     SysTick_Handler       ; SysTick Handler
 
          ; External Interrupts
         DCD     SUPC_Handler                      ; 0  Supply Controller                            
@@ -189,12 +189,12 @@ UsageFault_Handler
         SECTION .text:CODE:REORDER:NOROOT(1)
 SVC_Handler
         B vPortSVCHandler
-
+        
         PUBWEAK DebugMon_Handler
         SECTION .text:CODE:REORDER:NOROOT(1)
 DebugMon_Handler
         B DebugMon_Handler
-
+        
         PUBWEAK PendSV_Handler
         SECTION .text:CODE:REORDER:NOROOT(1)
 PendSV_Handler

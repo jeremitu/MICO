@@ -520,66 +520,44 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_i2c.c",
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c",
 			"settings":
 			{
-				"buffer_size": 4739,
+				"buffer_size": 10516,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_mcu_powersave.c",
+			"contents": "Searching 1436 files for \"MMFLT_IRQn_PRIO\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c:\n  204    \n  205    /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */\n  206:   NVIC_SetPriority(MMFLT_IRQn,  MMFLT_IRQn_PRIO);\n  207    NVIC_SetPriority(BUSFLT_IRQn, BUSFLT_IRQn_PRIO);\n  208    NVIC_SetPriority(USGFLT_IRQn, USGFLT_IRQn_PRIO);\n\n/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h:\n   75      NMI_IRQn_PRIO		= -2,\n   76      HARDFLT_IRQn_PRIO	= -1,\n   77:     MMFLT_IRQn_PRIO		= 0,\n   78      BUSFLT_IRQn_PRIO	= 0,\n   79      USGFLT_IRQn_PRIO	= 0,\n\n2 matches across 2 files\n\n\nSearching 1436 files for \"max_syscall_int_prio\" (whole word)\n\n0 matches across 0 files\n",
 			"settings":
 			{
-				"buffer_size": 5221,
+				"buffer_size": 790,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h",
+			"settings":
+			{
+				"buffer_size": 5085,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_pwm.c",
+			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 			"settings":
 			{
-				"buffer_size": 3150,
+				"buffer_size": 6936,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_rng.c",
+			"file": "/Users/William/Develop/MiCO/include/Debug.h",
 			"settings":
 			{
-				"buffer_size": 3128,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_spi.c",
-			"settings":
-			{
-				"buffer_size": 3333,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_adc.c",
-			"settings":
-			{
-				"buffer_size": 3407,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
-			"settings":
-			{
-				"buffer_size": 23066,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
-			"settings":
-			{
-				"buffer_size": 8583,
+				"buffer_size": 30641,
 				"line_ending": "Windows"
 			}
 		}
@@ -644,6 +622,14 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_i2c.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_mcu_powersave.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_pwm.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_rng.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_adc.c",
+		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
@@ -658,7 +644,6 @@
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_flash.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_uart.c",
-		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
 		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/MICO/MICOMfgtest.c",
 		"/Users/william/Develop/MiCO/Board/MiCOKit-3288/platform.h",
@@ -764,14 +749,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/EMW1062_platform.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverAdc.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverGpio.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverI2c.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverPwm.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRng.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverRtc.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverSpi.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverUart.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverWdg.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MICO.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDrivers/MicoDriverI2c.h"
 	],
 	"find":
 	{
@@ -798,6 +776,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"max_syscall_int_prio",
+			"MMFLT_IRQn_PRIO",
 			"USE_MICO_SPI_FLASH",
 			"EMW1062",
 			"MICO_DEFAULT_TICK_RATE_HZ",
@@ -923,9 +903,7 @@
 			"sdio_prepare_data_transfer",
 			"WL_GPIO0_BANK",
 			"host_platform_init",
-			"host_platform_bus_init",
-			"WL_GPIO0_BANK",
-			"SPI_IRQ_BANK"
+			"host_platform_bus_init"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -945,23 +923,23 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_i2c.c",
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/platform_init.c",
 					"settings":
 					{
-						"buffer_size": 4739,
+						"buffer_size": 10516,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								4739
+								7317,
+								6670
 							]
 						],
 						"settings":
@@ -971,157 +949,92 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1600.0,
+						"translation.y": 3745.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_mcu_powersave.c",
 					"settings":
 					{
-						"buffer_size": 5221,
+						"buffer_size": 790,
 						"regions":
 						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										292,
+										307
+									],
+									[
+										587,
+										602
+									]
+								],
+								"scope": ""
+							}
 						},
 						"selection":
 						[
 							[
-								0,
-								5221
+								703,
+								703
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"detect_indentation": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 544.0,
+						"translation.y": 361.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_pwm.c",
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/Libraries/inc/irqs.h",
 					"settings":
 					{
-						"buffer_size": 3150,
+						"buffer_size": 5085,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								3150
+								1520,
+								1551
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 540.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_rng.c",
+					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform_config.h",
 					"settings":
 					{
-						"buffer_size": 3128,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								3128
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_spi.c",
-					"settings":
-					{
-						"buffer_size": 3333,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								3333
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_adc.c",
-					"settings":
-					{
-						"buffer_size": 3407,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								3407
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 162.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
-					"settings":
-					{
-						"buffer_size": 23066,
+						"buffer_size": 6936,
 						"regions":
 						{
 						},
@@ -1134,30 +1047,28 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3649.0,
+						"translation.y": 2167.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
+					"buffer": 4,
+					"file": "/Users/William/Develop/MiCO/include/Debug.h",
 					"settings":
 					{
-						"buffer_size": 8583,
+						"buffer_size": 30641,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5511,
-								4940
+								1762,
+								1762
 							]
 						],
 						"settings":
@@ -1167,7 +1078,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2784.0,
+						"translation.y": 332.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

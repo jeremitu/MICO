@@ -150,12 +150,12 @@
 #define DRIVER_END_ADDRESS          (uint32_t)0x0004FFFF
 #define DRIVER_FLASH_SIZE           (DRIVER_END_ADDRESS - DRIVER_START_ADDRESS + 1) /* 312k bytes*/
 
-#define MICO_FLASH_FOR_PARA         MICO_SPI_FLASH
-#define PARA_START_ADDRESS          (uint32_t)0x00000000
-#define PARA_END_ADDRESS            (uint32_t)0x00000FFF
+#define MICO_FLASH_FOR_PARA         MICO_INTERNAL_FLASH
+#define PARA_START_ADDRESS          (uint32_t)0x00400000
+#define PARA_END_ADDRESS            (uint32_t)0x00400FFF
 #define PARA_FLASH_SIZE             (PARA_END_ADDRESS - PARA_START_ADDRESS + 1)   /* 4k bytes*/
 
-#define MICO_FLASH_FOR_EX_PARA      MICO_SPI_FLASH
+#define MICO_FLASH_FOR_EX_PARA      MICO_INTERNAL_FLASH
 #define EX_PARA_START_ADDRESS       (uint32_t)0x00001000
 #define EX_PARA_END_ADDRESS         (uint32_t)0x00001FFF
 #define EX_PARA_FLASH_SIZE          (EX_PARA_END_ADDRESS - EX_PARA_START_ADDRESS + 1)   /* 4k bytes*/
