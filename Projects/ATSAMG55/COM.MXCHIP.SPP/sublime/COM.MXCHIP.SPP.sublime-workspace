@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"req",
+				"require_action(X, LABEL, ACTION)	macro"
+			],
+			[
+				"r",
+				"rx_ring_buffer	ring_buffer_t *"
+			],
+			[
+				"uint",
+				"uint8_t	typedef"
+			],
+			[
+				"MicoGpioO",
+				"MicoGpioOutputTrigger(mico_gpio_t gpio)	OSStatus"
+			],
+			[
+				"MICO_GP",
+				"MICO_GPIO_0	mico_gpio_t"
+			],
+			[
+				"MicoGpio",
+				"MicoGpioInitialize(mico_gpio_t gpio, mico_gpio_config_t configuration)	OSStatus"
+			],
+			[
 				"mico",
 				"mico_gpio_t	typedef"
 			],
@@ -36,10 +60,6 @@
 				"platform_watchdog_kick()	OSStatus"
 			],
 			[
-				"req",
-				"require_noerr(ERR, LABEL)	macro"
-			],
-			[
 				"ch",
 				"chunkedDataBufferLen	unsigned int"
 			],
@@ -50,10 +70,6 @@
 			[
 				"kUn",
 				"kUnknownErr	macro"
-			],
-			[
-				"uint",
-				"uint32_t	typedef"
 			],
 			[
 				"o",
@@ -74,10 +90,6 @@
 			[
 				"pi",
 				"pin_rx	const platform_pin_mapping_t *"
-			],
-			[
-				"MicoGpio",
-				"MicoGpioEnableIRQ(mico_gpio_t gpio, mico_gpio_irq_trigger_t trigger, mico_gpio_irq_handler_t handler, void *arg)	OSStatus"
 			],
 			[
 				"MicoGP",
@@ -114,10 +126,6 @@
 			[
 				"s",
 				"security	SECURITY_TYPE_E"
-			],
-			[
-				"MicoGpioO",
-				"MicoGpioOutputLow(mico_gpio_t gpio)	OSStatus"
 			],
 			[
 				"k",
@@ -506,19 +514,27 @@
 			[
 				"page",
 				"pagesNumber	uint8_t"
-			],
-			[
-				"CP_",
-				"CP_I2C_RETRY_TIMES	macro"
-			],
-			[
-				"WAC",
-				"WAC_OUI_default	const uint8_t[]"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_uart.c",
+			"settings":
+			{
+				"buffer_size": 15006,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
+			"settings":
+			{
+				"buffer_size": 16507,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -580,7 +596,27 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.h",
+		"/Users/William/Develop/MiCO/Projects/ATSAMG55/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/mico_driver_uart.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/ioport/ioport.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/samg55.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.c",
+		"/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/usart.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/EWARM/startup_ATSAMG55_EWARM.s",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_uart.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/usart.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/src/usart.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/flexcom.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/flexcom.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/ioport/sam/ioport_pio.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/samg55j19.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/clock/samg/osc.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/pio.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.h",
@@ -687,27 +723,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOConfigServer.c",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/ff_gen_drv.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/diskio.h",
-		"/Users/william/Develop/Clang_lib/ARMCC/include/stdio.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOConfigDelegate.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.HA/HaProtocol.c",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoRTOS.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.c",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2XX/STM32F2XX_Drv/STM32F2xx_StdPeriph_Driver/inc/stm32f2xx_rcc.h",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/integer.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/HomeKitUserInterface.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MICOAppDefine.h",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/include/MICO.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.Apple.HomeKit/MicoDefaults.h",
-		"/Users/william/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/HTTPUtils.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MICO_EVB_1/platform.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/FatFs/src/diskio.h"
 	],
 	"find":
 	{
@@ -715,7 +731,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -734,6 +750,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"pdc_uart_rx_packet",
+			"usart_init_hw_handshaking",
+			"platform_gpio_peripheral_pin_init",
+			"PIO_PA28B_TXD7",
+			"ioport_set_port_peripheral_mode",
+			"PIO_ESR",
+			"gpio_irq_data",
+			"samg5x_gpio_irq_data_t",
 			"Standby_SEL",
 			"platform_reset_wlan_powersave_clock",
 			"host_platform_deinit_wlan_powersave_clock",
@@ -853,15 +877,7 @@
 			"findChunkedDataLength",
 			"HTTPHeaderParse",
 			"chunck",
-			"inHeader->chunkedData =",
-			"inHeader->chunkedData",
-			"otaDataPtr",
-			"HTTPHeaderClear",
-			"unlock",
-			"dataEndedbyClose",
-			"onClear",
-			"flashStorageAddress",
-			"  /* For MXCHIP OTA function, store extra data to OTA data temporary */\n//   err = HTTPGetHeaderField( inHeader->buf, inHeader->len, \"Content-Type\", NULL, NULL, &value, &valueSize, NULL );\n\n//   if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){\n// #ifdef MICO_FLASH_FOR_UPDATE  \n//     http_utils_log(\"Receive OTA data!\");    \n//     flashStorageAddress = UPDATE_START_ADDRESS;\n//     err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );\n//     require_noerr(err, exit);\n//     err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);\n//     require_noerr(err, exit);\n//     err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);\n//     require_noerr(err, exit);\n// #else\n//     http_utils_log(\"OTA flash memory is not existed!\");\n//     err = kUnsupportedErr;\n// #endif\n//     goto exit;\n//   }"
+			"inHeader->chunkedData ="
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -882,8 +898,65 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_uart.c",
+					"settings":
+					{
+						"buffer_size": 15006,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7018,
+								7018
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3063.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
+					"settings":
+					{
+						"buffer_size": 16507,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9399,
+								9399
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4488.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -920,7 +993,7 @@
 	"menu_visible": true,
 	"output.clang":
 	{
-		"height": 216.0
+		"height": 236.0
 	},
 	"output.exec":
 	{

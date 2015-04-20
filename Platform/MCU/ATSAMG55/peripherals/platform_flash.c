@@ -70,6 +70,16 @@
 		cpu_irq_enable();         \
 	} while (0)
           
+typedef enum
+{
+    SAMG55_FLASH_ERASE_4_PAGES = 0x04,
+    SAMG55_FLASH_ERASE_8_PAGES = 0x08,
+    SAMG55_FLASH_ERASE_16_PAGES = 0x10,
+    SAMG55_FLASH_ERASE_32_PAGES = 0x20,
+} samg55_flash_erase_page_amount_t;
+
+
+
 /* Private variables ---------------------------------------------------------*/
 #ifdef USE_MICO_SPI_FLASH
 static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};
@@ -253,24 +263,90 @@ exit:
   return err;
 }
 
-OSStatus internalFlashInitialize( void )
+static OSStatus internalFlashInitialize( void )
 { 
   platform_log_trace();
-  uint32_t ul_rc;
-  
-  ul_rc = flash_init(FLASH_ACCESS_MODE_128, 6);//TBD! 3-4 wait in 128bit, 1 in 64bit
-  if (ul_rc != FLASH_RC_OK) {
-    platform_log("flash err:%d",ul_rc);
-    return kGeneralErr;
-    }
-  
   return kNoErr; 
 }
+
+static OSStatus platform_erase_flash_pages( uint32_t start_page, samg55_flash_erase_page_amount_t total_pages )
+{
+    uint32_t erase_result = 0;
+    uint32_t argument = 0;
+
+    platform_watchdog_kick( );
+
+    if ( total_pages == 32 )
+    {
+        start_page &= ~( 32u - 1u );
+        argument = ( start_page ) | 3; /* 32 pages */
+    }
+    else if ( total_pages == 16 )
+    {
+        start_page &= ~( 16u - 1u );
+        argument = ( start_page ) | 2; /* 16 pages */
+    }
+    else if ( total_pages == 8 )
+    {
+        start_page &= ~( 8u - 1u );
+        argument = ( start_page ) | 1; /* 8 pages */
+    }
+    else
+    {
+        start_page &= ~( 4u - 1u );
+        argument = ( start_page ) | 0; /* 4 pages */
+    }
+
+    erase_result = efc_perform_command( EFC0, EFC_FCMD_EPA, argument );
+
+    platform_watchdog_kick( );
+
+    return ( erase_result == 0 ) ? PLATFORM_SUCCESS : PLATFORM_ERROR;
+}
+
+
+//uint32_t flash_erase_page(uint32_t ul_address, uint8_t uc_page_num)
+
 
 OSStatus internalFlashErase(uint32_t start_address, uint32_t end_address)
 {
   platform_log_trace();
+  uint32_t i;
   OSStatus err = kNoErr;
+  uint32_t page_start_address, page_end_address;
+  uint32_t page_start_number, page_end_number;
+
+  platform_mcu_powersave_disable();
+
+  require_action( flash_lock( start_address, end_address, &page_start_address, &page_end_address ) == FLASH_RC_OK, exit, err = kGeneralErr );
+
+  page_start_number = page_start_address/512;
+  page_end_number   = page_end_address/512;
+  require_action( page_end_number >= page_start_number + 16, exit, err = kUnsupportedErr);
+
+  for ( i = page_start_number; i <= page_end_number; i+=16 )
+  {
+    require_action( flash_erase_page( i * 512, IFLASH_ERASE_PAGES_16) == FLASH_RC_OK, exit, err = kGeneralErr );
+  }
+
+  require_action( flash_unlock( start_address, end_address, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	uint32_t page_addr = start_address;
 	uint32_t page_off  = page_addr % (IFLASH_PAGE_SIZE*16);
 	uint32_t rc, erased = 0;
@@ -289,6 +365,9 @@ OSStatus internalFlashErase(uint32_t start_address, uint32_t end_address)
 			return kGeneralErr;
 		}
 	}
+
+exit:
+  platform_mcu_powersave_enable();
   return err;
 }
 
