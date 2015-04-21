@@ -289,16 +289,16 @@ typedef enum
 
 
 #ifdef BOOTLOADER
-#define STDIO_UART       MICO_UART_1
+#define STDIO_UART       MICO_UART_2
 #define STDIO_UART_BAUDRATE (115200) 
 #else
-#define STDIO_UART       MICO_UART_1
+#define STDIO_UART       MICO_UART_2
 #define STDIO_UART_BAUDRATE (115200) 
 #endif
 
-#define UART_FOR_APP     MICO_UART_2
-#define MFG_TEST         MICO_UART_1
-#define CLI_UART         MICO_UART_1
+#define UART_FOR_APP     MICO_UART_1
+#define MFG_TEST         MICO_UART_2
+#define CLI_UART         MICO_UART_2
 
 //#define USE_MICO_SPI_FLASH
 //#define SFLASH_SUPPORT_MACRONIX_PARTS 

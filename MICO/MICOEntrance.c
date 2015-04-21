@@ -291,7 +291,7 @@ int application_start(void)
   mico_rtos_init_mutex(&context->flashContentInRam_mutex);
   mico_rtos_init_semaphore(&context->micoStatus.sys_state_change_sem, 1); 
 
-  //MICOReadConfiguration( context );
+  MICOReadConfiguration( context );
 
   err = MICOInitNotificationCenter  ( context );
 
@@ -308,12 +308,13 @@ int application_start(void)
   require_noerr( err, exit ); 
 
   /*wlan driver and tcpip init*/
+  mico_log( "MiCO starting..." );
   MicoInit();
-#ifdef MICO_CLI_ENABLE  
+#ifdef MICO_CLI_ENABLE
   MicoCliInit();
 #endif
   MicoSysLed(true);
-  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory) ; 
+  mico_log("Free memory %d bytes", MicoGetMemoryInfo()->free_memory); 
   micoWlanGetIPStatus(&para, Station);
   formatMACAddr(context->micoStatus.mac, (char *)&para.mac);
   MicoGetRfVer(wifi_ver, sizeof(wifi_ver));

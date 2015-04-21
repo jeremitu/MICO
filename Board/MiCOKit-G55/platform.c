@@ -86,11 +86,14 @@ const platform_gpio_t platform_gpio_pins[] =
   /* Common GPIOs for internal use */
   [STDIO_UART_TX]                       = { IOPORT_CREATE_PIN( PIOA, 28 ),  false, 0, 0  },
   [STDIO_UART_RX]                       = { IOPORT_CREATE_PIN( PIOA, 29 ),  false, 0, 0 },  
+ 
 
   /* GPIOs for external use */
   [WL_GPIO0]                          = { IOPORT_CREATE_PIN( PIOA, 26 ),  false, 0, 0 },
   [MICO_GPIO_0]                       = { IOPORT_CREATE_PIN( PIOA,  6 ),  false, 0, 0  },
   [MICO_GPIO_1]                       = { IOPORT_CREATE_PIN( PIOA,  2 ),  true,  2, IOPORT_SENSE_FALLING },
+  [MICO_GPIO_2]                       = { IOPORT_CREATE_PIN( PIOB,  0 ),  false, 0, 0  },
+  [MICO_GPIO_3]                       = { IOPORT_CREATE_PIN( PIOB,  1 ),  false, 0, 0 }, 
 
 };
 
@@ -117,32 +120,21 @@ const platform_uart_t platform_uart_peripherals[] =
   .cts_pin_mux_mode = IOPORT_MODE_MUX_B,
   .rts_pin          = NULL, /* flow control isn't supported */
   .rts_pin_mux_mode = IOPORT_MODE_MUX_B,
-    // .usart               = USART7,
-    // .mux_mode            = IOPORT_MODE_MUX_B,
-    // .gpio_bank           = IOPORT_PIOA,
-    // .pin_tx              = PIO_PA28B_TXD7, //1 << 28,
-    // .pin_rx              = PIO_PA27B_RXD7, //1 << 27,
-    // .pin_cts             = NULL,
-    // .pin_rts             = NULL,
-    // .flexcom_base        = FLEXCOM7,
-    // .id_peripheral_clock = ID_FLEXCOM7,
-    // .usart_irq           = FLEXCOM7_IRQn,
-    // .dma_base            = PDC_USART7,
   },
-//  [MICO_UART_2] =
-//  {
-//    .usart               = USART0,
-//    .mux_mode            = IOPORT_MODE_MUX_A,
-//    .gpio_bank           = IOPORT_PIOA,
-//    .pin_tx              = PIO_PA10A_TXD0, //1 << 10,
-//    .pin_rx              = PIO_PA9A_RXD0, //1 << 9 ,
-//    .pin_cts             = NULL,
-//    .pin_rts             = NULL,
-//    .flexcom_base        = FLEXCOM0,
-//    .id_peripheral_clock = ID_FLEXCOM0,
-//    .usart_irq           = FLEXCOM0_IRQn,
-//    .dma_base            = PDC_USART0,
-//  },
+  [MICO_UART_2] =
+  {
+  .uart_id          = 6,
+  .peripheral       = USART6,
+  .peripheral_id    = ID_FLEXCOM6,
+  .tx_pin           = &platform_gpio_pins[MICO_GPIO_2],
+  .tx_pin_mux_mode  = IOPORT_MODE_MUX_B,
+  .rx_pin           = &platform_gpio_pins[MICO_GPIO_3],
+  .rx_pin_mux_mode  = IOPORT_MODE_MUX_B,
+  .cts_pin          = NULL, /* flow control isn't supported */
+  .cts_pin_mux_mode = IOPORT_MODE_MUX_B,
+  .rts_pin          = NULL, /* flow control isn't supported */
+  .rts_pin_mux_mode = IOPORT_MODE_MUX_B,
+  },
 };
 
 platform_uart_driver_t platform_uart_drivers[MICO_UART_MAX];
@@ -195,7 +187,7 @@ MICO_RTOS_DEFINE_ISR( FLEXCOM7_Handler )
     platform_uart_irq( &platform_uart_drivers[MICO_UART_1] );
 }
 
-MICO_RTOS_DEFINE_ISR( FLEXCOM0_Handler )
+MICO_RTOS_DEFINE_ISR( FLEXCOM6_Handler )
 {
     platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
 }
@@ -322,10 +314,10 @@ bool MicoShouldEnterMFGMode(void)
 
 bool MicoShouldEnterBootloader(void)
 {
-  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
+//  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
     return true;
-  else
-    return false;
+//  else
+//   return false;
 }
 
 

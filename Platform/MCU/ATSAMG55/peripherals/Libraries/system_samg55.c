@@ -72,7 +72,7 @@ extern "C" {
 #  define CHIP_FREQ_XTAL CHIP_FREQ_XTAL_12M
 #endif
 
-uint32_t SystemCoreClock = CHIP_FREQ_MAINCK_RC_8MHZ;
+uint32_t SystemCoreClock = CHIP_FREQ_CPU_MAX;
 
 /**
  * \brief Setup the microcontroller system.

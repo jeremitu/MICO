@@ -266,46 +266,15 @@ exit:
 static OSStatus internalFlashInitialize( void )
 { 
   platform_log_trace();
+  OSStatus err = kNoErr;
+  platform_mcu_powersave_disable();
+
+  require_action( flash_init(FLASH_ACCESS_MODE_128, 6) == FLASH_RC_OK, exit, err = kGeneralErr );
+  
+exit:
+  platform_mcu_powersave_enable();
   return kNoErr; 
 }
-
-static OSStatus platform_erase_flash_pages( uint32_t start_page, samg55_flash_erase_page_amount_t total_pages )
-{
-    uint32_t erase_result = 0;
-    uint32_t argument = 0;
-
-    platform_watchdog_kick( );
-
-    if ( total_pages == 32 )
-    {
-        start_page &= ~( 32u - 1u );
-        argument = ( start_page ) | 3; /* 32 pages */
-    }
-    else if ( total_pages == 16 )
-    {
-        start_page &= ~( 16u - 1u );
-        argument = ( start_page ) | 2; /* 16 pages */
-    }
-    else if ( total_pages == 8 )
-    {
-        start_page &= ~( 8u - 1u );
-        argument = ( start_page ) | 1; /* 8 pages */
-    }
-    else
-    {
-        start_page &= ~( 4u - 1u );
-        argument = ( start_page ) | 0; /* 4 pages */
-    }
-
-    erase_result = efc_perform_command( EFC0, EFC_FCMD_EPA, argument );
-
-    platform_watchdog_kick( );
-
-    return ( erase_result == 0 ) ? PLATFORM_SUCCESS : PLATFORM_ERROR;
-}
-
-
-//uint32_t flash_erase_page(uint32_t ul_address, uint8_t uc_page_num)
 
 
 OSStatus internalFlashErase(uint32_t start_address, uint32_t end_address)
@@ -318,7 +287,7 @@ OSStatus internalFlashErase(uint32_t start_address, uint32_t end_address)
 
   platform_mcu_powersave_disable();
 
-  require_action( flash_lock( start_address, end_address, &page_start_address, &page_end_address ) == FLASH_RC_OK, exit, err = kGeneralErr );
+  require_action( flash_unlock( start_address, end_address, &page_start_address, &page_end_address ) == FLASH_RC_OK, exit, err = kGeneralErr );
 
   page_start_number = page_start_address/512;
   page_end_number   = page_end_address/512;
@@ -329,42 +298,7 @@ OSStatus internalFlashErase(uint32_t start_address, uint32_t end_address)
     require_action( flash_erase_page( i * 512, IFLASH_ERASE_PAGES_16) == FLASH_RC_OK, exit, err = kGeneralErr );
   }
 
-  require_action( flash_unlock( start_address, end_address, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	uint32_t page_addr = start_address;
-	uint32_t page_off  = page_addr % (IFLASH_PAGE_SIZE*16);
-	uint32_t rc, erased = 0;
-    uint32_t size = end_address - start_address;
-	if (page_off) {
-		platform_log("flash: erase address must be 16 page aligned");
-		page_addr = page_addr - page_off;
-		platform_log("flash: erase from %x", (unsigned)page_addr);
-	}
-	for (erased = 0; erased < size;) {
-		rc = flash_erase_page((uint32_t)page_addr, IFLASH_ERASE_PAGES_16);
-		erased    += IFLASH_PAGE_SIZE*16;
-		page_addr += IFLASH_PAGE_SIZE*16;
-		if (rc != FLASH_RC_OK) {
-			platform_log("flash: %x erase error", (unsigned)page_addr);
-			return kGeneralErr;
-		}
-	}
+  require_action( flash_lock( start_address, end_address, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
 
 exit:
   platform_mcu_powersave_enable();
@@ -377,21 +311,21 @@ OSStatus internalFlashWrite(volatile uint32_t* flash_address, uint32_t* data ,ui
 {
   platform_log_trace();
   OSStatus err = kNoErr;
-  //page write length IFLASH_PAGE_SIZE
-    uint32_t rc ;
-    mem_flash_op_enter();
-#if SAMG55
-    rc = flash_write((*flash_address), data, data_length, false);
-#else 
-    rc = flash_write((*flash_address), data, data_length, true);
-#endif
-    mem_flash_op_exit();
-    if (rc != FLASH_RC_OK) {
-        platform_log("flash err: %d",rc);
-        return kGeneralErr;
-    }
-    *flash_address += data_length;
+  uint32_t start_address = * flash_address;
+
+  platform_mcu_powersave_disable();
+
+  //mem_flash_op_enter();
+  require_action( flash_unlock( start_address, start_address + data_length - 1, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
+
+  require_action( flash_write((*flash_address), data, data_length, false) == FLASH_RC_OK, exit, err = kGeneralErr );
+  *flash_address += data_length;
+
+  require_action( flash_lock( start_address, start_address + data_length - 1, NULL, NULL ) == FLASH_RC_OK, exit, err = kGeneralErr );
+  //mem_flash_op_exit();
+
 exit:
+  platform_mcu_powersave_enable();
   return err;
 }
 
