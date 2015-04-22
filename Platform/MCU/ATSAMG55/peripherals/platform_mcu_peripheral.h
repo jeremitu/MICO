@@ -167,10 +167,14 @@ typedef enum
     FLASH_TYPE_SPI,   
 } platform_flash_type_t;
 
+
+
 /******************************************************
  *                 Type Definitions
  ******************************************************/
 
+/* SPI port */
+typedef Spi   platform_spi_port_t;
 
 
 /******************************************************
@@ -202,7 +206,7 @@ typedef struct
 
 typedef struct {
     uint8_t                uart_id;
-    void*                  peripheral;       /* Usart* or Uart*  */
+    void*                  port;             /* Usart* or Uart*  */
     uint8_t                peripheral_id;    /* Peripheral ID    */
     const platform_gpio_t* tx_pin;           /* Tx pin           */
     ioport_mode_t          tx_pin_mux_mode;  /* Tx pin mux mode  */
@@ -252,7 +256,15 @@ typedef struct
 
 typedef struct
 {
-    uint8_t unimplemented;
+    uint8_t                spi_id;
+    platform_spi_port_t*   port;                /* Peripheral         */
+    uint8_t                peripheral_id;       /* Peripheral ID      */
+    const platform_gpio_t* mosi_pin;            /* MOSI pin           */
+    ioport_mode_t          mosi_pin_mux_mode;   /* MOSI pin mux mode  */
+    const platform_gpio_t* miso_pin;            /* MISO pin           */
+    ioport_mode_t          miso_pin_mux_mode;   /* MISO pin mux mode  */
+    const platform_gpio_t* clock_pin;           /* CLOCK pin          */
+    ioport_mode_t          clock_pin_mux_mode;  /* CLOCK pin mux mode */
 } platform_spi_t;
 
 typedef struct

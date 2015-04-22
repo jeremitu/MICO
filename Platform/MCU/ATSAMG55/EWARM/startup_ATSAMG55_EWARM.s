@@ -322,7 +322,7 @@ TC0_Handler
 
         PUBWEAK TC1_Handler
         SECTION .text:CODE:REORDER:NOROOT(1) 
-TC1_Handler  
+TC1_Handler
         B TC1_Handler
 
         PUBWEAK TC2_Handler

@@ -110,7 +110,7 @@ const platform_uart_t platform_uart_peripherals[] =
   [MICO_UART_1] =
   {
   .uart_id          = 7,
-  .peripheral       = USART7,
+  .port             = USART7,
   .peripheral_id    = ID_FLEXCOM7,
   .tx_pin           = &platform_gpio_pins[STDIO_UART_TX],
   .tx_pin_mux_mode  = IOPORT_MODE_MUX_B,
@@ -124,7 +124,7 @@ const platform_uart_t platform_uart_peripherals[] =
   [MICO_UART_2] =
   {
   .uart_id          = 6,
-  .peripheral       = USART6,
+  .port             = USART6,
   .peripheral_id    = ID_FLEXCOM6,
   .tx_pin           = &platform_gpio_pins[MICO_GPIO_2],
   .tx_pin_mux_mode  = IOPORT_MODE_MUX_B,
@@ -160,21 +160,33 @@ platform_flash_driver_t platform_flash_drivers[MICO_FLASH_MAX];
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_RESET      ] = { PORTA, 25 },
-  [WIFI_PIN_BOOTSTRAP_0] = { PORTA, 26 },
+  [WIFI_PIN_RESET      ] = { IOPORT_CREATE_PIN( PIOA, 25 ),  false, 0, 0 },
+  [WIFI_PIN_BOOTSTRAP_0] = { IOPORT_CREATE_PIN( PIOA, 26 ),  false, 0, 0 },
+  [WIFI_PIN_BOOTSTRAP_1] = { IOPORT_CREATE_PIN( PIOA, 18 ),  false, 0, 0 },
 };
 
 /* Wi-Fi gSPI bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_spi.c */
 const platform_gpio_t wifi_spi_pins[] =
 {
-  [WIFI_PIN_SPI_IRQ ] = { PORTA,  1 },
-  [WIFI_PIN_SPI_CS  ] = { PORTB, 12 },
-  [WIFI_PIN_SPI_CLK ] = { PORTB, 13 },
-  [WIFI_PIN_SPI_MOSI] = { PORTB, 15 },
-  [WIFI_PIN_SPI_MISO] = { PORTB, 14 },
+  [WIFI_PIN_SPI_IRQ ] = { IOPORT_CREATE_PIN( PIOA, 24 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_CS  ] = { IOPORT_CREATE_PIN( PIOA, 11 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_CLK ] = { IOPORT_CREATE_PIN( PIOA, 14 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_MOSI] = { IOPORT_CREATE_PIN( PIOA, 13 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_MISO] = { IOPORT_CREATE_PIN( PIOA, 12 ),  false, 0, 0 },
 };
 
-const platform_spi_t wifi_spi;
+const platform_spi_t wifi_spi =
+{
+  .spi_id                       = 5,
+  .port                         = SPI5,
+  .peripheral_id                = ID_FLEXCOM5,
+  .mosi_pin                     = &wifi_spi_pins[WIFI_PIN_SPI_MOSI],
+  .mosi_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .miso_pin                     = &wifi_spi_pins[WIFI_PIN_SPI_MISO],
+  .miso_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .clock_pin                    = &wifi_spi_pins[WIFI_PIN_SPI_CLK],
+  .clock_pin_mux_mode           = IOPORT_MODE_MUX_A,
+};
 
 
 
@@ -192,6 +204,10 @@ MICO_RTOS_DEFINE_ISR( FLEXCOM6_Handler )
     platform_uart_irq( &platform_uart_drivers[MICO_UART_2] );
 }
 
+MICO_RTOS_DEFINE_ISR( FLEXCOM5_Handler )
+{
+    platform_wifi_spi_rx_dma_irq( );
+}
 
 
 /******************************************************
@@ -234,7 +250,8 @@ void platform_init_peripheral_irq_priorities( void )
 {
   NVIC_SetPriority  ( PIOA_IRQn,      14 );
   NVIC_SetPriority  ( PIOB_IRQn,      14 );
-  NVIC_SetPriority  ( FLEXCOM7_IRQn,   6 );  /* STDIO  UART  */
+  NVIC_SetPriority  ( FLEXCOM7_IRQn,   6 );  /* STDIO UART  */
+  NVIC_SetPriority  ( FLEXCOM5_IRQn,   3 );  /* WLAN SPI    */
 //  NVIC_SetPriority( RTC_WKUP_IRQn    ,  1 ); /* RTC Wake-up event   */
 //  NVIC_SetPriority( SDIO_IRQn        ,  2 ); /* WLAN SDIO           */
 //  NVIC_SetPriority( DMA2_Stream3_IRQn,  3 ); /* WLAN SDIO DMA       */

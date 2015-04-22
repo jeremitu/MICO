@@ -151,9 +151,6 @@ typedef struct
 typedef struct
 {
     platform_spi_port_t*                 port;
-    uint8_t                              gpio_af;
-    uint32_t                             peripheral_clock_reg;
-    platform_peripheral_clock_function_t peripheral_clock_func;
     const platform_gpio_t*               pin_mosi;
     const platform_gpio_t*               pin_miso;
     const platform_gpio_t*               pin_clock;
