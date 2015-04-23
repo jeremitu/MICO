@@ -144,6 +144,12 @@ const platform_i2c_t *platform_i2c_peripherals = NULL;
 
 const platform_flash_t platform_flash_peripherals[] =
 {
+  [MICO_SPI_FLASH] =
+  {
+    .flash_type                   = FLASH_TYPE_SPI,
+    .flash_start_addr             = 0x000000,
+    .flash_length                 = 0x200000,
+  },
   [MICO_INTERNAL_FLASH] =
   {
     .flash_type                   = FLASH_TYPE_INTERNAL,
@@ -188,6 +194,37 @@ const platform_spi_t wifi_spi =
   .clock_pin_mux_mode           = IOPORT_MODE_MUX_A,
 };
 
+#if defined ( USE_MICO_SPI_FLASH )
+
+/* spi flash bus pins. Used by platform/drivers/spi_flash/spi_flash_platform.c */
+const platform_gpio_t spi_flash_spi_pins[] =
+{
+  [FLASH_PIN_SPI_CS  ] = { IOPORT_CREATE_PIN( PIOA, 19 ),  false, 0, 0 }, 
+  [FLASH_PIN_SPI_CLK ] = { IOPORT_CREATE_PIN( PIOB, 13 ),  false, 0, 0 },
+  [FLASH_PIN_SPI_MOSI] = { IOPORT_CREATE_PIN( PIOA,  3 ),  false, 0, 0 },
+  [FLASH_PIN_SPI_MISO] = { IOPORT_CREATE_PIN( PIOA,  4 ),  false, 0, 0 },
+};
+
+const platform_spi_t spi_flash_spi =
+{
+  .spi_id                       = 3,
+  .port                         = SPI3,
+  .peripheral_id                = ID_FLEXCOM3,
+  .mosi_pin                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MOSI],
+  .mosi_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .miso_pin                     = &spi_flash_spi_pins[FLASH_PIN_SPI_MISO],
+  .miso_pin_mux_mode            = IOPORT_MODE_MUX_A,
+  .clock_pin                    = &spi_flash_spi_pins[FLASH_PIN_SPI_CLK],
+  .clock_pin_mux_mode           = IOPORT_MODE_MUX_A,
+};
+
+const spi_flash_device_t spi_flash_device =
+{
+  .speed       = 40000000,
+  .mode        = (SPI_CLOCK_RISING_EDGE | SPI_CLOCK_IDLE_HIGH | SPI_NO_DMA | SPI_MSB_FIRST),
+  .bits        = 8,
+};
+#endif
 
 
 /******************************************************
@@ -301,6 +338,10 @@ void init_platform_bootloader( void )
   
   MicoGpioInitialize(BOOT_SEL, INPUT_PULL_UP);
   MicoGpioInitialize(MFG_SEL, INPUT_PULL_UP);
+  
+#if defined ( USE_MICO_SPI_FLASH )
+  MicoFlashInitialize( MICO_SPI_FLASH );
+#endif
 }
 
 void MicoSysLed(bool onoff)
@@ -332,9 +373,9 @@ bool MicoShouldEnterMFGMode(void)
 bool MicoShouldEnterBootloader(void)
 {
 //  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
-    return true;
+//    return true;
 //  else
-//   return false;
+   return false;
 }
 
 

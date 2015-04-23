@@ -333,3 +333,24 @@ OSStatus internalFlashFinalize( void )
 {
   return kNoErr;
 }
+
+#ifdef USE_MICO_SPI_FLASH
+OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress)
+{
+  platform_log_trace();
+  OSStatus err = kNoErr;
+  uint32_t StartSector, EndSector, i = 0;
+  
+  /* Get the sector where start the user flash area */
+  StartSector = StartAddress>>12;
+  EndSector = EndAddress>>12;
+  
+  for(i = StartSector; i <= EndSector; i += 1)
+  {
+    require_action(sflash_sector_erase(&sflash_handle, i<<12) == kNoErr, exit, err = kWriteErr); 
+  }
+  
+exit:
+  return err;
+}
+#endif

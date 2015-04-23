@@ -251,7 +251,7 @@ OSStatus host_platform_spi_transfer( bus_transfer_direction_t dir, uint8_t* buff
 
 void platform_wifi_spi_rx_dma_irq(void)
 {
-  uint8_t junk3;
+  uint8_t junk1;
   uint16_t junk2;
   pdc_packet_t pdc_spi_packet = { 0, 1 };
   Pdc* spi_pdc  = spi_get_pdc_base( wifi_spi.port );
@@ -273,11 +273,9 @@ void platform_wifi_spi_rx_dma_irq(void)
     pdc_tx_init( spi_pdc, &pdc_spi_packet, NULL );
     spi_disable_interrupt( wifi_spi.port, SPI_IER_ENDTX );
     /* Clear SPI RX data in a SPI send sequence */
-    spi_read( wifi_spi.port, &junk2, &junk3);
+    spi_read( wifi_spi.port, &junk2, &junk1);
   }
   
   mico_rtos_set_semaphore( &spi_transfer_finished_semaphore );
-  
-  
 }
 

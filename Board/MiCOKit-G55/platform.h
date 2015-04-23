@@ -273,7 +273,7 @@ typedef enum
 #define MFG_TEST         MICO_UART_2
 #define CLI_UART         MICO_UART_2
 
-//#define USE_MICO_SPI_FLASH
+#define USE_MICO_SPI_FLASH
 //#define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
