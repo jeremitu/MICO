@@ -174,7 +174,8 @@ typedef enum
  ******************************************************/
 
 /* SPI port */
-typedef Spi   platform_spi_port_t;
+typedef Spi     platform_spi_port_t;
+typedef Adc     platform_adc_port_t;
 
 
 /******************************************************
@@ -189,6 +190,18 @@ typedef struct
     uint8_t         trigger;           /* wakeup trigger: IOPORT_SENSE_FALLING or RISING */
 
 } platform_gpio_t;
+
+typedef struct
+{
+    platform_adc_port_t*     port;
+    uint8_t                  peripheral_id;
+    const platform_gpio_t*   adc_pin;
+    uint32_t                 adc_clock_hz;
+ //   enum adc_channel_num_t   channel;
+ //   enum adc_settling_time_t settling_time;
+ //   enum adc_resolution_t    resolution;
+ //   enum adc_trigger_t       trigger;
+} platform_adc_t;
 
 // typedef struct {
 //     Usart                         *usart;
@@ -272,10 +285,6 @@ typedef struct
     uint8_t unimplemented;
 } platform_spi_slave_driver_t;
 
-typedef struct
-{
-    uint8_t unimplemented;
-} platform_adc_t;
 
 typedef struct
 {

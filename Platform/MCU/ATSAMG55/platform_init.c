@@ -30,7 +30,6 @@
 ******************************************************************************
 */ 
 
-
 #include "platform_peripheral.h"
 #include "platform.h"
 #include "platform_config.h"

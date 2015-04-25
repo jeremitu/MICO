@@ -85,12 +85,9 @@ typedef enum
 static sflash_handle_t sflash_handle = {0x0, 0x0, SFLASH_WRITE_NOT_ALLOWED};
 #endif
 /* Private function prototypes -----------------------------------------------*/
-static uint32_t _GetSector( uint32_t Address );
-static OSStatus _GetAddress(uint32_t sector, uint32_t *startAddress, uint32_t *endAddress);
 static OSStatus internalFlashInitialize( void );
 static OSStatus internalFlashErase(uint32_t StartAddress, uint32_t EndAddress);
 static OSStatus internalFlashWrite(volatile uint32_t* FlashAddress, uint32_t* Data ,uint32_t DataLength);
-static OSStatus internalFlashByteWrite( volatile uint32_t* FlashAddress, uint8_t* Data ,uint32_t DataLength );
 static OSStatus internalFlashFinalize( void );
 #ifdef USE_MICO_SPI_FLASH
 static OSStatus spiFlashErase(uint32_t StartAddress, uint32_t EndAddress);
@@ -273,7 +270,7 @@ static OSStatus internalFlashInitialize( void )
   
 exit:
   platform_mcu_powersave_enable();
-  return kNoErr; 
+  return err; 
 }
 
 

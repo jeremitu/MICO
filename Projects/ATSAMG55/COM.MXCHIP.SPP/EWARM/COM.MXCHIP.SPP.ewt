@@ -455,9 +455,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Platform\EWARM\Retarget.c</name>
-        <configuration>
-          <name>MiCOKit-G55</name>
-        </configuration>
       </file>
     </group>
     <group>
@@ -545,9 +542,6 @@
                   <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\sam\services\flash_efc\flash_efc.c</name>
                 </file>
               </group>
-            </group>
-            <group>
-              <name>samg55</name>
             </group>
             <file>
               <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\ATSAMG55\peripherals\Libraries\system_samg55.c</name>
