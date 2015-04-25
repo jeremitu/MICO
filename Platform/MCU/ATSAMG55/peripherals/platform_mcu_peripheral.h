@@ -32,70 +32,15 @@
 #pragma once
 
 #include "samg55.h"
+#include "ioport.h"
+#include "usart.h"
+#include "spi.h"
+#include "efc.h"
+#include "pdc.h"
+#include "flexcom.h"
 
 #include "MicoRtos.h"
 #include "RingBufferUtils.h"
-  
-// From module: Common SAM compiler driver
-#include <compiler.h>
-#include <status_codes.h>
-
-// From module: Delay routines
-#include <delay.h>
-
-// From module: EEFC - Enhanced Embedded Flash Controller
-#include <efc.h>
-
-// From module: FLEXCOM - Flexible Serial Communication Controller
-#include <flexcom.h>
-// From module: Generic board support
-#include <board.h>
-
-// From module: IOPORT - General purpose I/O service
-#include <ioport.h>
-
-#include <pio.h>
-
-// From module: Interrupt management - SAM implementation
-#include <interrupt.h>
-
-// From module: PDC - Peripheral DMA Controller Example
-#include <pdc.h>
-
-// From module: PMC - Power Management Controller
-#include <pmc.h>
-#include <sleep.h>
-
-// From module: Part identification macros
-#include <parts.h>
-
-// From module: SAM FPU driver
-#include <fpu.h>
-
-// From module: SPI - Serial Peripheral Interface
-#include <spi.h>
-
-// From module: SUPC - Supply Controller
-#include <supc.h>
-
-// From module: Sleep manager - SAM implementation
-#include <sam/sleepmgr.h>
-#include <sleepmgr.h>
-
-// From module: System Clock Control - SAMG implementation
-#include <sysclk.h>
-
-// From module: USART - Serial interface - SAM implementation for devices with only USART
-#include <serial.h>
-#ifndef USE_OWN_SPI_DRV
-#include <spi_master_vec.h>
-#endif
-// From module: USART - Univ. Syn Async Rec/Trans
-#include <usart.h>
-  
-#include <rtc.h>
-
-#include "wdt.h"
 
 #ifdef __cplusplus
 extern "C"

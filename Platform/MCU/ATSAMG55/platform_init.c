@@ -204,9 +204,6 @@ void init_architecture( void )
   NVIC_SetPriorityGrouping( 7 - __NVIC_PRIO_BITS );
 
   /* Initialise the interrupt priorities to a priority lower than 0 so that the BASEPRI register can mask them */
-  NVIC_SetPriority(MemoryManagement_IRQn,       -3);
-  NVIC_SetPriority(BusFault_IRQn,               -2);
-  NVIC_SetPriority(UsageFault_IRQn,             -1);
   NVIC_SetPriority(SVCall_IRQn,                 0);
   NVIC_SetPriority(DebugMonitor_IRQn,           0);
   NVIC_SetPriority(PendSV_IRQn,                 ((1 << __NVIC_PRIO_BITS) - 1));
@@ -240,7 +237,7 @@ void init_architecture( void )
 #endif
 
   /* Ensure 802.11 device is in reset. */
-  //host_platform_init( );
+  host_platform_init( );
 
 #ifdef BOOTLOADER
   return;
