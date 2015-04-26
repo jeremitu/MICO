@@ -174,7 +174,7 @@ const platform_gpio_t wifi_control_pins[] =
 /* Wi-Fi gSPI bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_spi.c */
 const platform_gpio_t wifi_spi_pins[] =
 {
-  [WIFI_PIN_SPI_IRQ ] = { IOPORT_CREATE_PIN( PIOA, 24 ),  false, 0, 0 },
+  [WIFI_PIN_SPI_IRQ ] = { IOPORT_CREATE_PIN( PIOA, 24 ),  true, 11, IOPORT_SENSE_RISING },
   [WIFI_PIN_SPI_CS  ] = { IOPORT_CREATE_PIN( PIOA, 11 ),  false, 0, 0 },
   [WIFI_PIN_SPI_CLK ] = { IOPORT_CREATE_PIN( PIOA, 14 ),  false, 0, 0 },
   [WIFI_PIN_SPI_MOSI] = { IOPORT_CREATE_PIN( PIOA, 13 ),  false, 0, 0 },
@@ -289,6 +289,7 @@ void platform_init_peripheral_irq_priorities( void )
   NVIC_SetPriority  ( PIOB_IRQn,      14 );
   NVIC_SetPriority  ( FLEXCOM7_IRQn,   6 );  /* STDIO UART  */
   NVIC_SetPriority  ( FLEXCOM5_IRQn,   3 );  /* WLAN SPI    */
+  NVIC_SetPriority  ( RTT_IRQn,        1 );
 //  NVIC_SetPriority( RTC_WKUP_IRQn    ,  1 ); /* RTC Wake-up event   */
 //  NVIC_SetPriority( SDIO_IRQn        ,  2 ); /* WLAN SDIO           */
 //  NVIC_SetPriority( DMA2_Stream3_IRQn,  3 ); /* WLAN SDIO DMA       */

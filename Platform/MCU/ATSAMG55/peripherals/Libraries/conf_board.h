@@ -47,27 +47,6 @@
 #ifndef CONF_BOARD_H_INCLUDED
 #define CONF_BOARD_H_INCLUDED
 
-/** Enable Com Port. */
-#define CONF_BOARD_UART_CONSOLE
-
-/** SPI MACRO definition */
-#define CONF_BOARD_SPI
-
-/** SPI slave select MACRO definition */
-//#define CONF_BOARD_SPI_NPCS0
-
-// /** Spi Hw ID . */
-// #define SPI_ID               ID_SPI5
-
-// /** SPI base address for SPI master mode*/
-// #define SPI_MASTER_BASE      SPI5
-// /** SPI base address for SPI slave mode, (on different board) */
-// #define SPI_SLAVE_BASE       SPI5
-// /** FLEXCOM base address for SPI mode*/
-// #define BOARD_FLEXCOM_SPI    FLEXCOM5
-
-// #define SPI                  SPI_MASTER_BASE
-// #define SPI_Handler          FLEXCOM5_Handler
-//#define SPI_IRQn             FLEXCOM5_IRQn
+#include "platform_config.h"
 
 #endif /* CONF_BOARD_H_INCLUDED */

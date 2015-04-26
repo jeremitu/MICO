@@ -60,7 +60,7 @@
 
 /************************************************************************
  * Uncomment to disable MCU powersave API functions */
-#define MICO_DISABLE_MCU_POWERSAVE
+//#define MICO_DISABLE_MCU_POWERSAVE
 
 /************************************************************************
  * Uncomment to enable MCU real time clock */
@@ -79,6 +79,42 @@
 #define BOARD_MCK                 CHIP_FREQ_CPU_MAX
 /*TBD startup time needs to be adjusted according to measurements */
 #define BOARD_OSC_STARTUP_US      15625
+
+
+/* ===== System Clock (MCK) Source Options */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_SLCK_RC */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_SLCK_XTAL */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_SLCK_BYPASS */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_MAINCK_8M_RC */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_MAINCK_16M_RC */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_MAINCK_24M_RC */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_MAINCK_XTAL */
+/* #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_MAINCK_BYPASS */
+#define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_PLLACK
+
+/* ===== System Clock (MCK) Prescaler Options (Fmck = Fsys / (SYSCLK_PRES)) */
+#define CONFIG_SYSCLK_PRES          SYSCLK_PRES_1
+/* #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_2 */
+/* #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_4 */
+/* #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_8 */
+/* #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_16 */
+/* #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_32 */
+/* #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_64 */
+/* #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_3 */
+
+// ===== PLL0 (A) Options   (Fpll = (Fclk * PLL_mul) / PLL_div)
+// Use mul and div effective values here.
+#define CONFIG_PLL0_SOURCE          PLL_SRC_SLCK_XTAL
+#define CONFIG_PLL0_MUL             3662
+#define CONFIG_PLL0_DIV             1
+
+// ===== Target frequency (System clock)
+// - External XTAL frequency: 32768Hz
+// - System clock source: SLCK XTAL
+// - System clock prescaler: 1 (divided by 1)
+// - PLLA source: SLCK_XTAL
+// - PLLA output: SLCK_XTAL * 3662 / 1
+// - System clock: SLCK_XTAL * 3662 / 1 / 1 = 120MHz
 
 
 /******************************************************
@@ -107,16 +143,6 @@
 
 /* Wi-Fi power pin is active high */
 //#define MICO_USE_WIFI_POWER_PIN_ACTIVE_HIGH
-
-/*  WLAN Powersave Clock Source
- *  The WLAN sleep clock can be driven from one of two sources:
- *  1. MCO (MCU Clock Output) - default
- *     NOTE: Versions of BCM943362WCD4 up to and including P200 require a hardware patch to enable this mode
- *     - Connect STM32F205RGT6 pin 41 (PA8) to pin 44 (PA11)
- *  2. WLAN 32K internal oscillator (30% inaccuracy)
- *     - Comment the following directive : WICED_USE_WIFI_32K_CLOCK_MCO
- */
-//#define MICO_USE_WIFI_32K_CLOCK_MCO
 
 
 /* Memory map */

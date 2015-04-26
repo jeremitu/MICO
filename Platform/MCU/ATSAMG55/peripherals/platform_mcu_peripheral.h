@@ -38,6 +38,9 @@
 #include "efc.h"
 #include "pdc.h"
 #include "flexcom.h"
+#include "rtt.h"
+#include "supc.h"
+#include "matrix.h"
 
 #include "MicoRtos.h"
 #include "RingBufferUtils.h"
@@ -250,6 +253,8 @@ typedef struct
  *               Function Declarations
  ******************************************************/
 OSStatus platform_gpio_irq_manager_init      ( void );
+OSStatus platform_powersave_enable_wakeup_pin( const platform_gpio_t* gpio );
+
 
 OSStatus platform_mcu_powersave_init         ( void );
 

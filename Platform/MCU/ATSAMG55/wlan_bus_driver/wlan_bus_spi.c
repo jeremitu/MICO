@@ -110,7 +110,7 @@ static void spi_irq_handler( void* arg )
 {
   UNUSED_PARAMETER(arg);
 #ifndef MICO_DISABLE_MCU_POWERSAVE
-  wake_up_interrupt_notify( );
+  platform_mcu_powersave_exit_notify( );
 #endif /* ifndef MICO_DISABLE_MCU_POWERSAVE */
   wiced_platform_notify_irq( );
 }

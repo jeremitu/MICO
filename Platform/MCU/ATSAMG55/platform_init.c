@@ -179,6 +179,14 @@ void platform_mcu_reset( void )
 void init_clocks( void )
 {
   sysclk_init();
+  
+  /* Switch Slow Clock source to external 32K crystal */
+  pmc_switch_sclk_to_32kxtal( 0 );
+  while( pmc_osc_is_ready_32kxtal( ) == 0 )
+  {
+  }
+
+  pmc_disable_udpck( );
 
 #ifdef NO_MICO_RTOS  
   SysTick_Config( SystemCoreClock / 1000 );
@@ -224,6 +232,11 @@ void init_architecture( void )
   /* Initialise GPIO IRQ manager */
   platform_gpio_irq_manager_init();
   
+#ifndef MICO_DISABLE_MCU_POWERSAVE
+  /* Initialise MCU powersave */
+//  platform_mcu_powersave_init( );
+#endif /* ifndef MICO_DISABLE_MCU_POWERSAVE */
+  
 #ifndef MICO_DISABLE_STDIO
 #ifndef NO_MICO_RTOS
   mico_rtos_init_mutex( &stdio_tx_mutex );
@@ -243,17 +256,8 @@ void init_architecture( void )
   return;
 #endif
   
-  return;
-  
-  /* Initialise RTC */
-  platform_rtc_init( );
-  
-#ifndef MICO_DISABLE_MCU_POWERSAVE
-  /* Initialise MCU powersave */
-  platform_mcu_powersave_init( );
-#endif /* ifndef MICO_DISABLE_MCU_POWERSAVE */
-
   platform_mcu_powersave_disable( );
+
 }
 
 OSStatus stdio_hardfault( char* data, uint32_t size )

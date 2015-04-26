@@ -308,7 +308,7 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
   OSStatus err = kNoErr;
   uint32_t transfer_size;
 
-  platform_mcu_powersave_disable();
+  //platform_mcu_powersave_disable();
 
   require_action_quiet( ( driver != NULL ) && ( data_in != NULL ) && ( expected_data_size != 0 ), exit, err = kParamErr);
   require_action_quiet( driver->rx_ring_buffer != NULL , exit, err = kUnsupportedErr);
@@ -367,7 +367,7 @@ OSStatus platform_uart_receive_bytes( platform_uart_driver_t* driver, uint8_t* d
   require_action( expected_data_size == 0, exit, err = kReadErr);
 
 exit:
-  platform_mcu_powersave_enable();
+  //platform_mcu_powersave_enable();
   return err;
 }
 

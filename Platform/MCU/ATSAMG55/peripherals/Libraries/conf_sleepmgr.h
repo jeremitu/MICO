@@ -46,6 +46,8 @@
 #ifndef CONF_SLEEPMGR_H
 #define CONF_SLEEPMGR_H
 
+#include "platform_config.h"
+
 #define CONFIG_SLEEPMGR_ENABLE
 
 #endif /* CONF_SLEEPMGR_H */
