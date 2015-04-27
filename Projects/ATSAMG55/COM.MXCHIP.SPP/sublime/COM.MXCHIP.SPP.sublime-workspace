@@ -520,76 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_bus_spi.c",
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_powersave.c",
 			"settings":
 			{
-				"buffer_size": 12121,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/wlan_bus_driver/wlan_bus_spi.c",
-			"settings":
-			{
-				"buffer_size": 9706,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/spi.h",
-			"settings":
-			{
-				"buffer_size": 15569,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/spi.h",
-			"settings":
-			{
-				"buffer_size": 20106,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 1451 files for \"spi_get_pcs\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/spi.h:\n   89   * \\param chip_sel_id The chip select number used\n   90   */\n   91: #define spi_get_pcs(chip_sel_id) ((~(1u<<(chip_sel_id)))&0xF)\n   92  \n   93  /**\n   ..\n  591  	       spi_disable_loopback(p_spi);\n  592  	       spi_set_peripheral_chip_select_value(p_spi,\n  593: 	                                            spi_get_pcs(DEFAULT_CHIP_ID));\n  594  	       spi_set_fixed_peripheral_select(p_spi);\n  595  	       spi_disable_peripheral_select_decode(p_spi);\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/src/spi.c:\n  194   * \\param p_spi Pointer to an SPI instance.\n  195   * \\param ul_value Peripheral Chip Select value.\n  196:  *                 If PCS decode mode is not used, use \\ref spi_get_pcs to build\n  197   *                 the value to use.\n  198   *                 On reset the decode mode is not enabled.\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/src/spi_master_vec.c:\n   63  /* Chip select. */\n   64  #define SPI_CHIP_SEL     0 // why 0 happen hard fault?\n   65: #define SPI_CHIP_PCS spi_get_pcs(SPI_CHIP_SEL)\n   66  \n   67  /* Clock polarity. */\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/EMW1000A_Driver/spi/wwd_bus.c:\n   26  /* Chip select. */\n   27  #define SPI_CHIP_SEL        0\n   28: #define SPI_CHIP_PCS spi_get_pcs(SPI_CHIP_SEL)\n   29  \n   30  /* Clock polarity. */\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/wlan_bus_driver/wlan_bus_spi.c:\n   31  /* Chip select. */\n   32  #define SPI_CHIP_SEL        0\n   33: #define SPI_CHIP_PCS spi_get_pcs(SPI_CHIP_SEL)\n   34  \n   35  /* Clock polarity. */\n\n6 matches across 5 files\n\n\nSearching 1451 files for \"SPI_NPCS0_GPIO\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/src/spi_master_vec.c:\n  302  	SPI->SPI_RDR;\n  303  	pdc_enable_transfer(g_p_spi_pdc, PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);\n  304:     /*ioport_set_pin_level(SPI_NPCS0_GPIO, IOPORT_PIN_LEVEL_LOW);//cs high(enable)\n  305  		if (rx_bufdescs[0].length) {\n  306  	        pdc_enable_transfer(g_p_spi_pdc, PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);\n  ...\n  308  	        pdc_enable_transfer(g_p_spi_pdc, PERIPH_PTCR_TXTEN);\n  309          }\n  310:     //ioport_set_pin_level(SPI_NPCS0_GPIO, IOPORT_PIN_LEVEL_HIGH);//cs high(disable)\n  311  */\n  312  	return STATUS_OK;\n  ...\n  363  		SPI->SPI_RDR;\n  364  		pdc_enable_transfer(g_p_spi_pdc, PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);\n  365:         /*ioport_set_pin_level(SPI_NPCS0_GPIO, IOPORT_PIN_LEVEL_LOW);//cs high(enable)\n  366  		if (--g_module->rx_bufdesc_ptr->length) {\n  367  	        pdc_enable_transfer(g_p_spi_pdc, PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);\n  ...\n  369  	        pdc_enable_transfer(g_p_spi_pdc, PERIPH_PTCR_TXTEN);\n  370          }\n  371:         ioport_set_pin_level(SPI_NPCS0_GPIO, IOPORT_PIN_LEVEL_HIGH);//cs high(disable) \n  372          */\n  373  	}\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg53/EMW1000A_Driver/spi/wwd_bus.c:\n  136      tx_dscr[1].length = 0;\n  137      \n  138: //    ioport_set_pin_level(SPI_NPCS0_GPIO, IOPORT_PIN_LEVEL_LOW);//cs high(enable)\n  139      if ( dir == BUS_READ ) {\n  140          rx_dscr[0].data   = buffer;\n  ...\n  168      }\n  169  #endif\n  170:  //   ioport_set_pin_level(SPI_NPCS0_GPIO, IOPORT_PIN_LEVEL_HIGH);//cs high(disable)\n  171  \n  172      MCU_CLOCKS_NOT_NEEDED();\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/EMW1000A_Driver/spi/wwd_bus.c:\n  127  	mico_gpio_output_high( MICO_GPIO_15 );//MICO_GPIO_15 TBD!\n  128  #else\n  129: 	ioport_set_pin_peripheral_mode(SPI_NPCS0_GPIO, SPI_NPCS0_FLAGS);//TBD!\n  130  #endif\n  131      /* set PORTB 01 to high to put WLAN module into g_SPI mode */\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/wlan_bus_driver/wlan_bus_spi.c:\n  153      platform_gpio_output_high( &wifi_spi_pins[WIFI_PIN_SPI_CS] );\n  154  #else\n  155: 	ioport_set_pin_peripheral_mode(SPI_NPCS0_GPIO, SPI_NPCS0_FLAGS);//TBD!\n  156  #endif\n  157      \n\n/Users/William/Develop/MiCO/Board/MiCOKit-G55/samg55_xplained_pro.h:\n  233  \n  234  /** SPI chip select 0 pin definition. */\n  235: #define SPI_NPCS0_GPIO        (PIO_PA11_IDX)\n  236  #define SPI_NPCS0_FLAGS      (IOPORT_MODE_MUX_A)\n  237  /** SPI chip select 1 pin definition. */\n\n9 matches across 5 files\n",
-			"settings":
-			{
-				"buffer_size": 4524,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/samg55_xplained_pro.h",
-			"settings":
-			{
-				"buffer_size": 23503,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/william/Develop/MiCO/Board/MiCOKit-G55/conf_board.h",
-			"settings":
-			{
-				"buffer_size": 2602,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.c",
-			"settings":
-			{
-				"buffer_size": 12261,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
-			"settings":
-			{
-				"buffer_size": 19878,
+				"buffer_size": 14354,
 				"line_ending": "Windows"
 			}
 		},
@@ -597,15 +531,31 @@
 			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
 			"settings":
 			{
-				"buffer_size": 9660,
+				"buffer_size": 8848,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_uart.c",
+			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
 			"settings":
 			{
-				"buffer_size": 15390,
+				"buffer_size": 10082,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/platform_init.c",
+			"settings":
+			{
+				"buffer_size": 9029,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
+			"settings":
+			{
+				"buffer_size": 11271,
 				"line_ending": "Windows"
 			}
 		}
@@ -670,24 +620,39 @@
 	},
 	"file_history":
 	[
+		"/Users/william/Develop/Clang_lib/ARMCC/include/stdio.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/asf-3.22.0/common/services/ioport/sam/ioport_pio.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/conf_board.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/conf_clock.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/conf_sleepmgr.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
+		"/Users/William/Develop/MiCO/Projects/ATSAMG55/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_watchdog.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/platform_init.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
+		"/Users/william/Develop/MiCO/Platform/include/platform_init.h",
+		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/spi.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_bus_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/wlan_bus_driver/wlan_bus_spi.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/spi.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/samg55_xplained_pro.h",
+		"/Users/william/Develop/MiCO/Board/MiCOKit-G55/conf_board.h",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_uart.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_uart.c",
-		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/spi.h",
 		"/Users/William/Develop/MiCO/Support/HTTPUtils.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/platform_init.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.c",
 		"/Users/william/Develop/MiCO/Platform/include/wlan_platform_common.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/wlan_bus_driver/wlan_platform.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_bus_sdio.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_platform.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/wlan_bus_driver/wlan_platform.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_config.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_uart.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/services/flash_efc/flash_efc.h",
@@ -701,14 +666,12 @@
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/efc.h",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/efc.h",
 		"/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
-		"/Users/William/Develop/MiCO/Projects/ATSAMG55/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/mico_driver_uart.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/common/services/ioport/ioport.h",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/samg55.h",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/usart.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/EWARM/startup_ATSAMG55_EWARM.s",
-		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/usart.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/src/usart.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/flexcom.h",
@@ -784,20 +747,7 @@
 		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverGpio.h",
 		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverAdc.h",
 		"/Users/William/Develop/MiCO/Support/RingBufferUtils.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/stm32f2xx_platform.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/MicoDriverCommon.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_RVMDK.s",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M4/STM32F4xx/STM32F4xx_Drv/startup_stm32f2xx_IAR.s",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/IDEs/Keil/patch_keil.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/stm32f2xx_platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/External/JSON-C/json_util.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICOEntrance.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/Common/Cortex-M3/STM32F2xx/STM32F2xx_Drv/startup_stm32f2xx_bootloader_IAR.s",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICODefine.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/Common.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MICO_EVB_1/platform.c"
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/stm32f2xx_platform.h"
 	],
 	"find":
 	{
@@ -824,6 +774,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"platform_powersave_enable_wakeup_pin",
+			"DISABLE_INTERRUPTS",
+			"platform",
+			"platform_",
+			"platform_init_s",
+			"platform_init",
+			"wait_mode_power_down_hook",
 			"SPI_DLYBS",
 			"SPI_DLYBCT",
 			"SPI_CLK_PHASE",
@@ -944,14 +901,7 @@
 			"init_platform",
 			"mico_get_time",
 			"sys_command",
-			"sys_command.o",
-			"fwrite",
-			"fopen",
-			"freopen",
-			"fopen",
-			"mico_mutex_t",
-			"RTC_WKUP_irq",
-			"bootloader_start"
+			"sys_command.o"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -972,284 +922,132 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_bus_spi.c",
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_powersave.c",
 					"settings":
 					{
-						"buffer_size": 12121,
+						"buffer_size": 14354,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1524,
-								1524
+								1668,
+								1668
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 397.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/wlan_bus_driver/wlan_bus_spi.c",
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
 					"settings":
 					{
-						"buffer_size": 9706,
+						"buffer_size": 8848,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5284,
-								5284
+								1805,
+								1805
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C.tmLanguage",
+							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1939.0,
+						"translation.y": 619.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/inc/spi.h",
+					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
 					"settings":
 					{
-						"buffer_size": 15569,
+						"buffer_size": 10082,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11554,
-								11574
+								2616,
+								2616
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 8172.0,
+						"translation.y": 408.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/spi.h",
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/platform_init.c",
 					"settings":
 					{
-						"buffer_size": 20106,
+						"buffer_size": 9029,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7523,
-								7523
+								8353,
+								8353
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/C++/C.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1807.0,
+						"translation.y": 3793.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
 					"settings":
 					{
-						"buffer_size": 4524,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										231,
-										242
-									],
-									[
-										465,
-										476
-									],
-									[
-										881,
-										892
-									],
-									[
-										1236,
-										1247
-									],
-									[
-										1501,
-										1512
-									],
-									[
-										1738,
-										1749
-									],
-									[
-										2128,
-										2142
-									],
-									[
-										2437,
-										2451
-									],
-									[
-										2680,
-										2694
-									],
-									[
-										3004,
-										3018
-									],
-									[
-										3282,
-										3296
-									],
-									[
-										3484,
-										3498
-									],
-									[
-										3815,
-										3829
-									],
-									[
-										4150,
-										4164
-									],
-									[
-										4357,
-										4371
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								4369,
-								4369
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"output_tag": 2,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1513.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/samg55_xplained_pro.h",
-					"settings":
-					{
-						"buffer_size": 23503,
+						"buffer_size": 11271,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7342,
-								7342
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 11125.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/Users/william/Develop/MiCO/Board/MiCOKit-G55/conf_board.h",
-					"settings":
-					{
-						"buffer_size": 2602,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2523,
-								2523
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 415.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.c",
-					"settings":
-					{
-						"buffer_size": 12261,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1570,
+								0,
 								0
 							]
 						],
@@ -1260,91 +1058,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
-					"settings":
-					{
-						"buffer_size": 19878,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14393,
-								14393
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5680.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
-					"settings":
-					{
-						"buffer_size": 9660,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8509,
-								8509
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3913.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_uart.c",
-					"settings":
-					{
-						"buffer_size": 15390,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14360,
-								14419
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3089.0,
+						"translation.y": 4046.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

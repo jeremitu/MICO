@@ -41,10 +41,6 @@
 #include "MicoRTOS.h"
 #include "platform_init.h"
 
-#ifdef __GNUC__
-#include "../../GCC/stdio_newlib.h"
-#endif /* ifdef __GNUC__ */
-
 
 /******************************************************
 *                      Macros
@@ -234,7 +230,7 @@ void init_architecture( void )
   
 #ifndef MICO_DISABLE_MCU_POWERSAVE
   /* Initialise MCU powersave */
-//  platform_mcu_powersave_init( );
+  platform_mcu_powersave_init( );
 #endif /* ifndef MICO_DISABLE_MCU_POWERSAVE */
   
 #ifndef MICO_DISABLE_STDIO

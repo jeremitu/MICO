@@ -104,6 +104,7 @@ static volatile bool         wake_up_interrupt_triggered = false;
 OSStatus platform_mcu_powersave_init(void)
 {
 #ifndef MICO_DISABLE_MCU_POWERSAVE
+    #error Not working currently, uncomment MICO_DISABLE_MCU_POWERSAVE in platform_config.h
     /* Initialise all pins to be input pull-up to save power */
     ioport_enable_port( IOPORT_PIOA,   0xffffffffU );
     ioport_set_port_mode( IOPORT_PIOA, 0xffffffffU, IOPORT_MODE_PULLUP );
@@ -117,6 +118,11 @@ OSStatus platform_mcu_powersave_init(void)
     NVIC_ClearPendingIRQ( RTT_IRQn );
     NVIC_EnableIRQ( RTT_IRQn );
     pmc_set_fast_startup_input( PMC_FSMR_RTTAL );
+
+
+    rtt_init( RTT, RTT_CLOCK_PRESCALER );
+    rtt_write_alarm_time( RTT, 64000 );
+   
 
 #endif /* MICO_DISABLE_MCU_POWERSAVE */
 
@@ -398,9 +404,9 @@ void platform_mcu_enter_standby(uint32_t secondsToWakeup)
 #ifndef MICO_DISABLE_MCU_POWERSAVE
 MICO_RTOS_DEFINE_ISR(RTT_Handler)
 {
-    __set_PRIMASK( 1 );
-    rtt_get_status( RTT );
-    rtt_disable_interrupt( RTT, RTT_MR_ALMIEN );
+    // __set_PRIMASK( 1 );
+    // rtt_get_status( RTT );
+    // rtt_disable_interrupt( RTT, RTT_MR_ALMIEN );
 }
 #endif /* MICO_DISABLE_MCU_POWERSAVE */
 

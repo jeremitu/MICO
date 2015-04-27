@@ -289,7 +289,7 @@ void platform_init_peripheral_irq_priorities( void )
   NVIC_SetPriority  ( PIOB_IRQn,      14 );
   NVIC_SetPriority  ( FLEXCOM7_IRQn,   6 );  /* STDIO UART  */
   NVIC_SetPriority  ( FLEXCOM5_IRQn,   3 );  /* WLAN SPI    */
-  NVIC_SetPriority  ( RTT_IRQn,        1 );
+  NVIC_SetPriority  ( RTT_IRQn,        1 );  /* RTT Wake-up event */
 //  NVIC_SetPriority( RTC_WKUP_IRQn    ,  1 ); /* RTC Wake-up event   */
 //  NVIC_SetPriority( SDIO_IRQn        ,  2 ); /* WLAN SDIO           */
 //  NVIC_SetPriority( DMA2_Stream3_IRQn,  3 ); /* WLAN SDIO DMA       */
