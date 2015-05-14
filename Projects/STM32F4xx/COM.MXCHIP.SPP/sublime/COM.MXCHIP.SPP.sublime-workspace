@@ -520,59 +520,19 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
-			"settings":
-			{
-				"buffer_size": 18658,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
 			"settings":
 			{
-				"buffer_size": 15203,
+				"buffer_size": 15204,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
+			"file": "COM.MXCHIP.SPP.sublime-project",
 			"settings":
 			{
-				"buffer_size": 8712,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_spi.c",
-			"settings":
-			{
-				"buffer_size": 14563,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
-			"settings":
-			{
-				"buffer_size": 5686,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
-			"settings":
-			{
-				"buffer_size": 23218,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
-			"settings":
-			{
-				"buffer_size": 5565,
-				"line_ending": "Windows"
+				"buffer_size": 1687,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -636,16 +596,21 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
+		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
+		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash_platform.c",
 		"/Users/william/Develop/MiCO/Platform/include/platform_peripheral.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 		"/Users/William/Develop/MiCO/include/MicoPlatform.h",
 		"/Users/William/Develop/MiCO/MICO/MICOEntrance.c",
 		"/Users/William/Develop/MiCO/MICO/EasyLink/EasyLink.c",
 		"/Users/William/Develop/MiCO/MICO/MICONotificationCenter.c",
-		"/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/Demos/COM.APPLE.HOMEKIT/HomeKitServer.c",
 		"/Users/William/Develop/MiCO/Demos/COM.APPLE.HOMEKIT/HomeKitUserInterface.c",
@@ -662,11 +627,8 @@
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_rng.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_spi.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_adc.c",
-		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.h",
 		"/Users/william/Develop/MiCO/Platform/drivers/spi_flash/spi_flash.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
@@ -676,7 +638,6 @@
 		"/Users/william/Develop/MiCO/Board/MiCOKit-3288/platform.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_flash.c",
 		"/Users/william/Develop/MiCO/include/MicoDrivers/MICODriverI2c.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
 		"/Users/William/Develop/MiCO/Platform/include/wlan_platform_common.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/EMW1062_Driver/wlan_bus_sdio.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/EMW1088_Driver/wlan_bus.c",
@@ -762,8 +723,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/Mico.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_internal_gpio.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICOWlan.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDefaults.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoRTOS.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoDefaults.h"
 	],
 	"find":
 	{
@@ -771,7 +731,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -937,98 +897,15 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
-					"settings":
-					{
-						"buffer_size": 18658,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10797,
-								10797
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5071.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
 					"settings":
 					{
-						"buffer_size": 15203,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								10693,
-								10704
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5691.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_mcu_peripheral.h",
-					"settings":
-					{
-						"buffer_size": 8712,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5154,
-								5165
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2530.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_spi.c",
-					"settings":
-					{
-						"buffer_size": 14563,
+						"buffer_size": 15204,
 						"regions":
 						{
 						},
@@ -1046,91 +923,34 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4604.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.h",
+					"buffer": 1,
+					"file": "COM.MXCHIP.SPP.sublime-project",
 					"settings":
 					{
-						"buffer_size": 5686,
+						"buffer_size": 1687,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3432,
-								3432
+								1677,
+								681
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1989.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
-					"settings":
-					{
-						"buffer_size": 23218,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13773,
-								13773
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 7976.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
-					"settings":
-					{
-						"buffer_size": 5565,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3824,
-								3824
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 747.0,
+						"translation.y": 93.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
