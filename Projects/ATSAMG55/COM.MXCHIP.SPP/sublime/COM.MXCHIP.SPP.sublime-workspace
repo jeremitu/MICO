@@ -520,42 +520,34 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_powersave.c",
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_spi.c",
 			"settings":
 			{
-				"buffer_size": 14354,
+				"buffer_size": 14754,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 			"settings":
 			{
-				"buffer_size": 8848,
+				"buffer_size": 20361,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
 			"settings":
 			{
-				"buffer_size": 10082,
+				"buffer_size": 14754,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/platform_init.c",
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_spi.c",
 			"settings":
 			{
-				"buffer_size": 9029,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
-			"settings":
-			{
-				"buffer_size": 11271,
+				"buffer_size": 8950,
 				"line_ending": "Windows"
 			}
 		}
@@ -620,19 +612,29 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_flash.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_flash.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Projects/ATSAMG55/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_spi.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_mcu_peripheral.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_powersave.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/platform_init.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
 		"/Users/william/Develop/Clang_lib/ARMCC/include/stdio.h",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/asf-3.22.0/common/services/ioport/sam/ioport_pio.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/conf_board.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/conf_clock.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/conf_sleepmgr.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
-		"/Users/William/Develop/MiCO/Projects/ATSAMG55/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_watchdog.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.h",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/platform_init.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
 		"/Users/william/Develop/MiCO/Platform/include/platform_init.h",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/spi.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_bus_spi.c",
@@ -647,19 +649,16 @@
 		"/Users/William/Develop/MiCO/Support/HTTPUtils.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/platform_init.c",
 		"/Users/william/Develop/MiCO/Platform/include/wlan_platform_common.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/wlan_bus_driver/wlan_platform.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_bus_sdio.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/wlan_bus_driver/wlan_platform.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/wlan_bus_driver/wlan_platform.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_config.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/MX1101/peripherals/platform_uart.c",
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/services/flash_efc/flash_efc.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_flash.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_uart.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/services/flash_efc/flash_efc.c",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_flash.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/sam/drivers/src/efc.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-G55/bootloaderLinkerForIAR.icf",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform_config.h",
@@ -682,7 +681,6 @@
 		"/Users/william/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/samg55/include/component/pio.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_sdio.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/EMW1062_Driver/wlan_bus_spi.c",
 		"/Users/William/Develop/MiCO/Platform/include/wlan_platform_common.h",
@@ -710,7 +708,6 @@
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/MicoDriverWdg.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/MicoDriverUart.c",
 		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_peripheral.h",
 		"/Users/William/Develop/MiCO/include/Common.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_mcu_powersave.c",
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/MicoDriverRtc.c",
@@ -742,12 +739,7 @@
 		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/stm32f4xx_platform.c",
 		"/Users/william/Develop/MiCO/include/MicoPlatform.h",
 		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverUart.h",
-		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverPwm.h",
-		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverI2c.h",
-		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverGpio.h",
-		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverAdc.h",
-		"/Users/William/Develop/MiCO/Support/RingBufferUtils.h",
-		"/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/stm32f2xx_platform.h"
+		"/Users/William/Develop/MiCO/include/MicoDrivers/MicoDriverPwm.h"
 	],
 	"find":
 	{
@@ -755,7 +747,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -774,6 +766,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"lock",
+			"spi_transfer",
+			"FLASH_PIN_SPI_CS",
+			"samg5x_spi_transfer_internal",
+			"WL_GPIO0",
+			"platform_spi_driver_t",
 			"platform_powersave_enable_wakeup_pin",
 			"DISABLE_INTERRUPTS",
 			"platform",
@@ -895,13 +893,7 @@
 			"tx_dma_result",
 			"platform_result_t",
 			"wiced_result_t",
-			"i2c_initialized",
-			"MicoSystemStandBy",
-			"hard_fault_handler_c",
-			"init_platform",
-			"mico_get_time",
-			"sys_command",
-			"sys_command.o"
+			"i2c_initialized"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -922,125 +914,15 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_powersave.c",
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_spi.c",
 					"settings":
 					{
-						"buffer_size": 14354,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1668,
-								1668
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 397.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_mcu_peripheral.h",
-					"settings":
-					{
-						"buffer_size": 8848,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1805,
-								1805
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 619.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-G55/platform_config.h",
-					"settings":
-					{
-						"buffer_size": 10082,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2616,
-								2616
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 408.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/platform_init.c",
-					"settings":
-					{
-						"buffer_size": 9029,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8353,
-								8353
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3793.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_gpio.c",
-					"settings":
-					{
-						"buffer_size": 11271,
+						"buffer_size": 14754,
 						"regions":
 						{
 						},
@@ -1048,7 +930,7 @@
 						[
 							[
 								0,
-								0
+								14754
 							]
 						],
 						"settings":
@@ -1058,7 +940,91 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4046.0,
+						"translation.y": 7517.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/mico_platform_common.c",
+					"settings":
+					{
+						"buffer_size": 20361,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11725,
+								11725
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5747.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F2xx/peripherals/platform_spi.c",
+					"settings":
+					{
+						"buffer_size": 14754,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14754,
+								14754
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 7517.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_spi.c",
+					"settings":
+					{
+						"buffer_size": 8950,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8805,
+								8805
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3442.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1099,7 +1065,7 @@
 	"menu_visible": true,
 	"output.clang":
 	{
-		"height": 136.0
+		"height": 97.0
 	},
 	"output.exec":
 	{

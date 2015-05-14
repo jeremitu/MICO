@@ -42,7 +42,6 @@
 #define BUART_RX_FIFO_SIZE      (1024*2)
 #define BUART_TX_FIFO_SIZE      (1024)
 
-
 /******************************************************
 *                   Enumerations
 ******************************************************/
@@ -275,38 +274,101 @@ static OSStatus FUartRecv( platform_uart_driver_t* driver, void* data, uint32_t 
 static OSStatus BUartRecv( platform_uart_driver_t* driver, void* data, uint32_t size, uint32_t timeout )
 {
   int next_trigger;
+  uint32_t recved_data_len = (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0);
+  uint32_t delay_start = 0;
 
   while (size != 0)
   {
-    uint32_t transfer_size = MIN(driver->rx_buffer->size / 2, size);
+    uint32_t transfer_size = MIN( BUART_RX_FIFO_SIZE / 2, size );
     
     /* Check if ring buffer already contains the required amount of data. */
-    if ( transfer_size > (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0) )
+    if ( transfer_size > recved_data_len )
     {
       /* Set rx_size and wait in rx_complete semaphore until data reaches rx_size or timeout occurs */
       driver->rx_size = transfer_size;
-      
       next_trigger = (driver->buart_fifo_head + driver->rx_size - 1)% BUART_RX_FIFO_SIZE;
-      if( next_trigger == -1 ){
-        next_trigger = BUART_RX_FIFO_SIZE - 1;     
+
+      /* */
+      if( next_trigger < driver->buart_fifo_head && driver->buart_fifo_head + recved_data_len < BUART_RX_FIFO_SIZE){
+            //FuartSend( "+", 1);
+        BuartIOctl( BUART_IOCTL_RXFIFO_TRGR_DEPTH_SET, BUART_RX_FIFO_SIZE - 1 );
+        BuartIOctl(UART_IOCTL_RXINT_CLR, 0);
+        BuartIOctl(UART_IOCTL_RXINT_SET, 1);     
+       
+#ifndef NO_MICO_RTOS
+#if 0
+        if ( mico_rtos_get_semaphore( &driver->rx_complete, timeout) != kNoErr )
+        {
+          if( timeout == 1500 ){
+            platform_log( "Recv %d", (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0) );
+          }
+          
+          
+          driver->rx_size = 0;
+          BuartIOctl(UART_IOCTL_RXINT_SET, 0);
+          return kTimeoutErr;
+        }
+#endif
+      delay_start = mico_get_time();
+      while(1){
+        mico_rtos_get_semaphore( &driver->rx_complete, 50);
+        if( (BUART_RX_FIFO_SIZE - driver->buart_fifo_head)  <= (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0) )
+          break;
+        if(  mico_get_time() - delay_start > timeout ){
+          driver->rx_size = 0;
+          BuartIOctl(UART_IOCTL_RXINT_SET, 0);
+          return kTimeoutErr;
+        }
+      }
+        
+        
+#else
+        driver->rx_complete = false;
+        int delay_start = mico_get_time_no_os();
+        while(driver->rx_complete == false){
+          if(mico_get_time_no_os() >= delay_start + timeout && timeout != MICO_NEVER_TIMEOUT){
+            driver->rx_size = 0;
+            BuartIOctl(UART_IOCTL_RXINT_SET, 0);
+            return kTimeoutErr;
+          }
+        }
+#endif     
+        mico_thread_msleep(20);
       }
 
       //platform_log( "Waiting...,head:%d expext:%d trigger:%d", driver->buart_fifo_head, driver->rx_size, next_trigger );
-      
       BuartIOctl( BUART_IOCTL_RXFIFO_TRGR_DEPTH_SET, next_trigger );
       BuartIOctl(UART_IOCTL_RXINT_CLR, 0);
-      BuartIOctl(UART_IOCTL_RXINT_SET, 1);      
+      BuartIOctl(UART_IOCTL_RXINT_SET, 1);  
+
         
 #ifndef NO_MICO_RTOS
-      if ( mico_rtos_get_semaphore( &driver->rx_complete, timeout) != kNoErr )
-      {
+#if 0
+      delay_start = mico_get_time();
+      if ( mico_rtos_get_semaphore( &driver->rx_complete, 5000) != kNoErr )
+      { 
         driver->rx_size = 0;
         BuartIOctl(UART_IOCTL_RXINT_SET, 0);
         return kTimeoutErr;
       }
+      if( mico_get_time() >= delay_start + 4000 ){
+        platform_log( "%d/%d/", driver->buart_fifo_head, next_trigger );
+      }
+#endif
+      delay_start = mico_get_time();
+      while(1){
+        mico_rtos_get_semaphore( &driver->rx_complete, 50);
+        if( driver->rx_size <= (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0) )
+          break;
+        if(  mico_get_time() - delay_start > timeout ){
+          driver->rx_size = 0;
+          BuartIOctl(UART_IOCTL_RXINT_SET, 0);
+          return kTimeoutErr;
+        }
+      }
 #else
       driver->rx_complete = false;
-      int delay_start = mico_get_time_no_os();
+      delay_start = mico_get_time_no_os();
       while(driver->rx_complete == false){
         if(mico_get_time_no_os() >= delay_start + timeout && timeout != MICO_NEVER_TIMEOUT){
           driver->rx_size = 0;
@@ -314,7 +376,7 @@ static OSStatus BUartRecv( platform_uart_driver_t* driver, void* data, uint32_t 
           return kTimeoutErr;
         }
       }
-#endif                       
+#endif           
       /* Reset rx_size to prevent semaphore being set while nothing waits for the data */
       driver->rx_size = 0;
     }
@@ -330,12 +392,13 @@ static OSStatus BUartRecv( platform_uart_driver_t* driver, void* data, uint32_t 
       bytes_available = MIN( bytes_available, transfer_size );
       BuartRecv(data, bytes_available, 0);
       driver->buart_fifo_head = (driver->buart_fifo_head + bytes_available)% BUART_RX_FIFO_SIZE;
-      if( driver->buart_fifo_head == BUART_RX_FIFO_SIZE - 1)
-        driver->buart_fifo_head = 0;
+      //if( driver->buart_fifo_head == BUART_RX_FIFO_SIZE )
+      //  driver->buart_fifo_head = 0;
       transfer_size -= bytes_available;
-      data = ( (uint8_t*) data + bytes_available );
     } while ( transfer_size != 0 );
   }
+  
+  //if( timeout == 1000000 &&   )
   
   if ( size != 0 )
   {
@@ -437,21 +500,26 @@ void platform_buart_irq( platform_uart_driver_t* driver )
     BuartIOctl(UART_IOCTL_RXINT_CLR,0);
   }
 
-  if(status & 0x01)
+  if(status & 0x01 )
   { 
+    
     BuartIOctl(UART_IOCTL_RXINT_SET, 0);
     BuartIOctl(UART_IOCTL_RXINT_CLR, 0);
     
     // Notify thread if sufficient data are available
     if ( ( driver->rx_size > 0 ) &&
          ( (uint32_t)BuartIOctl(BUART_IOCTL_RXFIFO_DATLEN_GET, 0)  >= driver->rx_size ) )
+    {
+      driver->rx_size = 0;
+    }
+
     {     
 #ifndef NO_MICO_RTOS
       mico_rtos_set_semaphore( &driver->rx_complete );
 #else
       driver->rx_complete = true;
 #endif
-      driver->rx_size = 0;
+      
     }
   }
   
