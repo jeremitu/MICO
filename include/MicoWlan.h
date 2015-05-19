@@ -255,6 +255,7 @@ typedef struct _linkStatus_t{
   int wifi_strength;      /**< Signal strength of the current connected AP */
   uint8_t  ssid[32];      /**< SSID of the current connected wlan */
   uint8_t  bssid[6];      /**< BSSID of the current connected wlan */
+  int      channel;       /**< Channel of the current connected wlan */
 } LinkStatusTypeDef;
 
 
