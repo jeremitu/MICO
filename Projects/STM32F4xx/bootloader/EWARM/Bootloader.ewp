@@ -4849,6 +4849,12 @@
     </group>
     <group>
       <name>MiCOKit-F411A</name>
+      <excluded>
+        <configuration>MiCOKit-3165</configuration>
+        <configuration>MiCOKit-3288</configuration>
+        <configuration>EMW5288</configuration>
+        <configuration>MiCOKit-F411B</configuration>
+      </excluded>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\MiCOKit-F411A\platform.c</name>
       </file>
