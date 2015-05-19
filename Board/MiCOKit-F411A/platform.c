@@ -237,27 +237,29 @@ const mico_spi_device_t mico_spi_flash =
 };
 #endif
 
+
 /* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c
-* SDIO: EMW1062_PIN_BOOTSTRAP[1:0] = b'00
-* gSPI: EMW1062_PIN_BOOTSTRAP[1:0] = b'01
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_RESET]           = { GPIOA, 11 },
+  [WIFI_PIN_POWER       ] = { GPIOA, 11 },
 };
 
 /* Wi-Fi SDIO bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_SDIO.c */
 const platform_gpio_t wifi_sdio_pins[] =
 {
-  [WIFI_PIN_SDIO_OOB_IRQ] = { GPIOB,  6 },
+#ifdef SDIO_1_BIT
+  [WIFI_PIN_SDIO_IRQ    ] = { GPIOA,  8 },
+#endif
   [WIFI_PIN_SDIO_CLK    ] = { GPIOB, 15 },
   [WIFI_PIN_SDIO_CMD    ] = { GPIOA,  6 },
   [WIFI_PIN_SDIO_D0     ] = { GPIOB,  7 },
+#ifndef SDIO_1_BIT
   [WIFI_PIN_SDIO_D1     ] = { GPIOA,  8 },
   [WIFI_PIN_SDIO_D2     ] = { GPIOA,  9 },
   [WIFI_PIN_SDIO_D3     ] = { GPIOB,  5 },
+#endif
 };
-
 
 /******************************************************
 *           Interrupt Handler Definitions
