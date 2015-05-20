@@ -515,7 +515,7 @@ OSStatus MicoFlashErase( mico_flash_t flash, uint32_t StartAddress, uint32_t End
 
   if( platform_flash_drivers[flash].initialized == false )
   {
-    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    err =  MicoFlashInitialize( flash );
     require_noerr( err, exit );
   }
   mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
@@ -533,7 +533,7 @@ OSStatus MicoFlashWrite(mico_flash_t flash, volatile uint32_t* FlashAddress, uin
   
   if( platform_flash_drivers[flash].initialized == false )
   {
-    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    err = MicoFlashInitialize( flash );
     require_noerr( err, exit );
   }
   mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
@@ -550,7 +550,7 @@ OSStatus MicoFlashRead(mico_flash_t flash, volatile uint32_t* FlashAddress, uint
   
   if( platform_flash_drivers[flash].initialized == false )
   {
-    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    err = MicoFlashInitialize( flash );
     require_noerr( err, exit );
   }
   mico_rtos_lock_mutex( &platform_flash_drivers[flash].flash_mutex );
@@ -566,7 +566,7 @@ OSStatus MicoFlashFinalize( mico_flash_t flash )
   OSStatus err = kNoErr;
   if( platform_flash_drivers[flash].initialized == false )
   {
-    err =  platform_flash_init( &platform_flash_drivers[flash], &platform_flash_peripherals[flash] );
+    err = MicoFlashInitialize( flash );
     require_noerr( err, exit );
   }
 

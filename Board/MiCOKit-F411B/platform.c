@@ -83,7 +83,7 @@ const platform_gpio_t platform_gpio_pins[] =
 {
   /* Common GPIOs for internal use */
   [MICO_SYS_LED]                      = { GPIOB, 12 }, 
-  [MICO_RF_LED]                       = { GPIOA, 13 }, 
+  [MICO_RF_LED]                       = { GPIOB, 13 }, 
   [BOOT_SEL]                          = { GPIOB,  2 }, 
   [MFG_SEL]                           = { GPIOB, 10 }, 
   [EasyLink_BUTTON]                   = { GPIOB, 14 }, 
