@@ -322,6 +322,7 @@ OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
   struct      sockaddr_t addr;
   json_object *easylink_report = NULL;
   const char  *json_str;
+  char host[16] = {0};
   
   size_t      httpResponseLen = 0;
 
@@ -339,8 +340,10 @@ OSStatus _connectFTCServer( mico_Context_t * const inContext, int *fd)
   json_str = json_object_to_json_string(easylink_report);
   require( json_str, exit );
 
+  inet_ntoa( host, inContext->flashContentInRam.micoSystemConfig.easylinkServerIP);
   easylink_log("Send config object=%s", json_str);
-  err =  CreateHTTPMessage( "POST", kEasyLinkURLAuth, kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
+  //err =  CreateHTTPMessage( "POST", kEasyLinkURLAuth, kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
+  err =  CreateHTTPMessageWithHost( "POST", kEasyLinkURLAuth, host, addr.s_port, kMIMEType_JSON, (uint8_t *)json_str, strlen(json_str), &httpResponse, &httpResponseLen );
   require_noerr( err, exit );
   require( httpResponse, exit );
 
@@ -535,7 +538,7 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
         easylink_log("Easylink server respond status OK!");
         err = HTTPGetHeaderField( inHeader->buf, inHeader->len, "Content-Type", NULL, NULL, &value, &valueSize, NULL );
         require_noerr(err, exit);
-        if( strnicmpx( value, valueSize, kMIMEType_JSON ) == 0 ){
+        if( strnicmpx( value, strlen(kMIMEType_JSON), kMIMEType_JSON ) == 0 ){
           easylink_log("Receive JSON config data!");
           err = ConfigIncommingJsonMessage( inHeader->extraDataPtr, inContext);
           inContext->flashContentInRam.micoSystemConfig.configured = allConfigured;
@@ -547,7 +550,7 @@ OSStatus _FTCRespondInComingMessage(int fd, HTTPHeader_t* inHeader, mico_Context
           mico_thread_sleep(MICO_WAIT_FOREVER);
         }
 #ifdef MICO_FLASH_FOR_UPDATE
-        else if(strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){
+        else if(strnicmpx( value, strlen(kMIMEType_JSON), kMIMEType_MXCHIP_OTA ) == 0){
           easylink_log("Receive OTA data!");
           mico_rtos_lock_mutex(&inContext->flashContentInRam_mutex);
           memset(&inContext->flashContentInRam.bootTable, 0, sizeof(boot_table_t));

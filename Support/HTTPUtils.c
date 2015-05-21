@@ -913,6 +913,44 @@ exit:
   return err;
 }
 
+OSStatus CreateHTTPMessageWithHost( const char *methold, const char *url, 
+                           const char* host, uint16_t port, 
+                           const char *contentType, 
+                           uint8_t *inData, size_t inDataLen, 
+                           uint8_t **outMessage, size_t *outMessageSize )
+{
+  uint8_t *endOfHTTPHeader;  
+  OSStatus err = kParamErr;
+    
+  err = kNoMemoryErr;
+  *outMessage = malloc( inDataLen + 500 );
+  require( *outMessage, exit );
+  
+  // Create HTTP Response
+  if(inDataLen)
+    sprintf( (char*)*outMessage,
+            "%s %s %s%s%s %s:%d%s%s %s%s%s %d%s",
+            methold, url, "HTTP/1.1", kCRLFNewLine, 
+            "Host:", host, port, kCRLFNewLine,
+            "Content-Type:", contentType, kCRLFNewLine,
+            "Content-Length:", (int)inDataLen, kCRLFLineEnding );
+  else
+    sprintf( (char*)*outMessage,
+            "%s %s %s%s%s %s:%d%s",
+            methold, url, "HTTP/1.1", kCRLFNewLine,
+           "Host:", host, port, kCRLFLineEnding);
+  
+  // outMessageSize will be the length of the HTTP Header plus the data length
+  *outMessageSize = strlen( (char*)*outMessage ) + inDataLen;
+  
+  endOfHTTPHeader = *outMessage + strlen( (char*)*outMessage );
+  memcpy( endOfHTTPHeader, inData, inDataLen ); 
+  err = kNoErr;
+  
+exit:
+  return err;
+}
+
 void PrintHTTPHeader( HTTPHeader_t *inHeader )
 {
   (void)inHeader; // Fix warning when debug=0

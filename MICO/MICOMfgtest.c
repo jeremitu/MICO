@@ -6,10 +6,12 @@
 #include "MICONotificationCenter.h"
 #include "platform_config.h"
 
-
-#define MFG_FUNCTION             1
-
-
+#ifdef USE_MiCOKit_EXT
+  #include "micokit_ext.h"
+  #define MFG_FUNCTION            3
+#else
+  #define MFG_FUNCTION            1
+#endif
 
 /* MFG test demo BEGIN */
 extern int mfg_connect(char *ssid);
@@ -259,8 +261,13 @@ void mico_mfg_test(mico_Context_t *inContext)
 exit:
   if(buf) free(buf);  
 }
-#endif
 
+#elif (MFG_FUNCTION == 3)   // MicoKit MFG TEST
+void mico_mfg_test(mico_Context_t *inContext)
+{
+  micokit_ext_mfg_test(inContext);  // MicoKit-EXT board mfg test
+}
+#endif
 
 void uartRecvMfg_thread(void *inContext)
 {

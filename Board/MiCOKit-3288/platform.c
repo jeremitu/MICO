@@ -41,9 +41,9 @@
 #include "spi_flash_platform_interface.h"
 #include "wlan_platform_common.h"
 
-#ifdef USE_MiCOKit_EXT
-#include "rgb_led.h"
-#endif
+//#ifdef USE_MiCOKit_EXT
+//#include "rgb_led.h"
+//#endif
 
 /******************************************************
 *                      Macros
@@ -256,6 +256,25 @@ const mico_spi_device_t mico_spi_flash =
 };
 #endif
 
+const platform_adc_t platform_adc_peripherals[] =
+{
+  // [MICO_ADC_1] = NULL,
+  [MICO_ADC_1] = {
+    .port = ADC1,
+    . channel = ADC_Channel_4,
+    .adc_peripheral_clock = RCC_APB2Periph_ADC1, 
+    .rank = 1, 
+    .pin = (platform_gpio_t*)&platform_gpio_pins[MICO_GPIO_9]
+  },
+  [MICO_ADC_2] = {
+    .port = ADC1,
+    .channel = ADC_Channel_1,
+    .adc_peripheral_clock = RCC_APB2Periph_ADC1,
+    .rank = 1, 
+    .pin = (platform_gpio_t*)&platform_gpio_pins[MICO_GPIO_24]
+  }
+};
+
 /* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c
 */
 const platform_gpio_t wifi_control_pins[] =
@@ -367,7 +386,7 @@ void init_platform( void )
   MicoGpioInitialize( Arduino_D9, OUTPUT_PUSH_PULL );
   MicoGpioOutputLow( Arduino_D9 );
   
-  hsb_led_open( 0, 0, 0 );
+  //hsb_led_open( 0, 0, 0 );
 
 #endif
 
@@ -399,28 +418,32 @@ void MicoSysLed(bool onoff)
     }
 }
 
+// Only one led on base board, so use system led as RF led.
 void MicoRfLed(bool onoff)
 {
     if (onoff) {
-        MicoGpioOutputLow( (mico_gpio_t)MICO_RF_LED );
+        MicoSysLed(true);
     } else {
-        MicoGpioOutputHigh( (mico_gpio_t)MICO_RF_LED );
+        MicoSysLed(false);
     }
 }
 
+// add long press key2 on ext-board when restart to enter MFG MODE
 bool MicoShouldEnterMFGMode(void)
 {
-  return false;
-  
-  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
-    return true;
-  else
+  if( (MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false) ||
+     (MicoGpioInputGet((mico_gpio_t)Arduino_D5) == false) ){
+       return true;
+     }
+  else{
     return false;
+  }
 }
 
+// bootloader mode: SW1=ON, SW2=OFF
 bool MicoShouldEnterBootloader(void)
 {
-  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false /*&& MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true*/)
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
     return true;
   else
     return false;

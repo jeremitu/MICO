@@ -37,6 +37,10 @@
 #include "platform_config.h"
 #include "platformLogging.h"
 
+#ifdef USE_MiCOKit_EXT
+#include "micokit_ext.h"   // extension board operation by user.
+#endif
+
 /******************************************************
 *                      Macros
 ******************************************************/
@@ -107,6 +111,10 @@ OSStatus mico_platform_init( void )
   
 #ifdef USES_RESOURCE_FILESYSTEM
   platform_filesystem_init();
+#endif
+  
+#ifdef USE_MiCOKit_EXT
+  micokit_ext_init();
 #endif
   
   return kNoErr;
