@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDriverRng.c 
+* @file    paltform_rng.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

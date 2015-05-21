@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDriverUart.c 
+* @file    platform_uart.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoVirtualDevice.h 
+* @file    MicoVirtualDeviceDef.h 
 * @author  Eshen Wang
 * @version V0.2.0
 * @date    21-Nov-2014

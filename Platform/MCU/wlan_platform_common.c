@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    wlan_platform.c 
+* @file    wlan_platform_common.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDriverAdc.c 
+* @file    paltform_flash.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

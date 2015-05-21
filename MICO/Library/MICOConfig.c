@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoConfig.h 
+* @file    MicoConfig.C 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDriverWdg.c 
+* @file    paltform_watchdog.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

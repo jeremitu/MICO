@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    MICOPARASTORAGE.c 
+  * @file    HomeKitPairList.h 
   * @author  William Xu
   * @version V1.0.0
   * @date    05-May-2014
