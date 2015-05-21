@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    StringUtils.c 
+* @file    RingBufferUtils.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

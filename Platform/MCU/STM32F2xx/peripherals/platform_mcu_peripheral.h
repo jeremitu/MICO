@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    stm32f2xx_platform.h 
+* @file    platform_mcu_peripheral.h 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

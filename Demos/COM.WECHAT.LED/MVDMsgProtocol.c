@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    LM_LEDCmd.c 
+* @file    MVDMsgProtocol.c 
 * @author  Eshen Wang
 * @version V0.0.1
 * @date    29-Nov-2014

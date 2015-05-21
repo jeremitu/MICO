@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    EasyLink.h 
+* @file    EasyLinkSoftAP.h 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

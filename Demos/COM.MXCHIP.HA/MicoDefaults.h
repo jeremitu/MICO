@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDefault.h 
+* @file    MicoDefaults.h 
 * @author  William Xu
 * @version V1.0.0
 * @date    16-Sep-2014

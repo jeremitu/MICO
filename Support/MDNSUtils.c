@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    mdns.c
+* @file    MDNSUtils.c
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

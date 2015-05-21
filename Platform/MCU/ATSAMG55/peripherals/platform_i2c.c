@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDriverI2C.c 
+* @file    platform_i2c.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

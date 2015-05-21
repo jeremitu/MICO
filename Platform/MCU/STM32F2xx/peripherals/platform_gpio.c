@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDriverGpio.c 
+* @file    paltform_gpio.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014
