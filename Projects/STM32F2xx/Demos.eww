@@ -8,6 +8,9 @@
     <path>$WS_DIR$\COM.Apple.HomeKit\EWARM\COM.Apple.HomeKit.ewp</path>
   </project>
   <project>
+    <path>$WS_DIR$\COM.MXCHIP.BASIC\EWARM\COM.MXCHIP.BASIC.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\COM.MXCHIP.EASYCLOUD\EWARM\COM.MXCHIP.EASYCLOUD.ewp</path>
   </project>
   <project>
