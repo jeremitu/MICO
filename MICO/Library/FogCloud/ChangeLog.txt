@@ -1,10 +1,21 @@
 ================================================================================
+¡¾2015.05.22¡¿
+[Name]   : FogCloud
+[version]: v1.0.1
+
+[Changlog]:
+    1. fix no rom on server error;
+    2. add mutex for msg recv queue for safety£»
+    3. adjust MQTT cmd time && retry interval for bad network;
+    4. for Cotex-M3 && M4 MCU.
+
+================================================================================
 ¡¾2015.05.14¡¿
 [Name]   : MicoFogCloudService
 [version]: v1.0.0
 
 [Changlog]:
-    1. change name "EasyCloud" => "FogCloud", version 1.0.0;
+    1. change name "EasyCloud" => "FogCloud";
     2. fix some bugs.
 
 ================================================================================

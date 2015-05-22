@@ -634,12 +634,15 @@
   </group>
   <group>
     <name>Library</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_debug.a</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_release.a</name>
-    </file>
+    <group>
+      <name>FogCloud</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm4_debug.a</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm4_release.a</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\MICO\Library\MICOConfig.c</name>
     </file>
