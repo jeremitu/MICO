@@ -318,12 +318,7 @@
           <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
           <state>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.FogCloud\AppFramework</state>
           <state>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.FogCloud\User</state>
-          <state>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.FogCloud\User\drivers</state>
-          <state>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud</state>
-          <state>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloudMQTTClient</state>
-          <state>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloudMQTTClient\MQTTClient-C\src</state>
-          <state>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloudMQTTClient\MQTTClient-C\src\MICO</state>
-          <state>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloudMQTTClient\MQTTPacket\src</state>
+          <state>$PROJ_DIR$\..\..\..\..\include\FogCloud</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -3442,6 +3437,7 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm4_release.a</name>
         <excluded>
+          <configuration>MiCOKit-3165</configuration>
           <configuration>MiCOKit-3288</configuration>
         </excluded>
       </file>

@@ -316,7 +316,9 @@
           <state>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
-          <state>$PROJ_DIR$\..\..\..\..\include\EasyCloud</state>
+          <state>$PROJ_DIR$\..\..\..\..\include\FogCloud</state>
+          <state>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework</state>
+          <state>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2192,6 +2194,7 @@
       <file>
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm4_release.a</name>
         <excluded>
+          <configuration>MiCOKit-3165</configuration>
           <configuration>MiCOKit-3288</configuration>
         </excluded>
       </file>
@@ -2501,6 +2504,9 @@
               <configuration>MiCOKit-3165</configuration>
               <configuration>MiCOKit-3288</configuration>
             </excluded>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\wlan_bus_driver\wlan_platform.c</name>
           </file>
         </group>
         <file>
