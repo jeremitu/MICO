@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    update.c 
+* @file    update_for_OTA.c 
 * @author  William Xu
 * @version V2.0.0
 * @date    05-Oct-2014

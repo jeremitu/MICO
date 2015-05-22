@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    hsb2rgb_led.c
+* @file    rgb_led.c
 * @author  Eshen Wang
 * @version V1.0.0
 * @date    17-Mar-2015

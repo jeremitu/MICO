@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    stm32f2xx_platform.c 
+* @file    platform_mcu_powersave.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

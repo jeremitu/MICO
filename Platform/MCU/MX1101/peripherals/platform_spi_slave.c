@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    MicoDriverSpi.c 
+* @file    platform_spi_slave.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    05-May-2014

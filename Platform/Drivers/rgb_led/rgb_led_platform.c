@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    rgb_led.c
+* @file    rgb_led_platform.c
 * @author  Eshen Wang
 * @version V1.0.0
 * @date    17-Mar-2015

@@ -1,6 +1,6 @@
 /**
 ******************************************************************************
-* @file    wlan_bus.h 
+* @file    wlan_bus_sdio.h 
 * @author  William Xu
 * @version V1.0.0
 * @date    16-Sep-2014
