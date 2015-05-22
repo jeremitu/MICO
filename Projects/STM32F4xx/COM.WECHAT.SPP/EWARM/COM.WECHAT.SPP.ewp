@@ -1272,7 +1272,9 @@
           <state>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries\STM32F4xx_StdPeriph_Driver\inc</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\MCU\STM32F4xx\peripherals\Libraries</state>
           <state>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash</state>
-          <state>$PROJ_DIR$\..\..\..\..\include\EasyCloud</state>
+          <state>$PROJ_DIR$\..\..\..\..\include\FogCloud</state>
+          <state>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework</state>
+          <state>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1916,30 +1918,57 @@
   </configuration>
   <group>
     <name>Application</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOAppDefine.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOAppEntrance.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOBonjour.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOConfigDelegate.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MicoVirtualDevice.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MicoVirtualDevice.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MVDCloudInterfaces.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MVDDeviceInterfaces.c</name>
-    </file>
+    <group>
+      <name>AppFramework</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\fogCloud.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\fogCloud.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOAppDefine.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOAppEntrance.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOBonjour.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOConfigDelegate.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoDefaults.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloud.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloud.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloudConfigServer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloudDef.h</name>
+      </file>
+    </group>
+    <group>
+      <name>User</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_config.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_uart.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_uart.h</name>
+      </file>
+    </group>
   </group>
   <group>
     <name>Board</name>
@@ -2084,36 +2113,48 @@
   <group>
     <name>include</name>
     <group>
+      <name>FogCloud</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\include\FogCloud\FogCloudService.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\include\FogCloud\FogCloudServiceDef.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\include\FogCloud\FogCloudUtils.h</name>
+      </file>
+    </group>
+    <group>
       <name>MicoDriver</name>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverAdc.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverAdc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverGpio.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverGpio.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverI2c.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverI2c.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverMFiAuth.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverMFiAuth.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverPwm.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverPwm.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverRng.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverRng.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverRtc.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverRtc.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverSpi.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverSpi.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverUart.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverUART.h</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MicoDriverWdg.h</name>
+        <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverWdg.h</name>
       </file>
     </group>
     <file>
@@ -2143,18 +2184,20 @@
   </group>
   <group>
     <name>Library</name>
+    <group>
+      <name>FogCloud</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm4_debug.a</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm4_release.a</name>
+        <excluded>
+          <configuration>MiCOKit-3288</configuration>
+        </excluded>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\MICO\Library\MICOConfig.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\EasyCloud\MicoEasyCloudService_debug.a</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\MICO\Library\EasyCloud\MicoEasyCloudService_release.a</name>
-      <excluded>
-        <configuration>MiCOKit-3165</configuration>
-        <configuration>MiCOKit-3288</configuration>
-      </excluded>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\MICO\Library\mxchipWNet_cm4f_8801.a</name>

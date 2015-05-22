@@ -10,11 +10,14 @@
   <project>
     <path>$WS_DIR$\COM.MXCHIP.SPP\EWARM\COM.MXCHIP.SPP.ewp</path>
   </project>
-  <project>
-    <path>$WS_DIR$\COM.MXCHIP.MicoKit\EWARM\COM.MXCHIP.MicoKit.ewp</path>
+   <project>
+    <path>$WS_DIR$\COM.MXCHIP.FogCloud\EWARM\COM.MXCHIP.FogCloud.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\COM.WECHAT.SPP\EWARM\COM.WECHAT.SPP.ewp</path>
+  </project>
+   <project>
+    <path>$WS_DIR$\COM.MXCHIP.MicoKit\EWARM\COM.MXCHIP.MicoKit.ewp</path>
   </project>
   <batchBuild/>
 </workspace>

@@ -172,27 +172,57 @@
   </configuration>
   <group>
     <name>Application</name>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOAppDefine.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOAppEntrance.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOBonjour.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MICOConfigDelegate.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MicoVirtualDevice.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MVDCloudInterfaces.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\MVDDeviceInterfaces.c</name>
-    </file>
+    <group>
+      <name>AppFramework</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\fogCloud.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\fogCloud.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOAppDefine.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOAppEntrance.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOBonjour.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MICOConfigDelegate.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoDefaults.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloud.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloud.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloudConfigServer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\AppFramework\MicoFogCloudDef.h</name>
+      </file>
+    </group>
+    <group>
+      <name>User</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_config.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_uart.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.WECHAT.SPP\User\user_uart.h</name>
+      </file>
+    </group>
   </group>
   <group>
     <name>Board</name>
@@ -329,6 +359,18 @@
   <group>
     <name>include</name>
     <group>
+      <name>FogCloud</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\include\FogCloud\FogCloudService.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\include\FogCloud\FogCloudServiceDef.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\..\include\FogCloud\FogCloudUtils.h</name>
+      </file>
+    </group>
+    <group>
       <name>MicoDriver</name>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\include\MicoDrivers\MICODriverAdc.h</name>
@@ -414,10 +456,10 @@
       <group>
         <name>FogCloud</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\MICO\Library\EasyCloud\MicoEasyCloudService_debug.a</name>
+          <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm3_debug.a</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\MICO\Library\EasyCloud\MicoEasyCloudService_release.a</name>
+          <name>$PROJ_DIR$\..\..\..\..\MICO\Library\FogCloud\FogCloud_cm3_release.a</name>
         </file>
       </group>
       <file>
