@@ -64,8 +64,15 @@ OSStatus mico_fogcloud_msg_dispatch(mico_Context_t* context, struct mico_service
   }
   
   // strip "<device_id>/in" to get response sub-topic, then response to:  "<device_id>/out/<sub-topic>"
-  recv_sub_topic_ptr = (char*)(cloud_msg->topic) + strlen(context->flashContentInRam.appConfig.fogcloudConfig.deviceId) + strlen(FOGCLOUD_MSG_TOPIC_IN);
   recv_sub_topic_len = (int)cloud_msg->topic_len - (strlen(context->flashContentInRam.appConfig.fogcloudConfig.deviceId) + strlen(FOGCLOUD_MSG_TOPIC_IN));
+  if(recv_sub_topic_len <= 0){  // unsupported topic
+    msg_dispatch_log("ERROR: Message from unsupported topic: %.*s \t data[%d]: %s, ignored.", 
+                     cloud_msg->topic_len, cloud_msg->topic,
+                     cloud_msg->data_len, cloud_msg->data);
+    err = kUnsupportedErr;
+    goto exit;
+  }
+  recv_sub_topic_ptr = (char*)(cloud_msg->topic) + strlen(context->flashContentInRam.appConfig.fogcloudConfig.deviceId) + strlen(FOGCLOUD_MSG_TOPIC_IN);
   
   response_sub_topic = (char*)malloc(recv_sub_topic_len);   // response to where msg come from, remove leading '/'
   if(NULL == response_sub_topic){
