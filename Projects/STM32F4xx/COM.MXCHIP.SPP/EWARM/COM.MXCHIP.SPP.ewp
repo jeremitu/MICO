@@ -6185,25 +6185,10 @@
       <group>
         <name>MFiAuth</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\MicoDriverMFiAuth\MicoDriverMFiAuth.a</name>
         </file>
       </group>
       <group>
-        <name>RGB LED</name>
-        <excluded>
-          <configuration>MiCOKit-3165</configuration>
-          <configuration>MiCOKit-F411B</configuration>
-          <configuration>MiCOKit-F411A</configuration>
-          <configuration>EMW3265</configuration>
-        </excluded>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led.c</name>
-        </file>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\rgb_led\rgb_led_platform.c</name>
-        </file>
-      </group>
-      <group>
+
         <name>SPI Flash</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>

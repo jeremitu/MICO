@@ -35,12 +35,14 @@
 #include "ioport.h"
 #include "usart.h"
 #include "spi.h"
+#include "twi.h"
 #include "efc.h"
 #include "pdc.h"
 #include "flexcom.h"
 #include "rtt.h"
 #include "supc.h"
 #include "matrix.h"
+#include "wdt.h"
 
 #include "MicoRtos.h"
 #include "RingBufferUtils.h"
@@ -124,6 +126,7 @@ typedef enum
 /* SPI port */
 typedef Spi     platform_spi_port_t;
 typedef Adc     platform_adc_port_t;
+typedef Twi     platform_i2c_port_t;
 
 
 /******************************************************
@@ -168,7 +171,7 @@ typedef struct
 typedef struct {
     uint8_t                uart_id;
     void*                  port;             /* Usart* or Uart*  */
-    uint8_t                peripheral_id;    /* Peripheral ID    */
+    Flexcom*               flexcom_base;
     const platform_gpio_t* tx_pin;           /* Tx pin           */
     ioport_mode_t          tx_pin_mux_mode;  /* Tx pin mux mode  */
     const platform_gpio_t* rx_pin;           /* Rx pin           */
@@ -217,7 +220,7 @@ typedef struct
 {
     uint8_t                spi_id;
     platform_spi_port_t*   port;                /* Peripheral         */
-    uint8_t                peripheral_id;       /* Peripheral ID      */
+    Flexcom*               flexcom_base;
     const platform_gpio_t* mosi_pin;            /* MOSI pin           */
     ioport_mode_t          mosi_pin_mux_mode;   /* MOSI pin mux mode  */
     const platform_gpio_t* miso_pin;            /* MISO pin           */
@@ -245,7 +248,13 @@ typedef struct
 
 typedef struct
 {
-    uint8_t unimplemented;
+    uint8_t                 i2c_id;
+    platform_i2c_port_t*    port;
+    Flexcom*                flexcom_base;
+    const platform_gpio_t*  sda_pin;
+    ioport_mode_t           sda_pin_mux_mode;  
+    const platform_gpio_t*  scl_pin;
+    ioport_mode_t           scl_pin_mux_mode;
 } platform_i2c_t;
 
 /******************************************************
@@ -269,6 +278,8 @@ OSStatus platform_gpio_peripheral_pin_init( const platform_gpio_t* gpio, ioport_
 void     platform_uart_irq                   ( platform_uart_driver_t* driver );
 void     platform_uart_tx_dma_irq            ( platform_uart_driver_t* driver );
 void     platform_uart_rx_dma_irq            ( platform_uart_driver_t* driver );
+void     platform_i2c_irq                    ( uint8_t i2c_id );
+
 
 
 #ifdef __cplusplus

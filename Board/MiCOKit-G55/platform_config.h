@@ -116,6 +116,9 @@
 // - PLLA output: SLCK_XTAL * 3662 / 1
 // - System clock: SLCK_XTAL * 3662 / 1 / 1 = 120MHz
 
+/*  CPU clock : 48MHz */
+#define CPU_CLOCK_HZ  ( 120000000 )
+
 
 /******************************************************
  *  EMW1062 Options
@@ -124,7 +127,7 @@
 #define EMW1062
 
 /*  GPIO pins are used to bootstrap Wi-Fi to SDIO or gSPI mode */
-#define MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP
+//#define MICO_WIFI_USE_GPIO_FOR_BOOTSTRAP
 
 /*  Wi-Fi GPIO0 pin is used for out-of-band interrupt */
 #define MICO_WIFI_OOB_IRQ_GPIO_PIN  ( 0 )

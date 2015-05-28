@@ -257,7 +257,7 @@ uint32_t twi_master_read(Twi *p_twi, twi_packet_t *p_packet)
 	uint32_t cnt = p_packet->length;
 	uint8_t *buffer = p_packet->buffer;
 	uint8_t stop_sent = 0;
-	uint32_t timeout = TWI_TIMEOUT;;
+	uint32_t timeout = TWI_TIMEOUT;
 	
 	/* Check argument */
 	if (cnt == 0) {

@@ -580,9 +580,10 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/MICOAppEntrance.c",
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform_config.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-F205/platform_config.h",
@@ -706,8 +707,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/MICO_EVB_1/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoWlan.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/MICONotificationCenter.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/platform_sleep.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/MICO/EasyLink/EasyLink.h"
 	],
 	"find":
 	{

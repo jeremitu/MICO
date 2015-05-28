@@ -168,26 +168,27 @@ typedef enum
 #define Arduino_SDA         (MICO_GPIO_11)
 #define Arduino_SCL         (MICO_GPIO_10)
 
-#define USE_MiCOKit_EXT
+#define Arduino_I2C         (MICO_I2C_1)
+#define Arduino_SPI         (MICO_SPI_1)
+
+//#define USE_MiCOKit_EXT
 
 #ifdef USE_MiCOKit_EXT
-#define MICO_I2C_CP         (MICO_I2C_1)
+#define MICO_I2C_CP         (Arduino_I2C)
 #define MICO_DC_MOTOR       (Arduino_D9)
 
 #define USE_RGB_LED_DRIVER_P9813
-#define RGB_LED_P9813_CIN   (MICO_GPIO_10)
-#define RGB_LED_P9813_DIN   (MICO_GPIO_11)
-
+#define RGB_LED_P9813_CIN   (Arduino_SCL)
+#define RGB_LED_P9813_DIN   (Arduino_SDA)
 
 #else
-#define MICO_I2C_CP         (MICO_I2C_NONE)
+#define MICO_I2C_CP         (Arduino_I2C)
 #define MICO_DC_MOTOR       (MICO_GPIO_NONE)
 
 #define USE_RGB_LED_DRIVER_PWM
 #define RGB_LED_R           (MICO_GPIO_NONE)
 #define RGB_LED_G           (MICO_GPIO_NONE)
 #define RGB_LED_B           (MICO_GPIO_NONE)
-
 
 #endif //USE_MiCOKit_EXT
 
