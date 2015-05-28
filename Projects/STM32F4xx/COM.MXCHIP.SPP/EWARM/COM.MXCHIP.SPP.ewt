@@ -884,9 +884,6 @@
       <name>Drivers</name>
       <group>
         <name>MFiAuth</name>
-        <file>
-          <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\MiCODriverMFiAuth\MicoDriverMFiAuth.a</name>
-        </file>
       </group>
       <group>
         <name>SPI Flash</name>

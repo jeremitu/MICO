@@ -207,6 +207,7 @@ void micokit_ext_mfg_test(mico_Context_t *inContext)
             break;
           }
           else{
+            mico_thread_msleep(500);
             err = bme280_data_readout(&bme280_temp, &bme280_press, &bme280_hum);
             if(kNoErr == err){
               sprintf(str, "%s BME280\r\nT: %3.1fC\r\nH: %3.1f%%\r\nP: %5.2fkPa", OLED_MFG_TEST_PREFIX,

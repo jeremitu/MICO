@@ -523,7 +523,25 @@
 			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_i2c.c",
 			"settings":
 			{
-				"buffer_size": 14049,
+				"buffer_size": 7795,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "Searching 1880 files for \"twi_mk_addr\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_i2c.c:\n  333  	/* Set internal address for remote chip */\n  334  	p_twi->TWI_IADR = 0;\n  335: 	p_twi->TWI_IADR = twi_mk_addr(p_packet_tx->addr, p_packet_tx->addr_length);\n  336  \n  337  	/* Send all bytes */\n  ...\n  383  	/* Set internal address for remote chip */\n  384  	p_twi->TWI_IADR = 0;\n  385: 	p_twi->TWI_IADR = twi_mk_addr(p_packet_rx->addr, p_packet_rx->addr_length);\n  386  \n  387  	/* Send a START condition */\n\n/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/asf-3.22.0/sam/drivers/twi/twi.c:\n  223   * Please see the device datasheet for details on this.\n  224   */\n  225: static uint32_t twi_mk_addr(const uint8_t *addr, int len)\n  226  {\n  227  	uint32_t val;\n  ...\n  273  	/* Set internal address for remote chip */\n  274  	p_twi->TWI_IADR = 0;\n  275: 	p_twi->TWI_IADR = twi_mk_addr(p_packet->addr, p_packet->addr_length);\n  276  \n  277  	/* Send a START condition */\n  ...\n  346  	/* Set internal address for remote chip */\n  347  	p_twi->TWI_IADR = 0;\n  348: 	p_twi->TWI_IADR = twi_mk_addr(p_packet->addr, p_packet->addr_length);\n  349  \n  350  	/* Send all bytes */\n\n5 matches across 2 files\n",
+			"settings":
+			{
+				"buffer_size": 1260,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/asf-3.22.0/sam/drivers/twi/twi.c",
+			"settings":
+			{
+				"buffer_size": 17444,
 				"line_ending": "Windows"
 			}
 		}
@@ -742,6 +760,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"twi_mk_addr",
 			"i2c_transfer_message_no_dma",
 			"twi_master_read",
 			"MICO_EXT_I2C_BME280",
@@ -868,8 +887,7 @@
 			"CK_SPRE_CLOCK_SOURCE_SELECTED",
 			"RTC_INTERRUPT_EXTI_LINE",
 			"BOOTLOADER_MAGIC_NUMBER",
-			"NUMBER_OF_LSE_TICKS_PER_MILLISECOND",
-			"wake_up_interrupt_triggered"
+			"NUMBER_OF_LSE_TICKS_PER_MILLISECOND"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -898,25 +916,111 @@
 					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/platform_i2c.c",
 					"settings":
 					{
-						"buffer_size": 14049,
+						"buffer_size": 7795,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								7795,
+								7795
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3409.0,
+						"translation.y": 2992.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 1260,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										237,
+										248
+									],
+									[
+										444,
+										455
+									],
+									[
+										751,
+										762
+									],
+									[
+										936,
+										947
+									],
+									[
+										1145,
+										1156
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								758,
+								758
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/ATSAMG55/peripherals/Libraries/asf-3.22.0/sam/drivers/twi/twi.c",
+					"settings":
+					{
+						"buffer_size": 17444,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7732,
+								7732
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4195.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

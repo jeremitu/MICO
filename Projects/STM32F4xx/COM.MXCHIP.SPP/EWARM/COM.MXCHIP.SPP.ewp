@@ -5770,6 +5770,7 @@
       <name>EMW3265</name>
       <excluded>
         <configuration>MiCOKit-3165</configuration>
+        <configuration>MiCOKit-3288</configuration>
       </excluded>
       <file>
         <name>$PROJ_DIR$\..\..\..\..\Board\EMW3265\platform.c</name>
@@ -6184,11 +6185,8 @@
       <name>Drivers</name>
       <group>
         <name>MFiAuth</name>
-        <file>
-        </file>
       </group>
       <group>
-
         <name>SPI Flash</name>
         <file>
           <name>$PROJ_DIR$\..\..\..\..\Platform\Drivers\spi_flash\spi_flash.c</name>

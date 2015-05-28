@@ -523,7 +523,7 @@
 			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
 			"settings":
 			{
-				"buffer_size": 15204,
+				"buffer_size": 15857,
 				"line_ending": "Windows"
 			}
 		},
@@ -540,6 +540,14 @@
 			"settings":
 			{
 				"buffer_size": 16304,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_i2c.c",
+			"settings":
+			{
+				"buffer_size": 26120,
 				"line_ending": "Windows"
 			}
 		}
@@ -758,6 +766,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"i2c_rx_no_dma",
+			"i2c_tx_no_dma",
+			"i2c_tx_no_dma\ni2c_tx_no_dma",
+			"i2c_tx_no_dma",
 			"mico_notify_SYS_WILL_POWER_OFF",
 			"mico_notify_SYS_WILL_POWER_OFF_function",
 			"sendNotifySYSWillPowerOff",
@@ -881,11 +893,7 @@
 			"The MIT License",
 			"__IO",
 			"network_InitTypeDef_st",
-			"MICO_RF_LED",
-			"C000",
-			"800C000",
-			"host_platform_reset_wifi",
-			"WL_RESET_BANK"
+			"MICO_RF_LED"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -905,7 +913,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -913,7 +921,7 @@
 					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
 					"settings":
 					{
-						"buffer_size": 15204,
+						"buffer_size": 15857,
 						"regions":
 						{
 						},
@@ -931,7 +939,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1330.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -987,6 +995,34 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 3067.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_i2c.c",
+					"settings":
+					{
+						"buffer_size": 26120,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								25294,
+								25294
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11981.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

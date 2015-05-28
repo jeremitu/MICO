@@ -431,10 +431,15 @@ void MicoRfLed(bool onoff)
 // add long press key2 on ext-board when restart to enter MFG MODE
 bool MicoShouldEnterMFGMode(void)
 {
+#ifdef USE_MiCOKit_EXT
   if( (MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false) ||
-     (MicoGpioInputGet((mico_gpio_t)Arduino_D5) == false) ){
-       return true;
-     }
+     (MicoGpioInputGet((mico_gpio_t)Arduino_D5) == false) )
+#else
+  if( MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false )
+#endif
+  {
+    return true;
+  }
   else{
     return false;
   }

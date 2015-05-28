@@ -519,6 +519,32 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "Searching 1878 files for \"user_key1_clicked_callback\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/micokit_ext_mfg.c:\n   35  \n   36  // Key1 clicked callback:  previous test module in test mode\n   37: void user_key1_clicked_callback(void)\n   38  {\n   39    if(NULL != mfg_test_state_change_sem){\n\n/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/key/keys.c:\n   37  \n   38  // Key1 && key2 callbacks, set by user.\n   39: extern WEAK void user_key1_clicked_callback(void);\n   40  extern WEAK void user_key1_long_pressed_callback(void);\n   41  extern WEAK void user_key2_clicked_callback(void);\n   ..\n   54      if ( (_default_key1_start_time != 0) && interval > 50 && interval < user_key1_long_press_timeout){\n   55        /* button clicked once */\n   56:       user_key1_clicked_callback();\n   57      }\n   58      mico_stop_timer(&_user_key1_timer);\n\n3 matches across 2 files\n\n\nSearching 1878 files for \"user_key1_init\" (whole word)\n\n/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/micokit_ext.c:\n   58    \n   59    // init user key1 && key2\n   60:   user_key1_init();\n   61    user_key2_init();\n   62    \n\n/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/key/keys.c:\n   94  }\n   95  \n   96: void user_key1_init(void)\n   97  {\n   98     MicoGpioInitialize( (mico_gpio_t)USER_KEY1, INPUT_PULL_UP );\n\n/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/key/keys.h:\n   44  //------------------------------ user interfaces -------------------------------\n   45  \n   46: void user_key1_init(void);\n   47  void user_key2_init(void);\n   48  \n\n3 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 1617,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/micokit_ext.c",
+			"settings":
+			{
+				"buffer_size": 2460,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/key/keys.c",
+			"settings":
+			{
+				"buffer_size": 3682,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -734,6 +760,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"user_key1_init",
+			"_user_key1_irq_handler",
+			"user_key1_clicked_callback",
 			"Standby_SEL",
 			"platform_reset_wlan_powersave_clock",
 			"host_platform_deinit_wlan_powersave_clock",
@@ -858,10 +887,7 @@
 			"otaDataPtr",
 			"HTTPHeaderClear",
 			"unlock",
-			"dataEndedbyClose",
-			"onClear",
-			"flashStorageAddress",
-			"  /* For MXCHIP OTA function, store extra data to OTA data temporary */\n//   err = HTTPGetHeaderField( inHeader->buf, inHeader->len, \"Content-Type\", NULL, NULL, &value, &valueSize, NULL );\n\n//   if(err == kNoErr && strnicmpx( value, valueSize, kMIMEType_MXCHIP_OTA ) == 0){\n// #ifdef MICO_FLASH_FOR_UPDATE  \n//     http_utils_log(\"Receive OTA data!\");    \n//     flashStorageAddress = UPDATE_START_ADDRESS;\n//     err = MicoFlashInitialize( MICO_FLASH_FOR_UPDATE );\n//     require_noerr(err, exit);\n//     err = MicoFlashErase(MICO_FLASH_FOR_UPDATE, UPDATE_START_ADDRESS, UPDATE_END_ADDRESS);\n//     require_noerr(err, exit);\n//     err = MicoFlashWrite(MICO_FLASH_FOR_UPDATE, &flashStorageAddress, (uint8_t *)end, inHeader->extraDataLen);\n//     require_noerr(err, exit);\n// #else\n//     http_utils_log(\"OTA flash memory is not existed!\");\n//     err = kUnsupportedErr;\n// #endif\n//     goto exit;\n//   }"
+			"dataEndedbyClose"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -882,8 +908,128 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"settings":
+					{
+						"buffer_size": 1617,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										232,
+										258
+									],
+									[
+										471,
+										497
+									],
+									[
+										794,
+										820
+									],
+									[
+										1094,
+										1108
+									],
+									[
+										1248,
+										1262
+									],
+									[
+										1527,
+										1541
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								1104,
+								1104
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 2,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/micokit_ext.c",
+					"settings":
+					{
+						"buffer_size": 2460,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2032,
+								1965
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 663.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/key/keys.c",
+					"settings":
+					{
+						"buffer_size": 3682,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3088,
+								3102
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1147.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],

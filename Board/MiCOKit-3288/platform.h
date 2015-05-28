@@ -175,21 +175,8 @@ typedef enum
 
 #ifdef USE_MiCOKit_EXT
 #define MICO_I2C_CP         (Arduino_I2C)
-#define MICO_DC_MOTOR       (Arduino_D9)
-
-#define USE_RGB_LED_DRIVER_P9813
-#define RGB_LED_P9813_CIN   (Arduino_SCL)
-#define RGB_LED_P9813_DIN   (Arduino_SDA)
-
 #else
-#define MICO_I2C_CP         (Arduino_I2C)
-#define MICO_DC_MOTOR       (MICO_GPIO_NONE)
-
-#define USE_RGB_LED_DRIVER_PWM
-#define RGB_LED_R           (MICO_GPIO_NONE)
-#define RGB_LED_G           (MICO_GPIO_NONE)
-#define RGB_LED_B           (MICO_GPIO_NONE)
-
+#define MICO_I2C_CP         (MICO_I2C_NONE)
 #endif //USE_MiCOKit_EXT
 
 

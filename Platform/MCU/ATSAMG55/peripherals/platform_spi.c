@@ -65,7 +65,7 @@ OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t*
 {
   pdc_packet_t  pdc_spi_packet;
   Pdc*          spi_pdc;
-  OSStatus      err;
+  OSStatus      err = kNoErr;
 
   platform_mcu_powersave_disable( );
 
