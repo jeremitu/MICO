@@ -347,7 +347,6 @@ OSStatus MicoSpiInitialize( const mico_spi_device_t* spi )
   err = platform_spi_init( &platform_spi_drivers[spi->port], &platform_spi_peripherals[spi->port], &config );
   mico_rtos_unlock_mutex( &platform_spi_drivers[spi->port].spi_mutex );
 
-exit:
   return err;
 }
 

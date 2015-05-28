@@ -232,7 +232,7 @@ bool platform_gpio_input_get( const platform_gpio_t* gpio )
   
   require_quiet( gpio != NULL, exit);
   
-  result = ( ioport_get_pin_level( gpio->pin ) == false ) ? true : false;
+  result = ( ioport_get_pin_level( gpio->pin ) == false ) ? false : true;
   
 exit:
   platform_mcu_powersave_enable();
@@ -248,9 +248,7 @@ OSStatus platform_gpio_irq_enable( const platform_gpio_t* gpio, platform_gpio_ir
   uint32_t            temp;
   uint8_t             samg5x_irq_trigger;
   OSStatus            err                 = kNoErr;
-  
-  UNUSED_PARAMETER(temp);
-  
+    
   platform_mcu_powersave_disable();
   require_action_quiet( gpio != NULL, exit, err = kParamErr);
 
@@ -292,6 +290,7 @@ OSStatus platform_gpio_irq_enable( const platform_gpio_t* gpio, platform_gpio_ir
 
   /* Read ISR to clear residual interrupt status */
   temp = port_register->PIO_ISR;
+  UNUSED_PARAMETER( temp );
 
   /* Enable interrupt source */
   port_register->PIO_IER |= mask;

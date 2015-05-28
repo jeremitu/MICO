@@ -51,150 +51,6 @@ extern "C"
  *                   Enumerations
  ******************************************************/
 
-/*
-  MICO-EVB-1 platform pin definitions ...
-+-------------------------------------------------------------------------+
-| Enum ID       |Pin | STM32| Peripheral  |    Board     |   Peripheral   |
-|               | #  | Port | Available   |  Connection  |     Alias      |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_0   | 0  | C  6 | GPIO        |              | MICO_UART_2_TX |
-|               |    |      | TIM8_CH1    |              |                |
-|               |    |      | I2S2_MCK    |              |                |
-|               |    |      | USART6_TX   |              |                |
-|               |    |      | TIM3_CH1    |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_1   | 1  | C  7 | GPIO        |              | MICO_UART_2_RX |
-|               |    |      | I2S2_MCK    |              |                |
-|               |    |      | TIM8_CH2    |              |                |
-|               |    |      | SDIO_D7     |              |                |
-|               |    |      | USART6_RX   |              |                |
-|               |    |      | TIM3_CH2    |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_2   | 2  | C  8 | GPIO        |              |                |
-|               |    |      | TIM8_CH3    |              |                |
-|               |    |      | SDIO_D0     |              |                |
-|               |    |      | TIM3_CH3    |              |                |
-|               |    |      | USART6_CK   |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_3   | 3  | C  9 | GPIO        |              | MICO_PWM_1     |
-|               |    |      | I2S2_CKIN   |              |                |
-|               |    |      | TIM8_CH4    |              |                |
-|               |    |      | SDIO_D1     |              |                |
-|               |    |      | I2C3_SDA    |              |                |
-|               |    |      | TIM3_CH4    |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_4   | 4  | C  12| GPIO        |              |                |
-|               |    |      | UART5_TX    |              |                |
-|               |    |      | SDIO_CK     |              |                |
-|               |    |      | SPI3_MOSI   |              |                |
-|               |    |      | I2S3_SD     |              |                |
-|               |    |      | UART3_CK    |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_5   | 5  | C  13| GPIO        |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_6   | 6  | C  10| GPIO        |              |                |
-|               |    |      | SPI3_SCK    |              |                |
-|               |    |      | I2S3_SCK    |              |                |
-|               |    |      | UART4_TX    |              |                |
-|               |    |      | SDIO_D2     |              |                |
-|               |    |      | UART3_TX    |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_7   | 7  | C  11| GPIO        |              |                |
-|               |    |      | UART4_RX    |              |                |
-|               |    |      | SPI3_MISO   |              |                |
-|               |    |      | SDIO_D3     |              |                |
-|               |    |      | UART3_RX    |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-| MICO_GPIO_8   | 8  | D  2 | GPIO        |              |                |
-|               |    |      | TIM3_ETR    |              |                |
-|               |    |      | USART5_RX   |              |                |
-|               |    |      | SDIO_CMD    |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-|               | 9  | BOOT |             |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_10  | 10 | A  4 | GPIO        |              | MICO_SPI_1_NSS |
-|               |    |      | SPI1_NSS    |              |                |
-|               |    |      | SPI3_NSS    |              |                |
-|               |    |      | USART2_CK   |              |                |
-|               |    |      | I2S3_WS     |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_11  | 11 | A  7 | GPIO        |              | MICO_SPI_1_MOSI|
-|               |    |      | SPI1_MOSI   |              |                |
-|               |    |      | TIM8_CH1N   |              |                |
-|               |    |      | TIM14_CH1   |              |                |
-|               |    |      | TIM3_CH2    |              |                |
-|               |    |      | TIM1_CH1N   |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_12  | 12 | A  6 | GPIO        |              | MICO_SPI_1_MISO|
-|               |    |      | SPI1_MISO   |              |                |
-|               |    |      | TIM8_BKIN   |              |                |
-|               |    |      | TIM13_CH1   |              |                |
-|               |    |      | TIM1_BKIN   |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_13  | 13 | A  5 | GPIO        |              | MICO_SPI_1_CLK |
-|               |    |      | SPI1_CLK    |              |                |
-|               |    |      | TIM2_CH1_ETR|              |                |
-|               |    |      | TIM8_CH1N   |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-|               | 14 | GND  |             |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_15  | 15 | B  2 | GPIO        |              |                |
-|               |    |      | TIM4_CH4    |              |                |
-|               |    |      | TIM11_CH1   |              |                |
-|               |    |      | I2C1_SDA    |              |                |
-|               |    |      | CAN1_TX     |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_16  | 16 | B  10| GPIO        |              | MICO_I2C_1_SCL |
-|               |    |      | SPI2_SCK    |              |                |
-|               |    |      | I2S2_SCK    |              |                |
-|               |    |      | I2C2_SCL    |              |                |
-|               |    |      | USART3_TX   |              |                |
-|               |    |      | TIM2_CH3    |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_17  | 17 | B  11| GPIO        |              | MICO_I2C_1_SDA |
-|               |    |      | I2C2_SDA    |              |                |
-|               |    |      | USART3_RX   |              |                |
-|               |    |      | TIM2_CH4    |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_18  | 18 | C  5 | GPIO        |              |  MICO_ADC_6    |
-|               |    |      | ADC123_IN15 |              |                |
-+---------------+----+------+-------------+--------------+----------------+  
-| MICO_GPIO_19  | 19 | C  4 | GPIO        |              |  MICO_ADC_5    |
-|               |    |      | ADC123_IN14 |              |                |
-+---------------+----+------+-------------+--------------+----------------+  
-| MICO_GPIO_20  | 20 | C  3 | GPIO        |              |  MICO_ADC_4    |
-|               |    |      | SPI2_MOSI   |              |                |
-|               |    |      | ADC123_IN13 |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_21  | 21 | C  2 | GPIO        |              |  MICO_ADC_3    |
-|               |    |      | SPI2_MISO   |              |                |
-|               |    |      | ADC123_IN12 |              |                |
-+---------------+----+------+-------------+--------------+----------------+  
-| MICO_GPIO_22  | 22 | C  1 | GPIO        |              |  MICO_ADC_2    |
-|               |    |      | ADC123_IN11 |              |                |
-+---------------+----+------+-------------+--------------+----------------+
-| MICO_GPIO_23  | 23 | C  0 | GPIO        |              |  MICO_ADC_1    |
-|               |    |      | ADC123_IN10 |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 24 |  -   |             |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 25 | GND  |             |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 26 | GND  |             |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 27 | VDD  |     5V      |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 28 | VDD  |     3.3V    |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 29 | RESET|             |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 30 | VDD  |     5V      |              |                |
-|---------------+----+------+-------------+--------------+----------------|
-|               | 31 |  -   |             |              |                |
-|-------------------------------------------------------------------------|
-
-*/
-
 typedef enum
 {
     STDIO_UART_TX,
@@ -204,10 +60,29 @@ typedef enum
     FLASH_PIN_SPI_MOSI,
     FLASH_PIN_SPI_MISO,
 
-    MICO_GPIO_0,
-    MICO_GPIO_1, 
-    MICO_GPIO_2,
-    MICO_GPIO_3,
+    MICO_SYS_LED,
+    MICO_RF_LED,
+    EasyLink_BUTTON,
+    BOOT_SEL,
+    MFG_SEL,
+
+    Arduino_RXD,
+    Arduino_TXD,
+    Arduino_D2,
+    Arduino_D3,
+    Arduino_D4,
+    Arduino_D5,
+    Arduino_D6,
+    Arduino_D7,
+
+    Arduino_D8,
+    Arduino_D9,
+    Arduino_CS,
+    Arduino_SI,
+    Arduino_SO,
+    Arduino_SCK,
+    Arduino_SDA,
+    Arduino_SCL,
  
     MICO_GPIO_MAX, /* Denotes the total number of GPIO port aliases. Not a valid GPIO alias */
     MICO_GPIO_NONE,
@@ -265,30 +140,36 @@ typedef enum
 
 
 #ifdef BOOTLOADER
-#define STDIO_UART       MICO_UART_2
+#define STDIO_UART       MICO_UART_1
 #define STDIO_UART_BAUDRATE (115200) 
 #else
-#define STDIO_UART       MICO_UART_2
+#define STDIO_UART       MICO_UART_1
 #define STDIO_UART_BAUDRATE (115200) 
 #endif
 
-#define UART_FOR_APP     MICO_UART_1
-#define MFG_TEST         MICO_UART_2
-#define CLI_UART         MICO_UART_2
+#define UART_FOR_APP     MICO_UART_2
+#define MFG_TEST         MICO_UART_1
+#define CLI_UART         MICO_UART_1
+
+
 
 #define USE_MICO_SPI_FLASH
 //#define SFLASH_SUPPORT_MACRONIX_PARTS 
 //#define SFLASH_SUPPORT_SST_PARTS
 #define SFLASH_SUPPORT_WINBOND_PARTS
 
+#define USE_MiCOKit_EXT
+
 /* I/O connection <-> Peripheral Connections */
-#define MICO_I2C_CP      (MICO_I2C_1)
-#define MICO_SYS_LED     (MICO_GPIO_NONE)
-#define MICO_RF_LED      (MICO_GPIO_NONE)
-#define EasyLink_BUTTON  (MICO_GPIO_1)
 #define Standby_SEL      (MICO_GPIO_NONE)
-#define BOOT_SEL         (MICO_GPIO_NONE)
-#define MFG_SEL          (MICO_GPIO_NONE)
+
+#define MICO_I2C_CP      (MICO_I2C_1)
+#define Arduino_SPI      (MICO_SPI_1)
+#define Arduino_I2C      (MICO_I2C_1)
+
+
+
+
 
 
 #ifdef __cplusplus

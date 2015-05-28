@@ -61,7 +61,6 @@ uint32_t platform_get_wifi_image_size(void)
 {
 #define READ_LEN 2048
     uint32_t FlashAddress = DRIVER_START_ADDRESS + DRIVER_FLASH_SIZE;
-    uint32_t imageTail;
     uint32_t *p;
     uint32_t *buf = (uint32_t *)malloc(READ_LEN);
 

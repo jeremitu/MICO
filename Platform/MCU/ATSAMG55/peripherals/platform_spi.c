@@ -52,17 +52,6 @@
 /******************************************************
 *               Variables Definitions
 ******************************************************/
-static Flexcom  *flexcom_base[] = 
-{
-  [0]  = FLEXCOM0,
-  [1]  = FLEXCOM1,
-  [2]  = FLEXCOM2,
-  [3]  = FLEXCOM3,
-  [4]  = FLEXCOM4,
-  [5]  = FLEXCOM5,
-  [6]  = FLEXCOM6,
-  [7]  = FLEXCOM7,
-};
 
 /******************************************************
 *               Function Declarations
@@ -96,8 +85,8 @@ OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t*
   platform_gpio_peripheral_pin_init( peripheral->clock_pin,  ( peripheral->clock_pin_mux_mode | IOPORT_MODE_PULLUP ) );
 
   /* Enable the peripheral and set SPI mode. */
-  flexcom_enable( flexcom_base[ peripheral->spi_id ] );
-  flexcom_set_opmode( flexcom_base[ peripheral->spi_id ], FLEXCOM_SPI );
+  flexcom_enable( driver->peripheral->flexcom_base );
+  flexcom_set_opmode( driver->peripheral->flexcom_base, FLEXCOM_SPI );
 
   /* Init pdc, and clear RX TX. */
   pdc_spi_packet.ul_addr = 0;
@@ -124,13 +113,13 @@ OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t*
 
 exit:
   platform_mcu_powersave_enable( );
-  return kNoErr;
+  return err;
 }
 
 OSStatus platform_spi_deinit( platform_spi_driver_t* driver )
 {
   /* Disable the RX and TX PDC transfer requests */
-  flexcom_disable( flexcom_base[ driver->peripheral->spi_id ] );
+  flexcom_disable( driver->peripheral->flexcom_base );
   
   spi_disable( driver->peripheral->port );
   spi_reset( driver->peripheral->port );

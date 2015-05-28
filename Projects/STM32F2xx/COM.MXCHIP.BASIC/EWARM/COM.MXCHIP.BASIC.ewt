@@ -256,63 +256,9 @@
   </configuration>
   <group>
     <name>Application</name>
-    <group>
-      <name>http</name>
-    </group>
-    <group>
-      <name>os</name>
-    </group>
-    <group>
-      <name>ps</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\ps\ps_mcu.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\ps\ps_rf.c</name>
-      </file>
-    </group>
-    <group>
-      <name>tcp</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\tcp\tcp_client.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\tcp\tcp_server.c</name>
-      </file>
-    </group>
-    <group>
-      <name>udp</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\udp\udp_bonjour.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\udp\udp_echo.c</name>
-      </file>
-    </group>
-    <group>
-      <name>wifi</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\wifi\wifi_airkiss.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\wifi\wifi_dns.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\wifi\wifi_easylink.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\wifi\wifi_scan.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\wifi\wifi_softap.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\wifi\wifi_station.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\wifi\wifi_wps.c</name>
-      </file>
-    </group>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\helloworld\hello_world.c</name>
+    </file>
   </group>
   <group>
     <name>Board</name>
@@ -538,12 +484,6 @@
         <name>$PROJ_DIR$\..\..\..\..\MICO\Library\RF driver\wlan_firmware.c</name>
       </file>
     </group>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\command_menu.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\Demos\COM.MXCHIP.BASIC\main.c</name>
-    </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\MICO\MICOCli.c</name>
     </file>
