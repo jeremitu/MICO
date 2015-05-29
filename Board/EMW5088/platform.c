@@ -283,7 +283,9 @@ void init_platform_bootloader( void )
   
   MicoGpioInitialize( BOOT_SEL, INPUT_PULL_UP );
   MicoGpioInitialize( MFG_SEL, INPUT_PULL_UP );
-  
+#ifdef MICO_ATE_START_ADDRESS
+	MicoGpioInitialize( EasyLink_BUTTON, INPUT_PULL_UP );
+#endif  
   /* Check USB-HOST is inserted */
   err = MicoGpioInitialize( USB_DETECT, INPUT_PULL_DOWN );
   require_noerr(err, exit);
@@ -506,4 +508,14 @@ bool MicoShouldEnterBootloader(void)
     return false;
 }
 
+#ifdef MICO_ATE_START_ADDRESS
+/* Enter wifi manufacture mode */
+bool MicoShouldEnterATEMode(void)
+{
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)EasyLink_BUTTON)==false)
+    return true;
+  else
+    return false;
+}
+#endif
 

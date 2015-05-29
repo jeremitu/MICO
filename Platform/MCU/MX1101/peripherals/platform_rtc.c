@@ -88,7 +88,7 @@ platform_rtc_time_t mico_default_time =
 
 OSStatus platform_rtc_init(void)
 {
-  platform_log("unimplemented");
+  //platform_log("unimplemented");
   return kUnsupportedErr;
 }
 

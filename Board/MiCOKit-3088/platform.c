@@ -110,18 +110,30 @@ static mico_timer_t _button_EL_timer;
 const platform_gpio_t platform_gpio_pins[] =
 {
 //  /* Common GPIOs for internal use */
-  [MICO_SYS_LED]                        = {GPIOA,  3 }, 
-  [MICO_RF_LED]                         = {GPIOA,  4 }, 
-  [EasyLink_BUTTON]                     = {GPIOA,  5}, 
-  [STDIO_UART_RX]                       = {GPIOB,  6},
-  [STDIO_UART_TX]                       = {GPIOB,  7},
-  [USB_DETECT]                          = {GPIOA,  22},
-  [MFG_SEL]                             = {GPIOB, 25}, 
-  [BOOT_SEL]                            = {GPIOB, 26},
-//  /* GPIOs for external use */
-  [APP_UART_RX]                         = {GPIOB, 29},
-  [APP_UART_TX]                         = {GPIOB, 28},  
+    //  /* GPIOs for external use */
+    [MICO_GPIO_1]                         = {GPIOB, 27},
+    [MICO_GPIO_2]                         = {GPIOB, 24},
+    [MICO_GPIO_3]                         = {GPIOC, 14}, //swdio
+
+    [MICO_GPIO_7]                         = {GPIOB, 20},
+    [MICO_GPIO_8]                         = {GPIOB, 8},
+    [MICO_GPIO_9]                         = {GPIOB, 7}, // debug uart tx
+    [MICO_GPIO_10]                        = {GPIOB, 6}, // debug uart rx
+    [MICO_GPIO_11]                        = {GPIOA, 25}, // easylink
+    [MICO_GPIO_12]                        = {GPIOA, 23}, // USB DM
+    [MICO_GPIO_13]                        = {GPIOA, 22}, // USB DP
+    [MICO_GPIO_16]                        = {GPIOB, 26}, // BOOT
+    [MICO_GPIO_17]                        = {GPIOA, 10}, // RESET
+    [MICO_GPIO_20]                        = {GPIOB, 31}, // user uart rts
+    [MICO_GPIO_21]                        = {GPIOC, 0},  // user uart cts
+    [MICO_GPIO_22]                        = {GPIOB, 28}, // user uart tx
+    [MICO_GPIO_23]                        = {GPIOB, 29}, // user uart rx
+    [MICO_GPIO_26]                        = {GPIOC, 11},
+    [MICO_GPIO_27]                        = {GPIOC, 12},
+    [MICO_GPIO_28]                        = {GPIOC, 13}, // SWCLK
+    [MICO_GPIO_30]                        = {GPIOB, 25}, // status
 };
+
 
 
 const platform_adc_t *platform_adc_peripherals = NULL;
@@ -129,6 +141,8 @@ const platform_adc_t *platform_adc_peripherals = NULL;
 const platform_pwm_t *platform_pwm_peripherals = NULL;
 
 const platform_spi_t *platform_spi_peripherals = NULL;
+
+platform_spi_driver_t *platform_spi_drivers = NULL;
 
 const platform_spi_slave_driver_t *platform_spi_slave_drivers = NULL;
 
@@ -174,7 +188,7 @@ const platform_i2c_t *platform_i2c_peripherals = NULL;
 */
 const platform_gpio_t wifi_control_pins[] =
 {
-  [WIFI_PIN_POWER        ]  = { GPIOB, 20 },
+  [WIFI_PIN_POWER        ]  = { GPIOB, 5 },
 };
 
 /* Wi-Fi SDIO bus pins. Used by platform/MCU/STM32F2xx/EMW1062_driver/wlan_SDIO.c */
@@ -253,11 +267,12 @@ void init_platform( void )
   MicoSysLed(false);
   MicoGpioInitialize( (mico_gpio_t)MICO_RF_LED, OUTPUT_PUSH_PULL );
   MicoRfLed(false);
-  
+
+  MicoGpioInitialize( MFG_SEL, INPUT_PULL_UP );
   //  Initialise EasyLink buttons
-  //MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
-  //mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
-  //MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
+  MicoGpioInitialize( (mico_gpio_t)EasyLink_BUTTON, INPUT_PULL_UP );
+  mico_init_timer(&_button_EL_timer, RestoreDefault_TimeOut, _button_EL_Timeout_handler, NULL);
+  MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
 //  
 //  //  Initialise Standby/wakeup switcher
 //  MicoGpioInitialize( Standby_SEL, INPUT_PULL_UP );
@@ -285,6 +300,10 @@ void init_platform_bootloader( void )
   OSStatus err;
   
   MicoGpioInitialize( BOOT_SEL, INPUT_PULL_UP );
+  MicoGpioInitialize( MFG_SEL, INPUT_PULL_UP );
+#ifdef MICO_ATE_START_ADDRESS
+	MicoGpioInitialize( EasyLink_BUTTON, INPUT_PULL_UP );
+#endif  
   /* Check USB-HOST is inserted */
   err = MicoGpioInitialize( (mico_gpio_t)USB_DETECT, INPUT_PULL_DOWN );
   require_noerr(err, exit);
@@ -292,7 +311,6 @@ void init_platform_bootloader( void )
   
   require_string( MicoGpioInputGet( (mico_gpio_t)USB_DETECT ) == true, exit, "USB device is not inserted" );
 
-  printf("PASS");
   //platform_log("USB device inserted");
   if( HardwareInit(DEV_ID_USB) ){
     FolderOpenByNum(&RootFolder, NULL, 1);
@@ -477,20 +495,28 @@ void MicoRfLed(bool onoff)
 
 bool MicoShouldEnterMFGMode(void)
 {
-//  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
-//    return true;
-//  else
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==false)
+    return true;
+  else
     return false;
 }
 
 bool MicoShouldEnterBootloader(void)
 {
-
-  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false)
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
     return true;
   else {
     return false;
   }
 }
 
+#ifdef MICO_ATE_START_ADDRESS
+bool MicoShouldEnterATEMode(void)
+{
+  if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)EasyLink_BUTTON)==false)
+    return true;
+  else
+    return false;
+}
+#endif
 

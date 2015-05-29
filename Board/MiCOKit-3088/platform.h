@@ -50,49 +50,52 @@ extern "C"
 
 typedef enum
 {
-  MICO_SYS_LED,
-  MICO_RF_LED,
-  BOOT_SEL,
-  MFG_SEL,
-  EasyLink_BUTTON,
-  STDIO_UART_RX,
-  STDIO_UART_TX,
-  USB_DETECT,
-
-    APP_UART_RX,
-    APP_UART_TX,
-    //MICO_GPIO_3,
-    MICO_GPIO_4,
-    MICO_GPIO_5,
-    MICO_GPIO_6,
+    MICO_GPIO_1,
+    MICO_GPIO_2,
+    MICO_GPIO_3,
+//    MICO_GPIO_4,
+//    MICO_GPIO_5,
+//    MICO_GPIO_6,
     MICO_GPIO_7,
     MICO_GPIO_8,
     MICO_GPIO_9,
+    STDIO_UART_TX = MICO_GPIO_9,
     MICO_GPIO_10,
-    //MICO_GPIO_11,
+    STDIO_UART_RX = MICO_GPIO_10,
+    MICO_GPIO_11,
+    EasyLink_BUTTON = MICO_GPIO_11,
     MICO_GPIO_12,
     MICO_GPIO_13,
-    MICO_GPIO_14,
-    //MICO_GPIO_15,
-    //MICO_GPIO_16,
-    //MICO_GPIO_17,
-    MICO_GPIO_18,
-    MICO_GPIO_19,
+    USB_DETECT = MICO_GPIO_13,
+//    MICO_GPIO_14,
+//    MICO_GPIO_15,
+    MICO_GPIO_16,
+    BOOT_SEL = MICO_GPIO_16,
+    MICO_GPIO_17,
+//    MICO_GPIO_18,
+//    MICO_GPIO_19,
     MICO_GPIO_20,
+    MICO_SYS_LED = MICO_GPIO_20,
     MICO_GPIO_21,
     MICO_GPIO_22,
+    APP_UART_TX = MICO_GPIO_22,
     MICO_GPIO_23,
-    //MICO_GPIO_24,
-    //MICO_GPIO_25,
-    //MICO_GPIO_26,
-    //MICO_GPIO_27,
-    //MICO_GPIO_28,
-    MICO_GPIO_29,
-    //MICO_GPIO_30,
+    APP_UART_RX = MICO_GPIO_23,
+//    MICO_GPIO_24,
+//    MICO_GPIO_25,
+    MICO_GPIO_26,
+    MICO_GPIO_27,
+    MICO_GPIO_28,
+//    MICO_GPIO_29,
+    MICO_GPIO_30,
+    MFG_SEL = MICO_GPIO_30,
 
     MICO_GPIO_MAX, /* Denotes the total number of GPIO port aliases. Not a valid GPIO alias */
+
     MICO_GPIO_NONE,
+
 } mico_gpio_t;
+
 
 typedef enum
 {
@@ -143,7 +146,8 @@ typedef enum
 
 
 /* Components connected to external I/Os*/
-#define Standby_SEL         (MICO_GPIO_29)
+#define Standby_SEL         (MICO_GPIO_NONE)
+#define MICO_RF_LED         (MICO_GPIO_NONE)
 
 /* I/O connection <-> Peripheral Connections */
 #define MICO_I2C_CP         (MICO_I2C_1)

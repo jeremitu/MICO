@@ -94,7 +94,11 @@ int main(void)
     startApplication();
   else if(MicoShouldEnterMFGMode() == true)
     startApplication();
-
+#ifdef MICO_ATE_START_ADDRESS
+  else if (MicoShouldEnterATEMode()) {
+    startATEApplication();
+	}
+#endif  
   printf ( menu, MODEL, HARDWARE_REVISION );
 
   while(1){                             

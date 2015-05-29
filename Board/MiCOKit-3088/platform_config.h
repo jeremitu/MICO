@@ -135,6 +135,8 @@
 #define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 768k bytes, optional*/
 #endif
 
+#define MICO_ATE_START_ADDRESS      (uint32_t)0x0018D000 /* Address of the ATE start address. */
+
 /******************************************************
 *                   Enumerations
 ******************************************************/
