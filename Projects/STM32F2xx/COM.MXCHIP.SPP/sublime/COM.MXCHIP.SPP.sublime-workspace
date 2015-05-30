@@ -541,8 +541,8 @@
 			"file": "/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/key/keys.c",
 			"settings":
 			{
-				"buffer_size": 3682,
-				"line_ending": "Unix"
+				"buffer_size": 4104,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -908,7 +908,6 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1007,15 +1006,15 @@
 					"file": "/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/key/keys.c",
 					"settings":
 					{
-						"buffer_size": 3682,
+						"buffer_size": 4104,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3088,
-								3102
+								0,
+								0
 							]
 						],
 						"settings":

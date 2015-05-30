@@ -125,7 +125,9 @@ OSStatus platform_uart_init( platform_uart_driver_t* driver, const platform_uart
   }
 
   /* Enable the clock. */
-  flexcom_enable( peripheral->flexcom_base );
+  if( pmc_is_periph_clk_enabled( peripheral->peripheral_id ) == 0  ){
+    flexcom_enable( peripheral->flexcom_base );
+  }
   flexcom_set_opmode( peripheral->flexcom_base, FLEXCOM_USART );
 
   /* Enable the receiver and transmitter. */
@@ -224,7 +226,9 @@ OSStatus platform_uart_deinit( platform_uart_driver_t* driver )
   usart_disable_tx( driver->peripheral->port );
   usart_disable_rx( driver->peripheral->port );
 
-  flexcom_disable( driver->peripheral->flexcom_base);
+  if( pmc_is_periph_clk_enabled( driver->peripheral->peripheral_id ) == 1  ){
+    flexcom_disable( driver->peripheral->flexcom_base );
+  }
 
   platform_gpio_deinit( driver->peripheral->tx_pin );
   platform_gpio_deinit( driver->peripheral->rx_pin );

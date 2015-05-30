@@ -183,6 +183,7 @@ void init_clocks( void )
   }
 
   pmc_disable_udpck( );
+  pmc_disable_all_periph_clk( );
 
 #ifdef NO_MICO_RTOS  
   SysTick_Config( SystemCoreClock / 1000 );

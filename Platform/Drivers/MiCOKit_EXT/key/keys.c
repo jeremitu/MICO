@@ -56,6 +56,7 @@ static void _user_key1_irq_handler( void* arg )
       /* button clicked once */
       user_key1_clicked_callback();
     }
+    MicoGpioEnableIRQ( (mico_gpio_t)USER_KEY1, IRQ_TRIGGER_FALLING_EDGE, _user_key1_irq_handler, NULL );
     mico_stop_timer(&_user_key1_timer);
     _default_key1_start_time = 0;
   }
@@ -83,6 +84,7 @@ static void _user_key2_irq_handler( void* arg )
       /* button clicked once */
       user_key2_clicked_callback();
     }
+    MicoGpioEnableIRQ( (mico_gpio_t)USER_KEY2, IRQ_TRIGGER_FALLING_EDGE, _user_key2_irq_handler, NULL );
     mico_stop_timer(&_user_key2_timer);
     _default_key2_start_time = 0;
   }

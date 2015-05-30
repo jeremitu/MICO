@@ -385,7 +385,7 @@ OSStatus internalFlashWrite(volatile uint32_t* FlashAddress, uint32_t* Data ,uin
   OSStatus err = kNoErr;
   uint32_t i = 0;
   uint32_t dataInRam;
-  u8 startNumber;
+  uint8_t startNumber;
   uint32_t DataLength32 = DataLength;
   
   /*First bytes that are not 32bit align*/
@@ -394,7 +394,7 @@ OSStatus internalFlashWrite(volatile uint32_t* FlashAddress, uint32_t* Data ,uin
     err = internalFlashByteWrite(FlashAddress, (uint8_t *)Data, startNumber);
     require_noerr(err, exit);
     DataLength32 = DataLength - startNumber;
-    Data = (uint32_t *)((u32)Data + startNumber);
+    Data = (uint32_t *)((uint32_t)Data + startNumber);
   }
   
   /*Program flash by words*/

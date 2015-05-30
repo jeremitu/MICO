@@ -30,8 +30,10 @@ typedef struct
   char* instance_name;
   char* service_name;
   char* txt_att;
-  uint16_t	port;
   char	instance_name_suffix[4]; // This variable should only be modified by the DNS-SD library
+  uint32_t  ttl;
+  uint16_t  port;
+  bool  anounce;
 } dns_sd_service_record_t;
 
 static WiFi_Interface _interface;

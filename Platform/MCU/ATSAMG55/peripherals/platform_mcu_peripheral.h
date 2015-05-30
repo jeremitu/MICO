@@ -172,6 +172,7 @@ typedef struct {
     uint8_t                uart_id;
     void*                  port;             /* Usart* or Uart*  */
     Flexcom*               flexcom_base;
+    uint32_t               peripheral_id;
     const platform_gpio_t* tx_pin;           /* Tx pin           */
     ioport_mode_t          tx_pin_mux_mode;  /* Tx pin mux mode  */
     const platform_gpio_t* rx_pin;           /* Rx pin           */
@@ -221,6 +222,7 @@ typedef struct
     uint8_t                spi_id;
     platform_spi_port_t*   port;                /* Peripheral         */
     Flexcom*               flexcom_base;
+    uint32_t               peripheral_id;
     const platform_gpio_t* mosi_pin;            /* MOSI pin           */
     ioport_mode_t          mosi_pin_mux_mode;   /* MOSI pin mux mode  */
     const platform_gpio_t* miso_pin;            /* MISO pin           */
@@ -251,6 +253,7 @@ typedef struct
     uint8_t                 i2c_id;
     platform_i2c_port_t*    port;
     Flexcom*                flexcom_base;
+    uint32_t                peripheral_id;
     const platform_gpio_t*  sda_pin;
     ioport_mode_t           sda_pin_mux_mode;  
     const platform_gpio_t*  scl_pin;

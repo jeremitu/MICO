@@ -86,7 +86,9 @@ OSStatus platform_i2c_init( const platform_i2c_t* i2c, const platform_i2c_config
   platform_gpio_peripheral_pin_init( i2c->scl_pin, ( i2c->scl_pin_mux_mode | IOPORT_MODE_OPEN_DRAIN ) );
   
   /* Enable the peripheral and set I2C mode. */
-  flexcom_enable( i2c->flexcom_base );
+  if( pmc_is_periph_clk_enabled( i2c->peripheral_id ) == 0  ){
+    flexcom_enable( i2c->flexcom_base );  
+  }
   flexcom_set_opmode( i2c->flexcom_base, FLEXCOM_TWI );
   
   twi_enable_master_mode( i2c->port );
@@ -114,7 +116,6 @@ bool platform_i2c_probe_device( const platform_i2c_t* i2c, const platform_i2c_co
 {
   for ( ; retries != 0 ; --retries ){
     if( twi_probe( i2c->port, config->address ) == TWI_SUCCESS ){
-      platform_log( "Probe success!" );
       return true;
     }
   }
@@ -214,9 +215,13 @@ exit:
 
 OSStatus platform_i2c_deinit( const platform_i2c_t* i2c, const platform_i2c_config_t* config )
 {
-  UNUSED_PARAMETER(i2c);
-  UNUSED_PARAMETER(config);
-  //platform_log("unimplemented");
+  /* Disable the RX and TX PDC transfer requests */
+  if( pmc_is_periph_clk_enabled( i2c->peripheral_id ) == 1  ){
+    flexcom_disable( i2c->flexcom_base );  
+  }
+  
+  twi_reset( i2c->port );
+
   return kNoErr;
 }
 

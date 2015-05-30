@@ -133,6 +133,7 @@ const platform_spi_t platform_spi_peripherals [] =
     .spi_id                       = 7,
     .port                         = SPI7,
     .flexcom_base                 = FLEXCOM7,
+    .peripheral_id                = ID_FLEXCOM7,
     .mosi_pin                     = &platform_gpio_pins[FLASH_PIN_SPI_MOSI],
     .mosi_pin_mux_mode            = IOPORT_MODE_MUX_B,
     .miso_pin                     = &platform_gpio_pins[FLASH_PIN_SPI_MISO],
@@ -151,6 +152,7 @@ const platform_uart_t platform_uart_peripherals[] =
     .uart_id          = 0,
     .port             = USART0,
     .flexcom_base     = FLEXCOM0,
+    .peripheral_id    = ID_FLEXCOM0,
     .tx_pin           = &platform_gpio_pins[STDIO_UART_TX],
     .tx_pin_mux_mode  = IOPORT_MODE_MUX_A,
     .rx_pin           = &platform_gpio_pins[STDIO_UART_RX],
@@ -165,6 +167,7 @@ const platform_uart_t platform_uart_peripherals[] =
     .uart_id          = 6,
     .port             = USART6,
     .flexcom_base     = FLEXCOM6,
+    .peripheral_id    = ID_FLEXCOM6,
     .tx_pin           = &platform_gpio_pins[Arduino_TXD],
     .tx_pin_mux_mode  = IOPORT_MODE_MUX_B,
     .rx_pin           = &platform_gpio_pins[Arduino_RXD],
@@ -186,6 +189,7 @@ const platform_i2c_t platform_i2c_peripherals[] =
     .i2c_id           = 3,
     .port             = TWI3,
     .flexcom_base     = FLEXCOM3,
+    .peripheral_id    = ID_FLEXCOM3,
     .sda_pin          = &platform_gpio_pins[Arduino_SDA],
     .sda_pin_mux_mode = IOPORT_MODE_MUX_A,  
     .scl_pin          = &platform_gpio_pins[Arduino_SCL],
@@ -295,8 +299,8 @@ static void _button_EL_irq_handler( void* arg )
     if ( (_default_start_time != 0) && interval > 50 && interval < RestoreDefault_TimeOut){
       /* EasyLink button clicked once */
       PlatformEasyLinkButtonClickedCallback();
-      MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
     }
+    MicoGpioEnableIRQ( (mico_gpio_t)EasyLink_BUTTON, IRQ_TRIGGER_FALLING_EDGE, _button_EL_irq_handler, NULL );
     mico_stop_timer(&_button_EL_timer);
     _default_start_time = 0;
   }

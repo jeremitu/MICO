@@ -171,20 +171,13 @@ typedef enum
 #define Arduino_I2C         (MICO_I2C_1)
 #define Arduino_SPI         (MICO_SPI_1)
 
-//#define USE_MiCOKit_EXT
+#define USE_MiCOKit_EXT
 
 #ifdef USE_MiCOKit_EXT
 #define MICO_I2C_CP         (Arduino_I2C)
 #else
 #define MICO_I2C_CP         (MICO_I2C_NONE)
 #endif //USE_MiCOKit_EXT
-
-
-#define P9813_CIN              MICO_GPIO_10    // CLK
-#define P9813_DIN              MICO_GPIO_11    // DIN
-
-
-
 
 #ifdef __cplusplus
 } /*extern "C" */

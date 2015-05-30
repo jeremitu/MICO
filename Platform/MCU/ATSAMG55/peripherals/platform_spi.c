@@ -85,7 +85,9 @@ OSStatus platform_spi_init( platform_spi_driver_t* driver, const platform_spi_t*
   platform_gpio_peripheral_pin_init( peripheral->clock_pin,  ( peripheral->clock_pin_mux_mode | IOPORT_MODE_PULLUP ) );
 
   /* Enable the peripheral and set SPI mode. */
-  flexcom_enable( driver->peripheral->flexcom_base );
+  if( pmc_is_periph_clk_enabled( driver->peripheral->peripheral_id ) == 0  ){
+    flexcom_enable( driver->peripheral->flexcom_base );
+  }
   flexcom_set_opmode( driver->peripheral->flexcom_base, FLEXCOM_SPI );
 
   /* Init pdc, and clear RX TX. */
@@ -119,7 +121,9 @@ exit:
 OSStatus platform_spi_deinit( platform_spi_driver_t* driver )
 {
   /* Disable the RX and TX PDC transfer requests */
-  flexcom_disable( driver->peripheral->flexcom_base );
+  if( pmc_is_periph_clk_enabled( driver->peripheral->peripheral_id ) == 1  ){
+    flexcom_disable( driver->peripheral->flexcom_base );
+  }
   
   spi_disable( driver->peripheral->port );
   spi_reset( driver->peripheral->port );
