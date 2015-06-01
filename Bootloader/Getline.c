@@ -69,3 +69,27 @@ void getline (char *line, int n)  {
   }  while (cnt < n - 1  &&  c != LF);      /* check limit and line feed      */
   *(line - 1) = 0;                          /* mark end of string             */
 }
+
+#ifdef MICO_ENABLE_STDIO_TO_BOOT
+int stdio_break_in(void)
+{
+    uint8_t c;
+    int i, j;
+    
+    for(i=0, j=0;i<10;i++) {
+      if (kNoErr != MicoUartRecv( STDIO_UART, &c, 1, 10)) 
+        continue;
+
+      if (c == 0x20) {
+        j++;
+        if (j > 5)
+          return 1; 
+      } else {
+        j = 0;
+      }
+    }
+
+    return 0;
+}
+#endif
+

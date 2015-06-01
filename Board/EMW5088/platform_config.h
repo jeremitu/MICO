@@ -68,6 +68,10 @@
  * Restore default and start easylink after press down EasyLink button for 3 seconds. */
 #define RestoreDefault_TimeOut                      (3000)
 
+/************************************************************************
+ * Uncomment to enable go to bootloader mode when stdio received many continuous spaces. */
+#define MICO_ENABLE_STDIO_TO_BOOT
+
 /******************************************************
  *  EMW1088 Options
  ******************************************************/

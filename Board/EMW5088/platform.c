@@ -502,26 +502,10 @@ bool MicoShouldEnterMFGMode(void)
 
 bool MicoShouldEnterBootloader(void)
 {
-  uint8_t c;
-  int i, j;
-
   if(MicoGpioInputGet((mico_gpio_t)BOOT_SEL)==false && MicoGpioInputGet((mico_gpio_t)MFG_SEL)==true)
     return true;
-  else {
-    for(i=0, j=0;i<10;i++) {
-      if (kNoErr != MicoUartRecv( STDIO_UART, &c, 1, 10)) 
-        continue;
-
-      if (c == 0x20) {
-        j++;
-        if (j > 5)
-          return true; 
-      } else {
-        j = 0;
-      }
-    }
+  else
     return false;
-  }
 }
 
 #ifdef MICO_ATE_START_ADDRESS

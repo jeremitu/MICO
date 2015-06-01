@@ -76,6 +76,9 @@ char menu[] =
 " Example: Input \"4 -i -start 0x400 -end 0x800\": Update internal\r\n"
 "          flash from 0x400 to 0x800\r\n";
 #endif
+#ifdef MICO_ENABLE_STDIO_TO_BOOT
+extern int stdio_break_in(void);
+#endif
 
 int main(void)
 {
@@ -89,7 +92,11 @@ int main(void)
 #ifdef MICO_FLASH_FOR_UPDATE
   update();
 #endif
-  
+
+#ifdef MICO_ENABLE_STDIO_TO_BOOT
+  if (stdio_break_in() == 1)
+    goto BOOT;
+#endif
   if(MicoShouldEnterBootloader() == false)
     startApplication();
   else if(MicoShouldEnterMFGMode() == true)
@@ -98,7 +105,9 @@ int main(void)
   else if (MicoShouldEnterATEMode()) {
     startATEApplication();
 	}
-#endif  
+#endif 
+
+BOOT:
   printf ( menu, MODEL, HARDWARE_REVISION );
 
   while(1){                             
