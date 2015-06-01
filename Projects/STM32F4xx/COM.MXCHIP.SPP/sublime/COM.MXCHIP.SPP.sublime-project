@@ -47,6 +47,7 @@
 			"-I/Users/William/Develop/MiCO/Platform/Cortex-M4/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/",
 			"-I/Users/william/Develop/MiCO/Platform/drivers/spi_flash/",
+			"-I/Users/william/Develop/MiCO/Platform/drivers/MiCOKit_EXT/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/",
 			"-I/Users/william/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/Libraries/",

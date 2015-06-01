@@ -25,7 +25,12 @@ operation
 #include "oledfont.h"  	 
 //#include "delay.h"
 #include "MICO.h"
+#include "platform.h"
 
+
+extern const platform_spi_t        platform_spi_peripherals[];
+extern platform_spi_driver_t       platform_spi_drivers[];
+extern const platform_gpio_t       platform_gpio_pins[];
 
 /* SPI5 for OLED */
 const mico_spi_device_t micokit_spi_oled =
@@ -76,39 +81,34 @@ void OLED_WR_Byte(u8 dat,u8 cmd)
 //dat:要写入的数据/命令
 //cmd:数据/命令标志 0,表示命令;1,表示数据;
 void OLED_WR_Byte(u8 dat,u8 cmd)
-{
-  OSStatus err = kUnknownErr;
-  
+{  
+  platform_spi_config_t config;
   platform_spi_message_segment_t oled_spi_msg =
             { &dat,            NULL,       (unsigned long) 1 };
+
+  config.chip_select = &platform_gpio_pins[micokit_spi_oled.chip_select];
+  config.speed       = micokit_spi_oled.speed;
+  config.mode        = micokit_spi_oled.mode;
+  config.bits        = micokit_spi_oled.bits;
   
-  OLED_DC_INIT();   // incase SPI is re-init by other work
-  
-//  u8 i;			  
+  if( platform_spi_drivers[micokit_spi_oled.port].spi_mutex == NULL)
+    mico_rtos_init_mutex( &platform_spi_drivers[micokit_spi_oled.port].spi_mutex );
+
+  mico_rtos_lock_mutex( &platform_spi_drivers[micokit_spi_oled.port].spi_mutex );
+
+  platform_spi_init( &platform_spi_drivers[micokit_spi_oled.port], &platform_spi_peripherals[micokit_spi_oled.port], &config );
+  OLED_DC_INIT();   
+
   if(cmd)
     OLED_DC_Set();
   else 
     OLED_DC_Clr();		  
-  //OLED_CS_Clr();
-  
-// for(i=0;i<8;i++)
-//  {			  
-//    OLED_SCLK_Clr();
-//    if(dat&0x80)
-//      OLED_SDIN_Set();
-//    else 
-//      OLED_SDIN_Clr();
-//    OLED_SCLK_Set();
-//    dat<<=1;   
-//  }
 
- // *((uint8_t*)oled_spi_msg.tx_buffer) = dat;
-// oled_spi_msg.length = 1;
-  err = MicoSpiTransfer(&micokit_spi_oled, &oled_spi_msg, 1);
-  UNUSED_PARAMETER(err);
+  platform_spi_transfer( &platform_spi_drivers[micokit_spi_oled.port], &config, &oled_spi_msg, 1 );
   
- // OLED_CS_Set();
-  OLED_DC_Set();   	  
+  OLED_DC_Set();   
+
+  mico_rtos_unlock_mutex( &platform_spi_drivers[micokit_spi_oled.port].spi_mutex );
 } 
 #endif
 
@@ -266,64 +266,31 @@ void OLED_DrawBMP(unsigned char x0, unsigned char y0,unsigned char x1, unsigned 
 
 //初始化SSD1306					    
 void OLED_Init(void)
-{ 	
-  
-  /*	 
-  GPIO_InitTypeDef  GPIO_InitStructure;
-  
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOD|RCC_APB2Periph_GPIOG, ENABLE);	 //使能PC,D,G端口时钟
-  
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_3|GPIO_Pin_8;	 //PD3,PD6推挽输出  
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
-  GPIO_Init(GPIOD, &GPIO_InitStructure);	  //初始化GPIOD3,6
-  GPIO_SetBits(GPIOD,GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_3|GPIO_Pin_8);	//PD3,PD6 输出高
-  
-#if OLED_MODE==1
-  
-  GPIO_InitStructure.GPIO_Pin =0xFF; //PC0~7 OUT推挽输出
-  GPIO_Init(GPIOC, &GPIO_InitStructure);
-  GPIO_SetBits(GPIOC,0xFF); //PC0~7输出高
-  
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15;				 //PG13,14,15 OUT推挽输出
-  GPIO_Init(GPIOG, &GPIO_InitStructure);
-  GPIO_SetBits(GPIOG,GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15);						 //PG13,14,15 OUT  输出高
-  
-#else
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;				 //PC0,1 OUT推挽输出
-  GPIO_Init(GPIOC, &GPIO_InitStructure);
-  GPIO_SetBits(GPIOC,GPIO_Pin_0|GPIO_Pin_1);						 //PC0,1 OUT  输出高
-  
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;				 //PG15 OUT推挽输出	  RST
-  GPIO_Init(GPIOG, &GPIO_InitStructure);
-  GPIO_SetBits(GPIOG,GPIO_Pin_15);						 //PG15 OUT  输出高
-  
-  
-#endif
-  */
-//  MicoGpioInitialize( (mico_gpio_t)OLED_SPI_SCK, OUTPUT_PUSH_PULL );
-//  MicoGpioInitialize( (mico_gpio_t)OLED_SPI_DIN, OUTPUT_PUSH_PULL );
-//  MicoGpioInitialize( (mico_gpio_t)OLED_SPI_DC, OUTPUT_PUSH_PULL );
-//  MicoGpioInitialize( (mico_gpio_t)OLED_SPI_CS, OUTPUT_PUSH_PULL );
-//  
-//  OLED_CS_Set();
-  
-  OSStatus err = kUnknownErr;
-  err = MicoSpiInitialize(&micokit_spi_oled);
-  UNUSED_PARAMETER(err);
-  
-  MicoGpioInitialize( (mico_gpio_t)OLED_SPI_DC, OUTPUT_PUSH_PULL );
+{ 	 
+  platform_spi_config_t config;
+  config.chip_select = &platform_gpio_pins[micokit_spi_oled.chip_select];
+  config.speed       = micokit_spi_oled.speed;
+  config.mode        = micokit_spi_oled.mode;
+  config.bits        = micokit_spi_oled.bits;
+
+  if( platform_spi_drivers[micokit_spi_oled.port].spi_mutex == NULL)
+    mico_rtos_init_mutex( &platform_spi_drivers[micokit_spi_oled.port].spi_mutex );
+
+  mico_rtos_lock_mutex( &platform_spi_drivers[micokit_spi_oled.port].spi_mutex );
+
+  platform_spi_init( &platform_spi_drivers[micokit_spi_oled.port], &platform_spi_peripherals[micokit_spi_oled.port], &config );
+  OLED_DC_INIT();  
     
   OLED_DC_Clr();
   OLED_RST_Clr();
-  
-
   
   OLED_RST_Set();
   delay_ms(100);
   OLED_RST_Clr();
   delay_ms(100);
   OLED_RST_Set(); 
+
+  mico_rtos_unlock_mutex( &platform_spi_drivers[micokit_spi_oled.port].spi_mutex );
   
   OLED_WR_Byte(0xAE,OLED_CMD);//--turn off oled panel
   OLED_WR_Byte(0x00,OLED_CMD);//---set low column address
@@ -370,10 +337,6 @@ void delay_ms(u16 nms)
 {
   mico_thread_msleep(nms);
 }
-
-void delay_us(u32 nus)
-{}
-
 
 
 
