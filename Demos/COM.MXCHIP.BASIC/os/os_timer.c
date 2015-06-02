@@ -1,10 +1,10 @@
 /**
 ******************************************************************************
-* @file    wifi_softap.c 
+* @file    os_timer.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    21-May-2015
-* @brief   First MiCO application to say hello world!
+* @brief   MiCO RTOS thread control demo.
 ******************************************************************************
 *
 *  The MIT License
@@ -30,60 +30,40 @@
 */
 
 #include "MICO.h"
-#include "MICONotificationCenter.h"
 
-#define wifi_softap_log(M, ...) custom_log("WIFI", M, ##__VA_ARGS__)
+#define os_timer_log(M, ...) custom_log("OS", M, ##__VA_ARGS__)
 
-static char *ap_ssid = "mxchip_test";
-static char *ap_key = "12345678";
+static mico_timer_t os_timer;
 
-static network_InitTypeDef_st wNetConfig;
-
-void micoNotify_WifiStatusHandler(WiFiEvent event,  const int inContext)
+static void os_timer_timeout_handler( void* inContext )
 {
-  (void)inContext;
-  switch (event) {
-  case NOTIFY_AP_UP:
-    wifi_softap_log("AP established");
-    MicoRfLed(true);
-    break;
-  case NOTIFY_AP_DOWN:
-    wifi_softap_log("AP deleted");
-    MicoRfLed(false);
-    break;
-  default:
-    break;
-  }
-  return;
+  int time;
+  time = (int)inContext;
+  os_timer_log("%dms time is up", time);
+}
+
+void stop_timer( void )
+{
+  mico_stop_timer(&os_timer);
+  mico_deinit_timer( &os_timer );
 }
 
 int application_start( void )
 {
   OSStatus err = kNoErr;
+  int time_sencond = 3*1000;
   
-  MicoInit( );
+  os_timer_log("start os timer, timeout time is %dms", time_sencond);
   
-  /*The notification message for the registered WiFi status change*/
-  err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
-  require_noerr( err, exit ); 
+  err = mico_init_timer(&os_timer, time_sencond, os_timer_timeout_handler, (void *)time_sencond);
+  require_noerr( err, exit );
   
-  memset(&wNetConfig, 0x0, sizeof(network_InitTypeDef_st));
+  mico_start_timer(&os_timer);
   
-  strcpy((char*)wNetConfig.wifi_ssid, ap_ssid);
-  strcpy((char*)wNetConfig.wifi_key, ap_key);
-  
-  wNetConfig.wifi_mode = Soft_AP;
-  wNetConfig.dhcpMode = DHCP_Server;
-  wNetConfig.wifi_retry_interval = 100;
-  strcpy((char*)wNetConfig.local_ip_addr, "192.168.0.1");
-  strcpy((char*)wNetConfig.net_mask, "255.255.255.0");
-  strcpy((char*)wNetConfig.dnsServer_ip_addr, "192.168.0.1");
-  micoWlanStart(&wNetConfig);
-  
-  wifi_softap_log("ssid:%s  key:%s", wNetConfig.wifi_ssid, wNetConfig.wifi_key);
-
-exit:  
-  return err;
+exit:
+    return err;
 }
+
+
 
 

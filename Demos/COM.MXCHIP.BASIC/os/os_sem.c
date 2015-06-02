@@ -1,10 +1,10 @@
 /**
 ******************************************************************************
-* @file    wifi_softap.c 
+* @file    os_sem.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    21-May-2015
-* @brief   First MiCO application to say hello world!
+* @brief   MiCO RTOS thread control demo.
 ******************************************************************************
 *
 *  The MIT License
@@ -30,60 +30,51 @@
 */
 
 #include "MICO.h"
-#include "MICONotificationCenter.h"
 
-#define wifi_softap_log(M, ...) custom_log("WIFI", M, ##__VA_ARGS__)
+#define os_sem_log(M, ...) custom_log("OS", M, ##__VA_ARGS__)
 
-static char *ap_ssid = "mxchip_test";
-static char *ap_key = "12345678";
+static mico_semaphore_t os_sem;
 
-static network_InitTypeDef_st wNetConfig;
-
-void micoNotify_WifiStatusHandler(WiFiEvent event,  const int inContext)
+void get_thread(void *inContext)
 {
-  (void)inContext;
-  switch (event) {
-  case NOTIFY_AP_UP:
-    wifi_softap_log("AP established");
-    MicoRfLed(true);
-    break;
-  case NOTIFY_AP_DOWN:
-    wifi_softap_log("AP deleted");
-    MicoRfLed(false);
-    break;
-  default:
-    break;
+  int get_count = 1;
+  while(mico_rtos_get_semaphore(&os_sem, MICO_WAIT_FOREVER) == kNoErr)
+  {
+    os_sem_log("os semaphore is get, count %d", get_count++);
   }
-  return;
+}
+
+void set_thread(void *inContext)
+{
+  int set_count = 1;
+  while(1)
+  {
+    mico_thread_sleep(5);
+    mico_rtos_set_semaphore(&os_sem);
+    os_sem_log("os semaphore is set, count %d", set_count++);
+  }
 }
 
 int application_start( void )
 {
   OSStatus err = kNoErr;
-  
-  MicoInit( );
-  
-  /*The notification message for the registered WiFi status change*/
-  err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
+
+  err = mico_rtos_init_semaphore(&os_sem, 1);
   require_noerr( err, exit ); 
   
-  memset(&wNetConfig, 0x0, sizeof(network_InitTypeDef_st));
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "get sem", get_thread, 0x800, NULL);
+  require_noerr_action( err, exit, os_sem_log("ERROR: Unable to start the set sem thread.") );
   
-  strcpy((char*)wNetConfig.wifi_ssid, ap_ssid);
-  strcpy((char*)wNetConfig.wifi_key, ap_key);
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "set sem", set_thread, 0x800, NULL);
+  require_noerr_action( err, exit, os_sem_log("ERROR: Unable to start the set sem thread.") );
   
-  wNetConfig.wifi_mode = Soft_AP;
-  wNetConfig.dhcpMode = DHCP_Server;
-  wNetConfig.wifi_retry_interval = 100;
-  strcpy((char*)wNetConfig.local_ip_addr, "192.168.0.1");
-  strcpy((char*)wNetConfig.net_mask, "255.255.255.0");
-  strcpy((char*)wNetConfig.dnsServer_ip_addr, "192.168.0.1");
-  micoWlanStart(&wNetConfig);
   
-  wifi_softap_log("ssid:%s  key:%s", wNetConfig.wifi_ssid, wNetConfig.wifi_key);
+  return err;
 
-exit:  
+exit:
+  os_sem_log("ERROR, err: %d", err);
   return err;
 }
+
 
 
