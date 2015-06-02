@@ -32,7 +32,7 @@
 #define FIRMWARE_REVISION   "MICO_BASE_1_0"
 #define MANUFACTURER        "MXCHIP Inc."
 #define SERIAL_NUMBER       "20140606"
-#define PROTOCOL            "com.mxchip.spp"
+#define PROTOCOL            "com.mxchip.basic"
 #define BONJOURNANE         "MiCOKit"
 
 /* Demo C function call C++ function and C++ function call C function */
@@ -55,6 +55,7 @@ typedef enum  {
 /*Application's configuration stores in flash*/
 typedef struct
 {
+  uint32_t          configDataVer;
   int               udpPort;
 } application_config_t;
 

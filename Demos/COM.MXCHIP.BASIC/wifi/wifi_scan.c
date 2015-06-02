@@ -1,10 +1,38 @@
+/**
+******************************************************************************
+* @file    wifi_scan.c 
+* @author  William Xu
+* @version V1.0.0
+* @date    21-May-2015
+* @brief   First MiCO application to say hello world!
+******************************************************************************
+*
+*  The MIT License
+*  Copyright (c) 2014 MXCHIP Inc.
+*
+*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  of this software and associated documentation files (the "Software"), to deal
+*  in the Software without restriction, including without limitation the rights 
+*  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+*  copies of the Software, and to permit persons to whom the Software is furnished
+*  to do so, subject to the following conditions:
+*
+*  The above copyright notice and this permission notice shall be included in
+*  all copies or substantial portions of the Software.
+*
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+******************************************************************************
+*/
+
 #include "MICO.h"
 #include "MICONotificationCenter.h"
 
-static int isaddscannotification = 0;
-
-#define sacn_log(M, ...) custom_log("wifi_scan", M, ##__VA_ARGS__)
-#define scan_log_trace() custom_log_trace("wifi_scan")
+#define wifi_sacn_log(M, ...) custom_log("WIFI", M, ##__VA_ARGS__)
 
 void micoNotify_ApListCallback(ScanResult *pApList)
 {
@@ -12,15 +40,22 @@ void micoNotify_ApListCallback(ScanResult *pApList)
   
   printf("\r\ngot %d AP\r\n", pApList->ApNum);
   for(i=0; i<pApList->ApNum; i++) {
-    printf("%d\t%s \t%d\r\n", i, pApList->ApList[i].ssid, pApList->ApList[i].ApPower);
+    printf("%d \t%-20s \t%-d\r\n", i, pApList->ApList[i].ssid, pApList->ApList[i].ApPower);
   }
-  isaddscannotification = 1;
 }
 
-void ScanMode( void )
+int application_start( void )
 {
-  sacn_log("start scan mode");
-  if( isaddscannotification == 0 )
-    MICOAddNotification( mico_notify_WIFI_SCAN_COMPLETED, (void *)micoNotify_ApListCallback );
+  
+  MicoInit( );
+  
+  MICOAddNotification( mico_notify_WIFI_SCAN_COMPLETED, (void *)micoNotify_ApListCallback );
+  
+  wifi_sacn_log("start scan mode, please wait...");
   micoWlanStartScan( );
+  
+  return kNoErr; 
 }
+
+
+

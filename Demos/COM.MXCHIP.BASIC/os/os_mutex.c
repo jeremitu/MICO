@@ -1,10 +1,10 @@
 /**
 ******************************************************************************
-* @file    wifi_softap.c 
+* @file    os_mutex.c 
 * @author  William Xu
 * @version V1.0.0
 * @date    21-May-2015
-* @brief   First MiCO application to say hello world!
+* @brief   MiCO RTOS thread control demo.
 ******************************************************************************
 *
 *  The MIT License
@@ -30,59 +30,51 @@
 */
 
 #include "MICO.h"
-#include "MICONotificationCenter.h"
 
-#define wifi_softap_log(M, ...) custom_log("WIFI", M, ##__VA_ARGS__)
+#define os_mutex_log(M, ...) custom_log("OS", M, ##__VA_ARGS__)
 
-static char *ap_ssid = "mxchip_test";
-static char *ap_key = "12345678";
+static mico_mutex_t os_mutex;
+static const char *os_mutex1 = "mutex 1";
+static const char *os_mutex2 = "mutex 2";
+static const char *os_mutex3 = "mutex 3";
 
-static network_InitTypeDef_st wNetConfig;
-
-void micoNotify_WifiStatusHandler(WiFiEvent event,  const int inContext)
+void mutex_thread(void *inContext)
 {
-  (void)inContext;
-  switch (event) {
-  case NOTIFY_AP_UP:
-    wifi_softap_log("AP established");
-    MicoRfLed(true);
-    break;
-  case NOTIFY_AP_DOWN:
-    wifi_softap_log("AP deleted");
-    MicoRfLed(false);
-    break;
-  default:
-    break;
+  int delay;
+  char *thread_name = (char *)inContext;
+  srand( 1000 );
+  while(1)
+  {
+    delay = rand()%9 + 1;
+    mico_rtos_lock_mutex(&os_mutex);
+    os_mutex_log("%s thread is using resources, delay %ds", thread_name, delay);
+    mico_thread_sleep(delay);
+    os_mutex_log("%s thread will release resource", thread_name);
+    mico_rtos_unlock_mutex(&os_mutex);  
+    mico_thread_sleep(5);
   }
-  return;
 }
 
 int application_start( void )
 {
   OSStatus err = kNoErr;
   
-  MicoInit( );
-  
-  /*The notification message for the registered WiFi status change*/
-  err = MICOAddNotification( mico_notify_WIFI_STATUS_CHANGED, (void *)micoNotify_WifiStatusHandler );
+  err = mico_rtos_init_mutex(&os_mutex);
   require_noerr( err, exit ); 
   
-  memset(&wNetConfig, 0x0, sizeof(network_InitTypeDef_st));
-  
-  strcpy((char*)wNetConfig.wifi_ssid, ap_ssid);
-  strcpy((char*)wNetConfig.wifi_key, ap_key);
-  
-  wNetConfig.wifi_mode = Soft_AP;
-  wNetConfig.dhcpMode = DHCP_Server;
-  wNetConfig.wifi_retry_interval = 100;
-  strcpy((char*)wNetConfig.local_ip_addr, "192.168.0.1");
-  strcpy((char*)wNetConfig.net_mask, "255.255.255.0");
-  strcpy((char*)wNetConfig.dnsServer_ip_addr, "192.168.0.1");
-  micoWlanStart(&wNetConfig);
-  
-  wifi_softap_log("ssid:%s  key:%s", wNetConfig.wifi_ssid, wNetConfig.wifi_key);
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "mutex1", mutex_thread, 0x800, (void *)os_mutex1);
+  require_noerr_action( err, exit, os_mutex_log("ERROR: Unable to start the mutex1 thread.") );
 
-exit:  
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "mutex2", mutex_thread, 0x800, (void *)os_mutex2);
+  require_noerr_action( err, exit, os_mutex_log("ERROR: Unable to start the mutex2 thread.") );
+  
+  err = mico_rtos_create_thread(NULL, MICO_APPLICATION_PRIORITY, "mutex2", mutex_thread, 0x800, (void *)os_mutex3);
+  require_noerr_action( err, exit, os_mutex_log("ERROR: Unable to start the mutex2 thread.") );
+  
+  return err;
+
+exit:
+  os_mutex_log("ERROR, err: %d", err);
   return err;
 }
 
