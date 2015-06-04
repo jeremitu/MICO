@@ -196,7 +196,7 @@ int sflash_write_page( const sflash_handle_t* const handle, unsigned long device
     int status;
     int write_size;
     int max_write_size = 1;
-    unsigned char enable_before_every_write = 1;
+    unsigned char enable_before_every_write = 128;
     unsigned char* data_addr_ptr = (unsigned char*) data_addr;
     unsigned char curr_device_address[3];
 
