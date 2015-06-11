@@ -520,52 +520,42 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+			"file": "/Users/William/Develop/MiCO/MICO/MICOConfigServer.c",
 			"settings":
 			{
-				"buffer_size": 15994,
+				"buffer_size": 14752,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_i2c.c",
+			"file": "/Users/William/Develop/MiCO/MICO/SoftAP/EasyLinkSoftAP.c",
 			"settings":
 			{
-				"buffer_size": 26120,
+				"buffer_size": 13959,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Support/MDNSUtils.c",
+			"file": "/Users/william/Develop/MiCO/MICO/MICONotificationCenter.h",
 			"settings":
 			{
-				"buffer_size": 22224,
+				"buffer_size": 3930,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/Users/William/Develop/MiCO/Support/MDNSUtils.h",
+			"file": "/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
 			"settings":
 			{
-				"buffer_size": 4270,
+				"buffer_size": 16579,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "Searching 1878 files for \"mico_create_event_fd\" (whole word)\n\n/Users/William/Develop/MiCO/include/MICORTOS.h:\n  506  bool mico_is_timer_running( mico_timer_t* timer );\n  507  \n  508: int mico_create_event_fd(mico_event handle);\n  509  int mico_delete_event_fd(int fd);\n  510  \n\n/Users/William/Develop/MiCO/Support/MDNSUtils.c:\n  658      mico_rtos_init_semaphore( &update_state_sem, 1 );\n  659  \n  660:   update_state_fd = mico_create_event_fd( update_state_sem );\n  661  \n  662    memset( available_services, 0x0, sizeof( available_services ) );\n\n/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/LocalTcpServer.c:\n  105    err = socket_queue_create(Context, &queue);\n  106    require_noerr( err, exit );\n  107:   eventFd = mico_create_event_fd(queue);\n  108    if (eventFd < 0) {\n  109      server_log(\"create event fd error\");\n\n/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/RemoteTcpClient.c:\n   99        err = socket_queue_create(Context, &queue);\n  100        require_noerr( err, exit );\n  101:       eventFd = mico_create_event_fd(queue);\n  102        if (eventFd < 0) {\n  103          client_log(\"create event fd error\");\n\n4 matches across 4 files\n",
+			"file": "/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
 			"settings":
 			{
-				"buffer_size": 1158,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/LocalTcpServer.c",
-			"settings":
-			{
-				"buffer_size": 5368,
+				"buffer_size": 3728,
 				"line_ending": "Windows"
 			}
 		}
@@ -630,6 +620,12 @@
 	},
 	"file_history":
 	[
+		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+		"/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_i2c.c",
+		"/Users/William/Develop/MiCO/Support/MDNSUtils.c",
+		"/Users/William/Develop/MiCO/Support/MDNSUtils.h",
+		"/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/LocalTcpServer.c",
+		"/Users/William/Develop/MiCO/Platform/Drivers/MiCOKit_EXT/lcd/oled.c",
 		"/Users/William/Develop/MiCO/Projects/STM32F4xx/COM.MXCHIP.SPP/sublime/COM.MXCHIP.SPP.sublime-project",
 		"/Users/William/Develop/MiCO/include/MICORTOS.h",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3165/platform.c",
@@ -640,7 +636,6 @@
 		"/Users/William/Develop/MiCO/Platform/include/platform_peripheral.h",
 		"/Users/William/Develop/MiCO/Platform/MCU/wlan_platform_common.c",
 		"/Users/William/Develop/MiCO/Board/MiCOKit-3162/platform.c",
-		"/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
 		"/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash_platform.c",
 		"/Users/william/Develop/MiCO/Platform/include/platform_peripheral.h",
 		"/Users/William/Develop/MiCO/include/MicoPlatform.h",
@@ -752,12 +747,7 @@
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/include/PlatformLogging.h",
 		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_common_config.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/read_wifi_firmware.c",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/MicoPlatform.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/support/TimeUtils.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/include/Mico.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/platform_internal_gpio.h",
-		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Library/inc/MICOWlan.h"
+		"/Users/William/Develop/mxchipWNet Pro Demo@EMW316x/Platform/EMW3162/read_wifi_firmware.c"
 	],
 	"find":
 	{
@@ -765,7 +755,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"<open folders>",
@@ -784,6 +774,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"close_client_sem",
+			"uap_config_mode",
+			"uap_config_finished_sem",
+			"delay_ms",
+			"delay_us",
+			"OLED_Clear",
 			"mfi_bonjour_thread_handler",
 			"count_down",
 			"MFi_SERVICE_QUERY_NAME",
@@ -905,13 +901,7 @@
 			"onReceivedData",
 			"crea",
 			"mico_notify_WIFI_SCAN_COMPLETE_function",
-			"HTTPHeaderCreate",
-			"_ConnectToMfgAP",
-			"stop_mode_power_down_hook",
-			"_button_STANDBY_irq_handler",
-			"%f",
-			"lf",
-			"_cleanEasyLinkResource"
+			"HTTPHeaderCreate"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -931,23 +921,23 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/William/Develop/MiCO/Board/MiCOKit-3288/platform.c",
+					"file": "/Users/William/Develop/MiCO/MICO/MICOConfigServer.c",
 					"settings":
 					{
-						"buffer_size": 15994,
+						"buffer_size": 14752,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3675,
+								3675
 							]
 						],
 						"settings":
@@ -957,25 +947,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1106.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/William/Develop/MiCO/Platform/MCU/STM32F4xx/peripherals/platform_i2c.c",
+					"file": "/Users/William/Develop/MiCO/MICO/SoftAP/EasyLinkSoftAP.c",
 					"settings":
 					{
-						"buffer_size": 26120,
+						"buffer_size": 13959,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								25294,
-								25294
+								3329,
+								3329
 							]
 						],
 						"settings":
@@ -985,53 +975,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11981.0,
+						"translation.y": 3265.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/Users/William/Develop/MiCO/Support/MDNSUtils.c",
+					"file": "/Users/william/Develop/MiCO/MICO/MICONotificationCenter.h",
 					"settings":
 					{
-						"buffer_size": 22224,
+						"buffer_size": 3930,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18280,
-								18280
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 11128.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/William/Develop/MiCO/Support/MDNSUtils.h",
-					"settings":
-					{
-						"buffer_size": 4270,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4215,
-								4060
+								3749,
+								3771
 							]
 						],
 						"settings":
@@ -1041,80 +1003,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2022.0,
+						"translation.y": 611.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
+					"file": "/Users/William/Develop/MiCO/Platform/Drivers/spi_flash/spi_flash.c",
 					"settings":
 					{
-						"buffer_size": 1158,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										187,
-										207
-									],
-									[
-										423,
-										443
-									],
-									[
-										724,
-										744
-									],
-									[
-										1019,
-										1039
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								740,
-								740
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"output_tag": 1,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/LocalTcpServer.c",
-					"settings":
-					{
-						"buffer_size": 5368,
+						"buffer_size": 16579,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3567,
-								3572
+								6781,
+								6781
 							]
 						],
 						"settings":
@@ -1123,8 +1030,36 @@
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
+						"translation.x": 1.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/William/Develop/MiCO/Demos/COM.MXCHIP.SPP/MICOAppDefine.h",
+					"settings":
+					{
+						"buffer_size": 3728,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1408,
+								1427
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
 						"translation.x": 0.0,
-						"translation.y": 1388.0,
+						"translation.y": 68.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

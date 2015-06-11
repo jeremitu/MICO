@@ -43,6 +43,7 @@
 #include "supc.h"
 #include "matrix.h"
 #include "wdt.h"
+#include "adc2.h"
 
 #include "MicoRtos.h"
 #include "RingBufferUtils.h"
@@ -144,14 +145,7 @@ typedef struct
 
 typedef struct
 {
-    platform_adc_port_t*     port;
-    uint8_t                  peripheral_id;
-    const platform_gpio_t*   adc_pin;
-    uint32_t                 adc_clock_hz;
- //   enum adc_channel_num_t   channel;
- //   enum adc_settling_time_t settling_time;
- //   enum adc_resolution_t    resolution;
- //   enum adc_trigger_t       trigger;
+    adc_channel_num channel;
 } platform_adc_t;
 
 // typedef struct {

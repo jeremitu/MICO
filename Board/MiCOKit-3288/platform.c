@@ -258,21 +258,8 @@ const mico_spi_device_t mico_spi_flash =
 
 const platform_adc_t platform_adc_peripherals[] =
 {
-  // [MICO_ADC_1] = NULL,
-  [MICO_ADC_1] = {
-    .port = ADC1,
-    . channel = ADC_Channel_4,
-    .adc_peripheral_clock = RCC_APB2Periph_ADC1, 
-    .rank = 1, 
-    .pin = (platform_gpio_t*)&platform_gpio_pins[MICO_GPIO_9]
-  },
-  [MICO_ADC_2] = {
-    .port = ADC1,
-    .channel = ADC_Channel_1,
-    .adc_peripheral_clock = RCC_APB2Periph_ADC1,
-    .rank = 1, 
-    .pin = (platform_gpio_t*)&platform_gpio_pins[MICO_GPIO_24]
-  }
+  [MICO_ADC_1] = { ADC1, ADC_Channel_4, RCC_APB2Periph_ADC1, 1, (platform_gpio_t*)&platform_gpio_pins[MICO_GPIO_9] },
+  [MICO_ADC_2] = { ADC1, ADC_Channel_1, RCC_APB2Periph_ADC1, 1, (platform_gpio_t*)&platform_gpio_pins[MICO_GPIO_24] },
 };
 
 /* Wi-Fi control pins. Used by platform/MCU/wlan_platform_common.c

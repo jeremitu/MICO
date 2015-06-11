@@ -222,6 +222,8 @@ OSStatus platform_gpio_irq_enable( const platform_gpio_t* gpio, platform_gpio_ir
   uint32_t interrupt_line = (uint32_t) ( 1 << gpio->pin_number );
   EXTITrigger_TypeDef exti_trigger;
   OSStatus err = kNoErr;
+  EXTI_InitTypeDef exti_init_structure;
+  IRQn_Type        interrupt_vector = (IRQn_Type)0;
 
   platform_mcu_powersave_disable();
   require_action_quiet( gpio != NULL, exit, err = kParamErr);
@@ -249,71 +251,65 @@ OSStatus platform_gpio_irq_enable( const platform_gpio_t* gpio, platform_gpio_ir
       goto exit;
     }
   }
-
-  if ( ( EXTI->IMR & interrupt_line ) == 0 )
-  {
-    EXTI_InitTypeDef exti_init_structure;
-    IRQn_Type        interrupt_vector = (IRQn_Type)0;
-
-    if (gpio->pin_number == 10) {
-      /* This is STM32 Bug, please check at:
-      * https://my.st.com/public/STe2ecommunities/mcu/Lists/cortex_mx_stm32/Flat.aspx?RootFolder=%2Fpublic%2FSTe2ecommunities%2Fmcu%2FLists%2Fcortex_mx_stm32%2FGPIO%20Interrupt%20Issue&FolderCTID=0x01200200770978C69A1141439FE559EB459D7580009C4E14902C3CDE46A77F0FFD06506F5B&currentviews=581#{B7C01461-8CEC-4711-B331-64F4AECF4786}
-      * ERRATA sheet in section 2.1.8.
-      Configuration of PH10 and PI10 as external interrupts is erroneous
-      
-      Description
-      
-      PH10 or PI10 is selected as the source for the EXTI10 external interrupt by setting bits
-      EXTI10[3:0] of SYSCFG_EXTICR3 register to 0x0111 or 0x1000, respectively. However,
-      this erroneous operation enables PH2 and PI2 as external interrupt inputs.
-      
-      As a result, it is not possible to use PH10/PI10 as interrupt sources if PH2/PI2 are not
-      selected as the interrupt source, as well. This means that bits EXTI10[3:0] of
-      
-      SYSCFG_EXTICR3 register and bits EXTI2[3:0] of SYSCFG_EXTICR1 should be
-      programmed to the same value:
-      ¡ñ 0x0111 to select PH10/PH2
-      ¡ñ 0x1000 to select PI10/PI2
-      
-      */
-      if (gpio->port == GPIOH)
-        SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOH, EXTI_PinSource2); 
-      else if (gpio->port == GPIOI)
-        SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOI, EXTI_PinSource2);
-    }
-    else{
-      SYSCFG_EXTILineConfig( platform_gpio_get_port_number( gpio->port ), gpio->pin_number );
-    }
-      
-    exti_init_structure.EXTI_Trigger = exti_trigger;
-    exti_init_structure.EXTI_Line    = interrupt_line;
-    exti_init_structure.EXTI_Mode    = EXTI_Mode_Interrupt;
-    exti_init_structure.EXTI_LineCmd = ENABLE;
-    EXTI_Init( &exti_init_structure );
-
-    if ( ( interrupt_line & 0x001F ) != 0 )
-    {
-      /* Line 0 to 4 */
-      interrupt_vector = (IRQn_Type) ( EXTI0_IRQn + gpio->pin_number );
-    }
-    else if ( ( interrupt_line & 0x03E0 ) != 0 )
-    {
-      /* Line 5 to 9 */
-      interrupt_vector = EXTI9_5_IRQn;
-    }
-    else if ( ( interrupt_line & 0xFC00 ) != 0 )
-    {
-      /* Line 10 to 15 */
-      interrupt_vector = EXTI15_10_IRQn;
-    }
-
-    /* Must be lower priority than the value of configMAX_SYSCALL_INTERRUPT_PRIORITY otherwise FreeRTOS will not be able to mask the interrupt */
-    NVIC_EnableIRQ( interrupt_vector );
-
-    gpio_irq_data[gpio->pin_number].owner_port = gpio->port;
-    gpio_irq_data[gpio->pin_number].handler    = handler;
-    gpio_irq_data[gpio->pin_number].arg        = arg;
+  
+  if (gpio->pin_number == 10) {
+    /* This is STM32 Bug, please check at:
+    * https://my.st.com/public/STe2ecommunities/mcu/Lists/cortex_mx_stm32/Flat.aspx?RootFolder=%2Fpublic%2FSTe2ecommunities%2Fmcu%2FLists%2Fcortex_mx_stm32%2FGPIO%20Interrupt%20Issue&FolderCTID=0x01200200770978C69A1141439FE559EB459D7580009C4E14902C3CDE46A77F0FFD06506F5B&currentviews=581#{B7C01461-8CEC-4711-B331-64F4AECF4786}
+    * ERRATA sheet in section 2.1.8.
+    Configuration of PH10 and PI10 as external interrupts is erroneous
+    
+    Description
+    
+    PH10 or PI10 is selected as the source for the EXTI10 external interrupt by setting bits
+    EXTI10[3:0] of SYSCFG_EXTICR3 register to 0x0111 or 0x1000, respectively. However,
+    this erroneous operation enables PH2 and PI2 as external interrupt inputs.
+    
+    As a result, it is not possible to use PH10/PI10 as interrupt sources if PH2/PI2 are not
+    selected as the interrupt source, as well. This means that bits EXTI10[3:0] of
+    
+    SYSCFG_EXTICR3 register and bits EXTI2[3:0] of SYSCFG_EXTICR1 should be
+    programmed to the same value:
+    ¡ñ 0x0111 to select PH10/PH2
+    ¡ñ 0x1000 to select PI10/PI2
+    
+    */
+    if (gpio->port == GPIOH)
+      SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOH, EXTI_PinSource2); 
+    else if (gpio->port == GPIOI)
+      SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOI, EXTI_PinSource2);
   }
+  else{
+    SYSCFG_EXTILineConfig( platform_gpio_get_port_number( gpio->port ), gpio->pin_number );
+  }
+  
+  exti_init_structure.EXTI_Trigger = exti_trigger;
+  exti_init_structure.EXTI_Line    = interrupt_line;
+  exti_init_structure.EXTI_Mode    = EXTI_Mode_Interrupt;
+  exti_init_structure.EXTI_LineCmd = ENABLE;
+  EXTI_Init( &exti_init_structure );
+  
+  if ( ( interrupt_line & 0x001F ) != 0 )
+  {
+    /* Line 0 to 4 */
+    interrupt_vector = (IRQn_Type) ( EXTI0_IRQn + gpio->pin_number );
+  }
+  else if ( ( interrupt_line & 0x03E0 ) != 0 )
+  {
+    /* Line 5 to 9 */
+    interrupt_vector = EXTI9_5_IRQn;
+  }
+  else if ( ( interrupt_line & 0xFC00 ) != 0 )
+  {
+    /* Line 10 to 15 */
+    interrupt_vector = EXTI15_10_IRQn;
+  }
+  
+  /* Must be lower priority than the value of configMAX_SYSCALL_INTERRUPT_PRIORITY otherwise FreeRTOS will not be able to mask the interrupt */
+  NVIC_EnableIRQ( interrupt_vector );
+  
+  gpio_irq_data[gpio->pin_number].owner_port = gpio->port;
+  gpio_irq_data[gpio->pin_number].handler    = handler;
+  gpio_irq_data[gpio->pin_number].arg        = arg;
 
 exit:
   platform_mcu_powersave_enable();

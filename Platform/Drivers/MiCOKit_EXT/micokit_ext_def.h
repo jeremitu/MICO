@@ -42,8 +42,8 @@
 #define MICO_EXT_I2C_BME280          (Arduino_I2C)
 #define MICO_EXT_DHT11               (Arduino_D8)
 
-#define MICO_EXT_ADC_LIGHT           (MICO_ADC_1)
-#define MICO_EXT_ADC_INFRARED        (MICO_ADC_2)
+#define MICO_EXT_ADC_LIGHT           (Arduino_A2)
+#define MICO_EXT_ADC_INFRARED        (Arduino_A3)
 
 #define MICO_EXT_USER_UART           (MICO_UART_1)
 

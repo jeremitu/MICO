@@ -127,7 +127,7 @@ typedef enum
 #define USE_MICO_SPI_FLASH
 //#define SFLASH_SUPPORT_MACRONIX_PARTS
 //#define SFLASH_SUPPORT_SST_PARTS
-#define SFLASH_SUPPORT_WINBOND_PARTS
+//#define SFLASH_SUPPORT_WINBOND_PARTS
 
 #ifdef BOOTLOADER
 #define STDIO_UART       MICO_UART_1
@@ -167,6 +167,14 @@ typedef enum
 #define Arduino_SCK         (MICO_GPIO_25)
 #define Arduino_SDA         (MICO_GPIO_11)
 #define Arduino_SCL         (MICO_GPIO_10)
+
+#define Arduino_A0          (MICO_ADC_NONE)
+#define Arduino_A1          (MICO_ADC_NONE)
+#define Arduino_A2          (MICO_ADC_1)
+#define Arduino_A3          (MICO_ADC_2)
+#define Arduino_A4          (MICO_ADC_NONE)
+#define Arduino_A5          (MICO_ADC_NONE)
+
 
 #define Arduino_I2C         (MICO_I2C_1)
 #define Arduino_SPI         (MICO_SPI_1)
