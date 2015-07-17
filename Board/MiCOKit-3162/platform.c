@@ -164,6 +164,8 @@ const platform_spi_t platform_spi_peripherals[] =
   }
 };
 
+platform_spi_driver_t platform_spi_drivers[MICO_SPI_MAX];
+
 const platform_uart_t platform_uart_peripherals[] =
 {
   [MICO_UART_1] =
