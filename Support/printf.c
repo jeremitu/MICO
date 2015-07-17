@@ -2,23 +2,23 @@
 File: printf.c
 
  Copyright (c) 2004,2008 Kustaa Nyholm / SpareTimeLabs
- 
+
  All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
- 
+
  Redistributions of source code must retain the above copyright notice, this list
  of conditions and the following disclaimer.
- 
+
  Redistributions in binary form must reproduce the above copyright notice, this
  list of conditions and the following disclaimer in the documentation and/or other
  materials provided with the distribution.
- 
+
  Neither the name of the Kustaa Nyholm or SpareTimeLabs nor the names of its
  contributors may be used to endorse or promote products derived from this software
  without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -29,15 +29,18 @@ File: printf.c
  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
  OF SUCH DAMAGE.
- 
+
  ----------------------------------------------------------------------
 
 */
 //putchar#include <stdio.h>
 
 #include "printf.h"
+#include "string.h"
 
 void putchar(char c);
+//#define putch(c) putchar(c)
+#define putch(c) ++len; *str++ = c;
 
 static char* bf;
 static char buf[12];
@@ -53,7 +56,7 @@ static void outDgt(char dgt) {
 	out(dgt+(dgt<10 ? '0' : (uc ? 'A' : 'a')-10));
 	zs=1;
     }
-	
+
 static void divOut(unsigned int div) {
     unsigned char dgt=0;
 	num &= 0xffff; // just for testing the code  with 32 bit ints
@@ -61,21 +64,20 @@ static void divOut(unsigned int div) {
 		num -= div;
 		dgt++;
 		}
-	if (zs || dgt>0) 
+	if (zs || dgt>0)
 		outDgt(dgt);
-    }	
+    }
 
-void tfp_printf(char *fmt, ...)
-	{
-	va_list va;
+int tfp_vsprintf(char * str, const char *fmt, va_list va)
+{
 	char ch;
 	char* p;
-	
-	va_start(va,fmt);
-	
+	int len = 0;
+
+
 	while ((ch=*(fmt++))) {
 		if (ch!='%') {
-			putchar(ch);
+			putch(ch);
 			}
 		else {
 			char lz=0;
@@ -96,10 +98,10 @@ void tfp_printf(char *fmt, ...)
 			p=bf;
 			zs=0;
 			switch (ch) {
-				case 0: 
+				case 0:
 					goto abort;
 				case 'u':
-				case 'd' : 
+				case 'd' :
 					num=va_arg(va, unsigned int);
 					if (ch=='d' && (int)num<0) {
 						num = -(int)num;
@@ -111,8 +113,8 @@ void tfp_printf(char *fmt, ...)
 					divOut(10);
 					outDgt(num);
 					break;
-				case 'x': 
-				case 'X' : 
+				case 'x':
+				case 'X' :
 				    uc= ch=='X';
 					num=va_arg(va, unsigned int);
 					divOut(0x1000);
@@ -120,10 +122,10 @@ void tfp_printf(char *fmt, ...)
 					divOut(0x10);
 					outDgt(num);
 					break;
-				case 'c' : 
+				case 'c' :
 					out((char)(va_arg(va, int)));
 					break;
-				case 's' : 
+				case 's' :
 					p=va_arg(va, char*);
 					break;
 				case '%' :
@@ -135,13 +137,56 @@ void tfp_printf(char *fmt, ...)
 			bf=p;
 			while (*bf++ && w > 0)
 				w--;
-			while (w-- > 0) 
-				putchar(lz ? '0' : ' ');
+			while (w-- > 0)
+				putch(lz ? '0' : ' ');
 			while ((ch= *p++))
-				putchar(ch);
+				putch(ch);
 			}
 		}
-	abort:;
-	va_end(va);
-	}
+abort:
+  return len;
+}
 
+#define BUFLEN  128
+
+int tfp_printf(const char *fmt, ...)
+{
+	int len;
+	char buf[BUFLEN], *p;
+	va_list va;
+	va_start(va, fmt);
+	len = tfp_vsprintf(buf, fmt, va);
+	va_end(va);
+	p = buf;
+	while(*p) putchar(*p++);
+	return len;
+}
+
+
+int tfp_sprintf(char *buf, const char *fmt, ...)
+{
+	int len;
+	va_list va;
+	va_start(va, fmt);
+	len = tfp_vsprintf(buf, fmt, va);
+	va_end(va);
+	return len;
+}
+
+int tfp_snprintf(char *str, int n, const char *fmt, ...)
+{
+	int len;
+	va_list va;
+	char buf[BUFLEN];
+	va_start(va, fmt);
+	len = tfp_vsprintf(buf, fmt, va);
+	if (len < n)
+		memcpy(str, buf, len+1);
+	else
+	{
+	  memcpy(str, buf, n);
+	  str[n-1] = 0;
+	}
+	va_end(va);
+	return len;
+}
