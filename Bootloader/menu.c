@@ -55,8 +55,9 @@ uint8_t tab_1024[1024] =
     0
   };
 
+#if defined MICO_MEMORYMAP	
 #if defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map **************+\r\n\
 +-- Content --+-- Flash ---+-- Start ---+--- End ----+\r\n\
 | Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
@@ -68,7 +69,7 @@ char MEMMAP[] = "\r\n\
 #endif 
 
 #if !defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
 | Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
@@ -79,7 +80,7 @@ char MEMMAP[] = "\r\n\
 #endif
 
 #if defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
 | Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
@@ -89,13 +90,14 @@ char MEMMAP[] = "\r\n\
 #endif
 
 #if !defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
 | Bootloader  | %8s | 0x%08x | 0x%08x |\r\n\
 | Settings    | %8s | 0x%08x | 0x%08x |\r\n\
 | Application | %8s | 0x%08x | 0x%08x |\r\n\
 +-------------+----------+------------+------------+\r\n";
+#endif
 #endif
 
 
@@ -399,6 +401,7 @@ void Main_Menu(void)
       SerialDownload((mico_flash_t)targetFlash, startAddress, endAddress-startAddress+1);                           
     }
 
+#if defined MICO_MEMORYMAP		
     /***************** Command: Reboot *************************/
     else if(strcmp(cmdname, "MEMORYMAP") == 0 || strcmp(cmdname, "5") == 0)  {
 #if defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
@@ -425,6 +428,7 @@ void Main_Menu(void)
                      flash_name[MICO_FLASH_FOR_APPLICATION], APPLICATION_START_ADDRESS, APPLICATION_END_ADDRESS);
 #endif 
     }
+#endif		
     /***************** Command: Excute the application *************************/
     else if(strcmp(cmdname, "BOOT") == 0 || strcmp(cmdname, "6") == 0)	{
       printf ("\n\rBooting.......\n\r");
