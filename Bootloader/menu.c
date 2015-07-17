@@ -1,22 +1,22 @@
 /**
 ******************************************************************************
-* @file    menu.c 
+* @file    menu.c
 * @author  William Xu
 * @version V2.0.0
 * @date    05-Oct-2014
 * @brief   his file provides the software which contains the main menu routine.
 *          The main menu gives the options of:
-*             - downloading a new binary file, 
+*             - downloading a new binary file,
 *             - uploading internal flash memory,
-*             - executing the binary file already loaded 
+*             - executing the binary file already loaded
 ******************************************************************************
 *
 *  The MIT License
 *  Copyright (c) 2014 MXCHIP Inc.
 *
-*  Permission is hereby granted, free of charge, to any person obtaining a copy 
+*  Permission is hereby granted, free of charge, to any person obtaining a copy
 *  of this software and associated documentation files (the "Software"), to deal
-*  in the Software without restriction, including without limitation the rights 
+*  in the Software without restriction, including without limitation the rights
 *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 *  copies of the Software, and to permit persons to whom the Software is furnished
 *  to do so, subject to the following conditions:
@@ -24,11 +24,11 @@
 *  The above copyright notice and this permission notice shall be included in
 *  all copies or substantial portions of the Software.
 *
-*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
-*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+*  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+*  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+*  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+*  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 *  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ******************************************************************************
 */
@@ -41,7 +41,7 @@
 #include "StringUtils.h"
 #include "MicoRtos.h"
 #include "MicoPlatform.h"
-#include <ctype.h>                    
+#include <ctype.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -55,8 +55,9 @@ uint8_t tab_1024[1024] =
     0
   };
 
+#if defined MICO_MEMORYMAP
 #if defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map **************+\r\n\
 +-- Content --+-- Flash ---+-- Start ---+--- End ----+\r\n\
 | Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
@@ -65,10 +66,10 @@ char MEMMAP[] = "\r\n\
 | OTA Storage | %10s | 0x%08x | 0x%08x |\r\n\
 | RF Driver   | %10s | 0x%08x | 0x%08x |\r\n\
 +-------------+------------+------------+------------+\r\n";
-#endif 
+#endif
 
 #if !defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
 | Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
@@ -79,7 +80,7 @@ char MEMMAP[] = "\r\n\
 #endif
 
 #if defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
 | Bootloader  | %10s | 0x%08x | 0x%08x |\r\n\
@@ -89,13 +90,14 @@ char MEMMAP[] = "\r\n\
 #endif
 
 #if !defined MICO_FLASH_FOR_UPDATE && !defined MICO_FLASH_FOR_DRIVER
-char MEMMAP[] = "\r\n\
+const char MEMMAP[] = "\r\n\
 +******************** MICO Flash Map *****************+\r\n\
 +-- Content --+-- Flash ---+--- Start ---+--- End ----+\r\n\
 | Bootloader  | %8s | 0x%08x | 0x%08x |\r\n\
 | Settings    | %8s | 0x%08x | 0x%08x |\r\n\
 | Application | %8s | 0x%08x | 0x%08x |\r\n\
 +-------------+----------+------------+------------+\r\n";
+#endif
 #endif
 
 
@@ -118,7 +120,7 @@ void SerialUpload(mico_flash_t flash, uint32_t flashdestination, char * fileName
   * @param  para: The para we are looking for
   * @param  paraBody: A pointer to the buffer to receive the para body.
   * @param  paraBodyLength: The length, in bytes, of the buffer pointed to by the paraBody parameter.
-  * @retval the actual length of the paraBody received, -1 means failed to find this paras 
+  * @retval the actual length of the paraBody received, -1 means failed to find this paras
   */
 int findCommandPara(char *commandBody, char *para, char *paraBody, int paraBodyLength)
 {
@@ -127,7 +129,7 @@ int findCommandPara(char *commandBody, char *para, char *paraBody, int paraBodyL
   int retval = -1;
   char para_in_ram[100];
   strncpy(para_in_ram, para, 100);
-  
+
   for (i = 0; para_in_ram[i] != 0; i++)  {                /* convert to upper characters */
     para_in_ram[i] = toupper(para_in_ram[i]);
   }
@@ -138,7 +140,7 @@ int findCommandPara(char *commandBody, char *para, char *paraBody, int paraBodyL
       for(j=i+1, k=0; *(para_in_ram+k)!=0x0; j++, k++ ){
         if(commandBody[j] != *(para_in_ram+k)){
           break;
-        } 
+        }
       }
 
       if(*(para+k)!=0x0 || (commandBody[j]!=' '&& commandBody[j]!=0x0)){   /* para not found!             */
@@ -180,7 +182,7 @@ void SerialDownload(mico_flash_t flash, uint32_t flashdestination, int32_t maxRe
   {
     printf("\n\n\r Programming Successfully!\n\r\r\n Name: ");
     printf("%s", FileName);
-    
+
     Int2Str((uint8_t *)Number, Size);
     printf("\n\r Size: ");
     printf("%s", Number);
@@ -285,7 +287,7 @@ void Main_Menu(void)
         continue;
       }
       printf ("\n\rUpdating MICO application...\n\r");
-      SerialDownload(MICO_FLASH_FOR_APPLICATION, APPLICATION_START_ADDRESS, APPLICATION_FLASH_SIZE); 							   	
+      SerialDownload(MICO_FLASH_FOR_APPLICATION, APPLICATION_START_ADDRESS, APPLICATION_FLASH_SIZE);
     }
 
     /***************** Command "2" or "DRIVERUPDATE": Update the RF driver  *************************/
@@ -300,7 +302,7 @@ void Main_Menu(void)
         continue;
       }
       printf ("\n\rUpdating RF driver...\n\r");
-      SerialDownload(MICO_FLASH_FOR_DRIVER, DRIVER_START_ADDRESS, DRIVER_FLASH_SIZE);  
+      SerialDownload(MICO_FLASH_FOR_DRIVER, DRIVER_START_ADDRESS, DRIVER_FLASH_SIZE);
 #else
       printf ("\n\rNo independ flash memory for RF driver, exiting...\n\r");
 #endif
@@ -323,7 +325,7 @@ void Main_Menu(void)
         continue;
       }
       printf ("\n\rUpdating MICO settings...\n\r");
-      SerialDownload(MICO_FLASH_FOR_PARA, PARA_START_ADDRESS, PARA_FLASH_SIZE);                        
+      SerialDownload(MICO_FLASH_FOR_PARA, PARA_START_ADDRESS, PARA_FLASH_SIZE);
     }
 
     /***************** Command "4" or "FLASHUPDATE": : Update the Flash  *************************/
@@ -365,12 +367,12 @@ void Main_Menu(void)
       if(inputFlashArea != true){
         if(targetFlash == MICO_INTERNAL_FLASH){
           startAddress = platform_flash_peripherals[MICO_INTERNAL_FLASH].flash_start_addr ;
-          endAddress = platform_flash_peripherals[MICO_INTERNAL_FLASH].flash_start_addr 
+          endAddress = platform_flash_peripherals[MICO_INTERNAL_FLASH].flash_start_addr
                      + platform_flash_peripherals[MICO_INTERNAL_FLASH].flash_length - 1;
         }else{
-#ifdef USE_MICO_SPI_FLASH        
+#ifdef USE_MICO_SPI_FLASH
           startAddress = platform_flash_peripherals[MICO_SPI_FLASH].flash_start_addr ;
-          endAddress = platform_flash_peripherals[MICO_SPI_FLASH].flash_start_addr 
+          endAddress = platform_flash_peripherals[MICO_SPI_FLASH].flash_start_addr
                      + platform_flash_peripherals[MICO_SPI_FLASH].flash_length - 1;
 #else
           printf ("\n\rSPI Flash not exist\n\r");
@@ -396,9 +398,10 @@ void Main_Menu(void)
       }
 
       printf ("\n\rUpdating flash content From 0x%x to 0x%x\n\r", startAddress, endAddress);
-      SerialDownload((mico_flash_t)targetFlash, startAddress, endAddress-startAddress+1);                           
+      SerialDownload((mico_flash_t)targetFlash, startAddress, endAddress-startAddress+1);
     }
 
+#if defined MICO_MEMORYMAP
     /***************** Command: Reboot *************************/
     else if(strcmp(cmdname, "MEMORYMAP") == 0 || strcmp(cmdname, "5") == 0)  {
 #if defined MICO_FLASH_FOR_UPDATE && defined MICO_FLASH_FOR_DRIVER
@@ -423,8 +426,9 @@ void Main_Menu(void)
       printf(MEMMAP, flash_name[MICO_FLASH_FOR_BOOT],BOOT_START_ADDRESS,BOOT_END_ADDRESS,\
                      flash_name[MICO_FLASH_FOR_PARA], PARA_START_ADDRESS, PARA_END_ADDRESS,\
                      flash_name[MICO_FLASH_FOR_APPLICATION], APPLICATION_START_ADDRESS, APPLICATION_END_ADDRESS);
-#endif 
+#endif
     }
+#endif
     /***************** Command: Excute the application *************************/
     else if(strcmp(cmdname, "BOOT") == 0 || strcmp(cmdname, "6") == 0)	{
       printf ("\n\rBooting.......\n\r");
@@ -435,7 +439,7 @@ void Main_Menu(void)
     else if(strcmp(cmdname, "REBOOT") == 0 || strcmp(cmdname, "7") == 0)  {
       printf ("\n\rReBooting.......\n\r");
       MicoSystemReboot();
-    break;                              
+    break;
   }
 
 	else if(strcmp(cmdname, "HELP") == 0 || strcmp(cmdname, "?") == 0)	{
@@ -443,7 +447,7 @@ void Main_Menu(void)
 		break;
 	}
 
-	else if(strcmp(cmdname, "") == 0 )	{                         
+	else if(strcmp(cmdname, "") == 0 )	{
 		break;
 	}
 	else{

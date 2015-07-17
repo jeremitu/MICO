@@ -139,10 +139,12 @@ Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */
 #define APPLICATION_END_ADDRESS     (uint32_t)0x0805FFFF
 #define APPLICATION_FLASH_SIZE      (APPLICATION_END_ADDRESS - APPLICATION_START_ADDRESS + 1)
 
+#if MICO_ENABLE_OTA
 #define MICO_FLASH_FOR_UPDATE       MICO_INTERNAL_FLASH /* Optional */
 #define UPDATE_START_ADDRESS        (uint32_t)0x08060000  /* Optional */
 #define UPDATE_END_ADDRESS          (uint32_t)0x080BFFFF  /* Optional */
 #define UPDATE_FLASH_SIZE           (UPDATE_END_ADDRESS - UPDATE_START_ADDRESS + 1) /* 384k bytes, optional*/
+#endif
 
 #define MICO_FLASH_FOR_BOOT         MICO_INTERNAL_FLASH
 #define BOOT_START_ADDRESS          (uint32_t)0x08000000 
